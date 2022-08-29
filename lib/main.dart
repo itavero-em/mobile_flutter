@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:webview_flutter/webview_flutter.dart';
+import 'settings_view.dart';
 
 import 'webview/ita_web_view.dart';
 
@@ -8,7 +9,7 @@ void main() => runApp(const ItaveroMobile());
 class ItaveroMobile extends StatelessWidget {
   const ItaveroMobile({Key? key}) : super(key: key);
 
-  static const String _title = 'itavero mobile app';
+  static const String _title = 'itavero mobile app1';
 
   @override
   Widget build(BuildContext context) {
@@ -29,8 +30,8 @@ class MyStatefulWidget extends StatefulWidget {
 class _MyStatefulWidgetState extends State<MyStatefulWidget> {
   int _selectedIndex = 1;
   final List<Widget> _pages = <Widget>[
-    Center(
-      child: const WebView(
+    const Center(
+      child: WebView(
         initialUrl: 'https://itavwdmz01.itavero.de:8443/web_erp/',
         javascriptMode: JavascriptMode.unrestricted,
       ),
@@ -79,13 +80,3 @@ class _MyStatefulWidgetState extends State<MyStatefulWidget> {
   }
 }
 
-class SettingsView extends StatelessWidget {
-  const SettingsView({
-    Key? key,
-  }) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return Text("Einstellungen");
-  }
-}
