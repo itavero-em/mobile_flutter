@@ -1,20 +1,20 @@
 import 'package:flutter/material.dart';
+import 'package:itavero_mobile/provider/connection_provider.dart';
 import 'package:itavero_mobile/views/settings/settings_view.dart';
 import 'package:provider/provider.dart';
 import 'package:webview_flutter/webview_flutter.dart';
-import 'settings_view.dart';
 
 import 'webview/ita_web_view.dart';
 
 void main() => runApp(MultiProvider(
-  providers: [
-    ChangeNotifierProvider(
-      create: (context) => ConnectionProvider(),
-    ),
-
-  ],
-  child: const ItaveroMobile(),
-));
+      providers: [
+        ChangeNotifierProvider(
+          create: (context) => ConnectionProvider(),
+        )
+      ],
+      child: const ItaveroMobile(),
+    )
+);
 
 class ItaveroMobile extends StatelessWidget {
   const ItaveroMobile({Key? key}) : super(key: key);
@@ -89,4 +89,3 @@ class _MobileAppState extends State<MobileApp> {
     );
   }
 }
-

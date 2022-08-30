@@ -49,7 +49,7 @@ class _ConnectionCreateView extends State<ConnectionCreateView> {
             ElevatedButton(
                 onPressed: () {
                   final newClass = ConnectionModel(name: _nameCtrl.text,url: _urlCtrl.text);
-                  Provider.of<ConnectionProvider>(context).add(newClass);
+                  Provider.of<ConnectionProvider>(context, listen: false).add(newClass);
                   Navigator.pop(context);
                 },
                 child: const Text('Erstelle Verbindung'))
