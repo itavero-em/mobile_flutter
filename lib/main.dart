@@ -4,7 +4,6 @@ import 'package:itavero_mobile/views/settings/settings_view.dart';
 import 'package:provider/provider.dart';
 import 'package:webview_flutter/webview_flutter.dart';
 
-import 'webview/ita_web_view.dart';
 
 void main() => runApp(MultiProvider(
       providers: [
