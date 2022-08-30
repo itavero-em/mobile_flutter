@@ -69,6 +69,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "2.0.1"
+  flutter_platform_widgets:
+    dependency: "direct main"
+    description:
+      name: flutter_platform_widgets
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "1.20.0"
   flutter_slidable:
     dependency: "direct main"
     description:
@@ -123,6 +130,20 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "1.8.1"
+  permission_handler:
+    dependency: "direct main"
+    description:
+      name: permission_handler
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "9.0.2"
+  permission_handler_platform_interface:
+    dependency: transitive
+    description:
+      name: permission_handler_platform_interface
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "3.7.0"
   plugin_platform_interface:
     dependency: transitive
     description:
@@ -137,6 +158,20 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "6.0.3"
+  scandit_flutter_datacapture_barcode:
+    dependency: "direct main"
+    description:
+      name: scandit_flutter_datacapture_barcode
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "6.14.0"
+  scandit_flutter_datacapture_core:
+    dependency: transitive
+    description:
+      name: scandit_flutter_datacapture_core
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "6.14.0"
   sky_engine:
     dependency: transitive
     description: flutter
