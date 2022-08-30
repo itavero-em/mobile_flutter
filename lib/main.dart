@@ -1,15 +1,25 @@
 import 'package:flutter/material.dart';
+import 'package:itavero_mobile/views/settings/settings_view.dart';
+import 'package:provider/provider.dart';
 import 'package:webview_flutter/webview_flutter.dart';
 import 'settings_view.dart';
 
 import 'webview/ita_web_view.dart';
 
-void main() => runApp(const ItaveroMobile());
+void main() => runApp(MultiProvider(
+  providers: [
+    ChangeNotifierProvider(
+      create: (context) => ConnectionProvider(),
+    ),
+
+  ],
+  child: const ItaveroMobile(),
+));
 
 class ItaveroMobile extends StatelessWidget {
   const ItaveroMobile({Key? key}) : super(key: key);
 
-  static const String _title = 'itavero mobile app1';
+  static const String _title = 'itavero mobile app';
 
   @override
   Widget build(BuildContext context) {
