@@ -5,16 +5,18 @@
  */
 
 import 'package:flutter/material.dart';
+import 'package:flutter_platform_widgets/flutter_platform_widgets.dart';
 import 'package:itavero_mobile/provider/connection_provider.dart';
 import 'package:itavero_mobile/views/scanning/barcode_scanner_view.dart';
 import 'package:itavero_mobile/views/settings/settings_view.dart';
 import 'package:provider/provider.dart';
 import 'package:scandit_flutter_datacapture_barcode/scandit_flutter_datacapture_barcode.dart';
 import 'package:webview_flutter/webview_flutter.dart';
+import 'package:flutter/cupertino.dart';
+
 import 'package:permission_handler/permission_handler.dart';
 
-void main() async
-{
+void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await ScanditFlutterDataCaptureBarcode.initialize();
   runApp(MultiProvider(
@@ -64,17 +66,12 @@ class _MobileAppState extends State<MobileApp> {
           SettingsView(),
         ],
       ),
-
     ),
-    Center(
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children:  [
-          BarcodeScannerView(),
-        ],
-      ),
-
-    ),
+    PlatformApp(
+      cupertino: (_, __) => CupertinoAppData(
+          theme: CupertinoThemeData(brightness: Brightness.light)),
+      home: BarcodeScannerView(),
+    )
   ];
 
   void _onItemTapped(int index) {
