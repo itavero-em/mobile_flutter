@@ -25,19 +25,19 @@ class ItaveroMobile extends StatelessWidget {
   Widget build(BuildContext context) {
     return const MaterialApp(
       title: _title,
-      home: MyStatefulWidget(),
+      home: MobileApp(),
     );
   }
 }
 
-class MyStatefulWidget extends StatefulWidget {
-  const MyStatefulWidget({Key? key}) : super(key: key);
+class MobileApp extends StatefulWidget {
+  const MobileApp({Key? key}) : super(key: key);
 
   @override
-  State<MyStatefulWidget> createState() => _MyStatefulWidgetState();
+  State<MobileApp> createState() => _MobileAppState();
 }
 
-class _MyStatefulWidgetState extends State<MyStatefulWidget> {
+class _MobileAppState extends State<MobileApp> {
   int _selectedIndex = 1;
   final List<Widget> _pages = <Widget>[
     const Center(
