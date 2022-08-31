@@ -10,6 +10,7 @@ import 'package:itavero_mobile/provider/connection_provider.dart';
 import 'package:itavero_mobile/screens/onboarding/onboarding_screen.dart';
 import 'package:itavero_mobile/screens/scanning/barcode_scanner_screen.dart';
 import 'package:itavero_mobile/screens/settings/settings_screen.dart';
+import 'package:itavero_mobile/services/preference_service.dart';
 import 'package:provider/provider.dart';
 import 'package:scandit_flutter_datacapture_barcode/scandit_flutter_datacapture_barcode.dart';
 import 'package:webview_flutter/webview_flutter.dart';
@@ -29,10 +30,12 @@ void main() async {
   ));
 }
 
+
 class ItaveroMobile extends StatelessWidget {
   const ItaveroMobile({Key? key}) : super(key: key);
 
   static const String _title = 'itavero mobile app';
+
 
   @override
   Widget build(BuildContext context) {
@@ -52,6 +55,17 @@ class MobileApp extends StatefulWidget {
 
 class _MobileAppState extends State<MobileApp> {
   int _selectedIndex = 1;
+  final PreferenceService _preferenceService = PreferenceService();
+  @override
+  initState()
+  {
+    super.initState();
+    var settings = _preferenceService.getSettings();
+
+
+  }
+
+
   final List<Widget> _pages = <Widget>[
     const Center(
       child: WebView(
