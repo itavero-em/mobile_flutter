@@ -105,7 +105,7 @@ class _MobileAppState extends State<MobileApp> {
           ),
         ],
         currentIndex: _selectedIndex,
-        selectedItemColor: Colors.orange[800],
+        selectedItemColor: Colors.blue[800],
         onTap: _onItemTapped,
       ),
     );
