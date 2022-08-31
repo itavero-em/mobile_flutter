@@ -1,13 +1,12 @@
-class ConnectionModel{
+import 'dart:convert';
+
+class ConnectionModel {
   final String name;
   final String url;
 
 //<editor-fold desc="Data Methods">
 
-  const ConnectionModel({
-    required this.name,
-    required this.url
-  });
+  const ConnectionModel({required this.name, required this.url});
 
   @override
   bool operator ==(Object other) =>
@@ -22,7 +21,7 @@ class ConnectionModel{
 
   @override
   String toString() {
-    return 'ClassModel{' + ' name: $name,'+ ' url: $url,' + '}';
+    return 'ClassModel{' + ' name: $name,' + ' url: $url,' + '}';
   }
 
   ConnectionModel copyWith({
@@ -35,19 +34,31 @@ class ConnectionModel{
     );
   }
 
-  Map<String, dynamic> toMap() {
+  Map<String, dynamic> toJSON() {
     return {
       'name': this.name,
       'url': this.url,
     };
   }
 
-  factory ConnectionModel.fromMap(Map<String, dynamic> map) {
+  factory ConnectionModel.fromJSON(Map<String, dynamic> map) {
     return ConnectionModel(
       name: map['name'] as String,
-        url: map['url'] as String,
+      url: map['url'] as String,
     );
   }
+
+  // static String encode(List<ConnectionModel> connections) => json.encode(
+  //       connections
+  //           .map<Map<String, dynamic>>(
+  //               (connection) => ConnectionModel.toJSON(connection))
+  //           .toList(),
+  //     );
+  //
+  // static List<ConnectionModel> decode(String ConnectionModels) =>
+  //     (json.decode(ConnectionModels) as List<dynamic>)
+  //         .map<ConnectionModel>((item) => ConnectionModel.fromJSON(item))
+  //         .toList();
 
 //</editor-fold>
 }
