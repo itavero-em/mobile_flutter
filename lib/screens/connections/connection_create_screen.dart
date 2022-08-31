@@ -4,14 +4,14 @@ import 'package:itavero_mobile/provider/connection_provider.dart';
 import 'package:provider/provider.dart';
 
 
-class ConnectionCreateView extends StatefulWidget {
-  const ConnectionCreateView({Key? key}) : super(key: key);
+class ConnectionCreateScreen extends StatefulWidget {
+  const ConnectionCreateScreen({Key? key}) : super(key: key);
 
   @override
-  State<ConnectionCreateView> createState() => _ConnectionCreateView();
+  State<ConnectionCreateScreen> createState() => _ConnectionCreateView();
 }
 
-class _ConnectionCreateView extends State<ConnectionCreateView> {
+class _ConnectionCreateView extends State<ConnectionCreateScreen> {
   TextEditingController _nameCtrl = TextEditingController(text: '');
   TextEditingController _urlCtrl = TextEditingController(text: '');
 

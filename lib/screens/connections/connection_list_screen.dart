@@ -1,17 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:itavero_mobile/provider/connection_provider.dart';
-import 'package:itavero_mobile/views/connections/connection_create_view.dart';
+import 'package:itavero_mobile/screens/connections/connection_create_screen.dart';
 import 'package:provider/provider.dart';
 
-class ConnectionListView extends StatefulWidget {
-  const ConnectionListView({Key? key}) : super(key: key);
+class ConnectionListScreen extends StatefulWidget {
+  const ConnectionListScreen({Key? key}) : super(key: key);
 
   @override
-  State<ConnectionListView> createState() => _ConnectionListViewState();
+  State<ConnectionListScreen> createState() => _ConnectionListScreenState();
 }
 
-class _ConnectionListViewState extends State<ConnectionListView> {
+class _ConnectionListScreenState extends State<ConnectionListScreen> {
   @override
   Widget build(BuildContext context) {
     final connectionProvider =
@@ -103,7 +103,7 @@ class _ConnectionListViewState extends State<ConnectionListView> {
         onPressed: () {
           Navigator.push(
             context,
-            MaterialPageRoute(builder: (context) => ConnectionCreateView()),
+            MaterialPageRoute(builder: (context) => ConnectionCreateScreen()),
           ).then((value) => setState(() {}));
         },
         child: Icon(Icons.add),

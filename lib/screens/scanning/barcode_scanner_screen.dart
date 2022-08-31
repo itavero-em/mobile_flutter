@@ -8,13 +8,13 @@ import 'package:scandit_flutter_datacapture_core/scandit_flutter_datacapture_cor
 
 const String licenseKey = 'AXe64LeBIzGcMYxuxQ2Hrlwe7PXwPbCf/hnoLL5AHB84JQCyAXB4OMpts/6zcFXNTnYwVaNG1RbGYp75hHmG329Epdv/TvKNRVXvZOdcczPWL6p1LGoISAECuI9eDVfzhWDCMbMsnEFvQr0r63xyVOWUdSwJUF8qtKLqe4DzJvctCGPRioJnbrew0Tt2Ce2V90PPtbw1NdOyQbcxEvjY/N6wdABBr2hzIaZkpMt/S4bh74xAoeN1yZGTuuPWFloKiMaNf3+QAyzNxmriFlXib8glIBas/kaQUsfUl6fpRBNeluTBxoMfxLFL/MuXsxG6cMZLwFr1jt9DIQvShQG8khAVylVR5z87591coZHLroh/AOAB3X2wHBrqzyXasGicuFsYesqQDWn4L2A4ZRTQPuqaH9FiwPK1mhNhvB8oijMmVNisFvR/fLwmh9rvxMtGX6k3rSuMqliCaP5HpGiYPESgR/LrZg2moh/PShAtq3uXIEVoJiPV+fTq+rmuxWeVyyM9HYEDKzkjOibfQ/YsTSPHtXPBTSKvLSE49qcdTj+8imdLIV7YpA0B7drbPLfSqeR+GoG3GYOuITUORnXNY+a9II1TH/Qt5o+SCd7nSNCeTEH8/YEg4UEjtNL9nPOVImRH8gEBA8bjf5SWzQo2anSWJzEkc7Qhb8ejpiAKwo5WZ4NWz6EdlOwKjPTIrb6CwvjHAptn4c2cThI+YGGspkgt/QAohRW2Kbnpcpd/oF0X0BiE+mmY0PCxLZShe6Ji3YU0hoKyai8vYOCoCq1+GklnzfN+SrexktM2XPY=';
 
-class BarcodeScannerView extends StatefulWidget {
+class BarcodeScannerScreen extends StatefulWidget {
   // Create data capture context using your license key.
   @override
-  State<StatefulWidget> createState() => _BarcodeScannerViewState(DataCaptureContext.forLicenseKey(licenseKey));
+  State<StatefulWidget> createState() => _BarcodeScannerScreenState(DataCaptureContext.forLicenseKey(licenseKey));
 }
 
-class _BarcodeScannerViewState extends State<BarcodeScannerView>
+class _BarcodeScannerScreenState extends State<BarcodeScannerScreen>
     with WidgetsBindingObserver
     implements BarcodeCaptureListener {
   final DataCaptureContext _context;
@@ -26,7 +26,7 @@ class _BarcodeScannerViewState extends State<BarcodeScannerView>
 
   bool _isPermissionMessageVisible = false;
 
-  _BarcodeScannerViewState(this._context);
+  _BarcodeScannerScreenState(this._context);
 
   void _checkPermission() {
     Permission.camera.request().isGranted.then((value) => setState(() {

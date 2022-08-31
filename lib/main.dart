@@ -7,8 +7,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_platform_widgets/flutter_platform_widgets.dart';
 import 'package:itavero_mobile/provider/connection_provider.dart';
-import 'package:itavero_mobile/views/scanning/barcode_scanner_view.dart';
-import 'package:itavero_mobile/views/settings/settings_view.dart';
+import 'package:itavero_mobile/screens/scanning/barcode_scanner_screen.dart';
+import 'package:itavero_mobile/screens/settings/settings_screen.dart';
 import 'package:provider/provider.dart';
 import 'package:scandit_flutter_datacapture_barcode/scandit_flutter_datacapture_barcode.dart';
 import 'package:webview_flutter/webview_flutter.dart';
@@ -63,14 +63,14 @@ class _MobileAppState extends State<MobileApp> {
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: const [
-          SettingsView(),
+          SettingsScreen(),
         ],
       ),
     ),
     PlatformApp(
       cupertino: (_, __) => CupertinoAppData(
           theme: CupertinoThemeData(brightness: Brightness.light)),
-      home: BarcodeScannerView(),
+      home: BarcodeScannerScreen(),
     )
   ];
 
