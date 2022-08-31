@@ -7,6 +7,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_platform_widgets/flutter_platform_widgets.dart';
 import 'package:itavero_mobile/provider/connection_provider.dart';
+import 'package:itavero_mobile/screens/onboarding/onboarding_screen.dart';
 import 'package:itavero_mobile/screens/scanning/barcode_scanner_screen.dart';
 import 'package:itavero_mobile/screens/settings/settings_screen.dart';
 import 'package:provider/provider.dart';
@@ -14,7 +15,6 @@ import 'package:scandit_flutter_datacapture_barcode/scandit_flutter_datacapture_
 import 'package:webview_flutter/webview_flutter.dart';
 import 'package:flutter/cupertino.dart';
 
-import 'package:permission_handler/permission_handler.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -71,7 +71,7 @@ class _MobileAppState extends State<MobileApp> {
       cupertino: (_, __) => CupertinoAppData(
           theme: CupertinoThemeData(brightness: Brightness.light)),
       home: BarcodeScannerScreen(),
-    )
+    ),
   ];
 
   void _onItemTapped(int index) {
@@ -105,7 +105,7 @@ class _MobileAppState extends State<MobileApp> {
           ),
         ],
         currentIndex: _selectedIndex,
-        selectedItemColor: Colors.amber[800],
+        selectedItemColor: Colors.orange[800],
         onTap: _onItemTapped,
       ),
     );
