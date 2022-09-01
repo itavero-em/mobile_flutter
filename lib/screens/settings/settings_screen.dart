@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:itavero_mobile/provider/connection_provider.dart';
-import 'package:itavero_mobile/screens/connections/connection_list_screen.dart';
 import 'package:provider/provider.dart';
+import 'package:settings_ui/settings_ui.dart';
+
+import '../../provider/connection_provider.dart';
+import '../connections/connection_list_screen.dart';
 
 class SettingsScreen extends StatefulWidget {
   const SettingsScreen({Key? key}) : super(key: key);
@@ -13,16 +15,30 @@ class SettingsScreen extends StatefulWidget {
 class _SettingsScreenState extends State<SettingsScreen> {
   @override
   Widget build(BuildContext context) {
-    return Center(child: GestureDetector(
-      onTap: () {
-        Navigator.push(
-          context,
-          MaterialPageRoute(builder: (context) => ConnectionListScreen()),
-        ).then((value) => setState(() {}));
-      },
-      child: Text("Aktive Verbindung: ${Provider.of<ConnectionProvider>(context).aktivConnection.name}\n"
-          "${Provider.of<ConnectionProvider>(context).items.length} Verbindungen vorhanden \n\n(Klick mich)" ),
-    ),
+    return SettingsList(
+      shrinkWrap: true,
+      platform: DevicePlatform.web,
+      sections: [
+        SettingsSection(
+          title: Text('Einstellungen'),
+          tiles: <SettingsTile>[
+            SettingsTile.navigation(
+              leading: const Icon(Icons.language),
+              title: const Text('Verbindungen'),
+              value: Text(
+                  'aktive Verbindung:\n${Provider.of<ConnectionProvider>(context).aktivConnection.name}\n'
+                      '${Provider.of<ConnectionProvider>(context).aktivConnection.url}'),
+              onPressed: (ctx) {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) => ConnectionListScreen()),
+                ).then((value) => setState(() {}));
+              },
+            ),
+          ],
+        ),
+      ],
     );
   }
 }

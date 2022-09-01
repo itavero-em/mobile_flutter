@@ -4,6 +4,7 @@
  * Copyright (C) 2020- Scandit AG. All rights reserved.
  */
 
+import 'package:device_preview/device_preview.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_platform_widgets/flutter_platform_widgets.dart';
 import 'package:itavero_mobile/provider/connection_provider.dart';
@@ -35,6 +36,7 @@ class ItaveroMobile extends StatelessWidget {
   const ItaveroMobile({Key? key}) : super(key: key);
 
   static const String _title = 'itavero mobile app';
+  static const Color _itacolor =  Color(0xff3397c8);
 
 
   @override
@@ -62,20 +64,19 @@ class _MobileAppState extends State<MobileApp> {
     super.initState();
     var settings = _preferenceService.getSettings();
 
-
   }
 
 
   final List<Widget> _pages = <Widget>[
     const Center(
       child: WebView(
-        initialUrl: 'https://itavwdmz01.itavero.de:8443/web_erp/',
+        initialUrl: 'https://www.hsv.de',
         javascriptMode: JavascriptMode.unrestricted,
       ),
     ),
     Center(
       child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
+        mainAxisAlignment: MainAxisAlignment.start,
         children: const [
           SettingsScreen(),
         ],
@@ -98,9 +99,16 @@ class _MobileAppState extends State<MobileApp> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('itavero mobile'),
+        title: const Text('itavero.mobile'),
+        // backgroundColor: const Color(0x007bb9),
+        backgroundColor: ItaveroMobile._itacolor
       ),
-      body: Center(
+
+
+
+
+
+        body: Center(
         child: _pages.elementAt(_selectedIndex),
       ),
       bottomNavigationBar: BottomNavigationBar(
@@ -119,7 +127,7 @@ class _MobileAppState extends State<MobileApp> {
           ),
         ],
         currentIndex: _selectedIndex,
-        selectedItemColor: Colors.blue[800],
+        selectedItemColor: ItaveroMobile._itacolor,
         onTap: _onItemTapped,
       ),
     );

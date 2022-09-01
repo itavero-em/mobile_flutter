@@ -7,6 +7,8 @@ class WebViewScreen extends StatefulWidget {
 }
 
 class _WebViewScreenState extends State<WebViewScreen> {
+
+  String ita_url = 'https://itavwdmz01.itavero.de:8443/web_erp/';
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -14,7 +16,7 @@ class _WebViewScreenState extends State<WebViewScreen> {
         title: const Text('itavero mobile'),
       ),
       body: const WebView(
-        initialUrl: 'https://itavwdmz01.itavero.de:8443/web_erp/',
+        initialUrl: 'https://www.hsv.de',
         javascriptMode: JavascriptMode.unrestricted,
       ),
     );
