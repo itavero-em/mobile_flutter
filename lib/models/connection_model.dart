@@ -1,7 +1,11 @@
 import 'dart:convert';
+import 'package:json_annotation/json_annotation.dart';
 
+@JsonSerializable()
 class ConnectionModel {
+  @JsonKey(name: 'name')
   final String name;
+  @JsonKey(name: 'url')
   final String url;
 
 //<editor-fold desc="Data Methods">
@@ -34,14 +38,14 @@ class ConnectionModel {
     );
   }
 
-  Map<String, dynamic> toJSON() {
+  Map<String, dynamic> toJson() {
     return {
       'name': this.name,
       'url': this.url,
     };
   }
 
-  factory ConnectionModel.fromJSON(Map<String, dynamic> map) {
+  factory ConnectionModel.fromJson(Map<String, dynamic> map) {
     return ConnectionModel(
       name: map['name'] as String,
       url: map['url'] as String,

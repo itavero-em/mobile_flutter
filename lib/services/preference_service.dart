@@ -10,7 +10,9 @@ class PreferenceService {
   Future saveSettings(SettingsModel settingsModel) async
   {
     final preferences = await SharedPreferences.getInstance();
-    await preferences.setString(APP_SETTINGS, jsonEncode(settingsModel.toJSON()));
+    var settingsJson = await settingsModel.toJson();
+    var encodedJSON = await jsonEncode(settingsJson);
+    await preferences.setString(APP_SETTINGS, encodedJSON);
     print("saved Settings");
   }
 
@@ -18,13 +20,13 @@ class PreferenceService {
   {
 
     final preferences = await SharedPreferences.getInstance();
-    var jsonString = preferences.getString(APP_SETTINGS);
+    var jsonString =await preferences.getString(APP_SETTINGS);
     if (jsonString == null)
       {
         return SettingsModel(verbindungen: []);
       } else {
-      Map<String, dynamic> jsonMap = jsonDecode(jsonString);
-      return SettingsModel.fromJSON(jsonMap);
+      Map<String, dynamic> jsonMap = await jsonDecode(jsonString);
+      return SettingsModel.fromJson(jsonMap);
     }
   }
 

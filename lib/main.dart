@@ -64,6 +64,12 @@ class _MobileAppState extends State<MobileApp> {
   @override
   initState() {
     super.initState();
+
+    // _preferenceService.getSettings().then((value) =>
+    // Provider.of<SettingsModel>(context)
+
+    //);
+
   //   var dummyModel = SettingsModel(einWert: '22');
   //   _preferenceService.saveSettings(dummyModel).whenComplete(() =>
   //   {
