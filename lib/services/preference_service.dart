@@ -22,13 +22,10 @@ class PreferenceService {
     if (jsonString == null)
       {
         return SettingsModel(verbindungen: []);
-      }
-    Map<String,dynamic> jsonMap =  jsonDecode(jsonString!);
-    return SettingsModel.fromJSON(jsonMap);
-
-
-
-
+      } else {
+      Map<String, dynamic> jsonMap = jsonDecode(jsonString);
+      return SettingsModel.fromJSON(jsonMap);
+    }
   }
 
 }
