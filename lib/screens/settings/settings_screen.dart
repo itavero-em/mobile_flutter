@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:settings_ui/settings_ui.dart';
 
-import '../../provider/connection_provider.dart';
+import '../../provider/settings_provider.dart';
 import '../connections/connection_list_screen.dart';
 
 class SettingsScreen extends StatefulWidget {
@@ -17,7 +17,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
   Widget build(BuildContext context) {
     return SettingsList(
       shrinkWrap: true,
-      platform: DevicePlatform.web,
+      platform: DevicePlatform.device,
       sections: [
         SettingsSection(
           title: Text('Einstellungen'),
@@ -26,8 +26,8 @@ class _SettingsScreenState extends State<SettingsScreen> {
               leading: const Icon(Icons.language),
               title: const Text('Verbindungen'),
               value: Text(
-                  'aktive Verbindung:\n${Provider.of<ConnectionProvider>(context).aktivConnection.name}\n'
-                      '${Provider.of<ConnectionProvider>(context).aktivConnection.url}'),
+                  'aktive Verbindung:\n${Provider.of<SettingsProvider>(context).aktivConnection.name}\n'
+                      '${Provider.of<SettingsProvider>(context).aktivConnection.url}'),
               onPressed: (ctx) {
                 Navigator.push(
                   context,
@@ -35,7 +35,9 @@ class _SettingsScreenState extends State<SettingsScreen> {
                       builder: (context) => ConnectionListScreen()),
                 ).then((value) => setState(() {}));
               },
+
             ),
+
           ],
         ),
       ],

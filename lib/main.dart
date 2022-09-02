@@ -7,7 +7,9 @@
 import 'package:device_preview/device_preview.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_platform_widgets/flutter_platform_widgets.dart';
-import 'package:itavero_mobile/provider/connection_provider.dart';
+import 'package:itavero_mobile/models/connection_model.dart';
+import 'package:itavero_mobile/models/settings_model.dart';
+import 'package:itavero_mobile/provider/settings_provider.dart';
 import 'package:itavero_mobile/screens/onboarding/onboarding_screen.dart';
 import 'package:itavero_mobile/screens/scanning/barcode_scanner_screen.dart';
 import 'package:itavero_mobile/screens/settings/settings_screen.dart';
@@ -24,7 +26,7 @@ void main() async {
   runApp(MultiProvider(
     providers: [
       ChangeNotifierProvider(
-        create: (context) => ConnectionProvider(),
+        create: (context) => SettingsProvider(),
       )
     ],
     child: const ItaveroMobile(),
@@ -36,7 +38,7 @@ class ItaveroMobile extends StatelessWidget {
   const ItaveroMobile({Key? key}) : super(key: key);
 
   static const String _title = 'itavero mobile app';
-  static const Color _itacolor =  Color(0xff3397c8);
+  static const Color _itacolor = Color(0xff3397c8);
 
 
   @override
@@ -58,11 +60,34 @@ class MobileApp extends StatefulWidget {
 class _MobileAppState extends State<MobileApp> {
   int _selectedIndex = 1;
   final PreferenceService _preferenceService = PreferenceService();
+
   @override
-  initState()
-  {
+  initState() {
     super.initState();
-    var settings = _preferenceService.getSettings();
+  //   var dummyModel = SettingsModel(einWert: '22');
+  //   _preferenceService.saveSettings(dummyModel).whenComplete(() =>
+  //   {
+  //
+  //   print('dummy')
+  //
+  // });
+  //
+  //   var settings = _preferenceService.getSettings();
+  //   settings.then((model) =>
+  //   {
+  //
+  //   });
+  //
+  //
+  //   List<ConnectionModel> connections= const[ConnectionModel(name: 'Verbindungen#1', url: 'url1'),
+  //   ConnectionModel(name: 'Verbindungen#2', url: 'url2')];
+  //
+  //   //Map<String,dynamic> aMap = Map();
+  //   //aMap.addEntries(MapEntry('verbindungen', connections));
+  //   SettingsModel settingsModel = SettingsModel(verbindungen:  []);
+  //   var json = settingsModel.toJSON();
+  //   print(json);
+  //   SettingsModel model2 = SettingsModel.fromJSON(json);
 
   }
 
@@ -83,8 +108,9 @@ class _MobileAppState extends State<MobileApp> {
       ),
     ),
     PlatformApp(
-      cupertino: (_, __) => CupertinoAppData(
-          theme: CupertinoThemeData(brightness: Brightness.light)),
+      cupertino: (_, __) =>
+          CupertinoAppData(
+              theme: CupertinoThemeData(brightness: Brightness.light)),
       home: BarcodeScannerScreen(),
     ),
   ];
@@ -99,16 +125,13 @@ class _MobileAppState extends State<MobileApp> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('itavero.mobile'),
-        // backgroundColor: const Color(0x007bb9),
-        backgroundColor: ItaveroMobile._itacolor
+          title: const Text('itavero.mobile'),
+          // backgroundColor: const Color(0x007bb9),
+          backgroundColor: ItaveroMobile._itacolor
       ),
 
 
-
-
-
-        body: Center(
+      body: Center(
         child: _pages.elementAt(_selectedIndex),
       ),
       bottomNavigationBar: BottomNavigationBar(

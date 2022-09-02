@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:itavero_mobile/models/connection_model.dart';
-import 'package:itavero_mobile/provider/connection_provider.dart';
+import 'package:itavero_mobile/provider/settings_provider.dart';
 import 'package:provider/provider.dart';
 
 
@@ -49,7 +49,7 @@ class _ConnectionCreateView extends State<ConnectionCreateScreen> {
             ElevatedButton(
                 onPressed: () {
                   final connectionModel = ConnectionModel(name: _nameCtrl.text,url: _urlCtrl.text);
-                  Provider.of<ConnectionProvider>(context, listen: false).add(connectionModel);
+                  Provider.of<SettingsProvider>(context, listen: false).addVerbindung(connectionModel);
                   Navigator.pop(context);
                 },
                 child: const Text('Erstelle Verbindung'))

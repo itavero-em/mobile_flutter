@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
-import 'package:itavero_mobile/provider/connection_provider.dart';
+import 'package:itavero_mobile/provider/settings_provider.dart';
 import 'package:itavero_mobile/screens/connections/connection_create_screen.dart';
 import 'package:provider/provider.dart';
 
@@ -14,22 +14,22 @@ class ConnectionListScreen extends StatefulWidget {
 class _ConnectionListScreenState extends State<ConnectionListScreen> {
   @override
   Widget build(BuildContext context) {
-    final connectionProvider =
-        Provider.of<ConnectionProvider>(context);
+    final settingsProvider =
+        Provider.of<SettingsProvider>(context);
 
     return Scaffold(
       appBar: AppBar(
         title: Text('Verbindungen'),
       ),
-      body: connectionProvider.items.isEmpty
+      body: settingsProvider.verbindungen.isEmpty
           ? const Center(
               child: Text(
                   'Aktuell sind keine Verbindungen vorhanden.\n Mit dem + können Sie eine neue \nVerbindung anlegen.'),
             )
           : ListView.builder(
-              itemCount: connectionProvider.items.length,
+              itemCount: settingsProvider.verbindungen.length,
               itemBuilder: (context, index) {
-                final connectionItem = connectionProvider.items[index];
+                final connectionItem = settingsProvider.verbindungen[index];
                 return Slidable(
                   // Specify a key if the Slidable is dismissible.
                   key: ValueKey(index),
@@ -70,7 +70,7 @@ class _ConnectionListScreenState extends State<ConnectionListScreen> {
                     children: [
                       SlidableAction(
                         onPressed: (context) {
-                          connectionProvider.remove(connectionItem);
+                          settingsProvider.removeVerbindung(connectionItem);
                             ScaffoldMessenger.of(context).showSnackBar(SnackBar(
                                 content: Text(
                                     '${connectionItem.name} wurde gelöscht.')));
@@ -87,13 +87,13 @@ class _ConnectionListScreenState extends State<ConnectionListScreen> {
                   // component is not dragged.
                   child: ListTile(
                     onTap: () {
-                      connectionProvider.setAktivConnection(connectionItem);
+                      settingsProvider.setAktivVerbindung(connectionItem);
                       Navigator.pop(context);
                       },
                       title: Center(
                           child: Row(children: [Text(
                           'Name: ${connectionItem.name}\n(Slide left/right)'),
-                           connectionProvider.aktivConnection==connectionItem?  const Icon(Icons.check,size: 50,color: Colors.green,):Text('')],)
+                           settingsProvider.aktivConnection==connectionItem?  const Icon(Icons.check,size: 50,color: Colors.green,):Text('')],)
                       )
                 )
                 );

@@ -1,25 +1,34 @@
 import 'package:itavero_mobile/models/connection_model.dart';
+import 'package:itavero_mobile/models/settings_model.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'dart:convert';
 
 class PreferenceService {
 
-  Future saveSettings(ConnectionModel selctedConnectionModel,
-      List<ConnectionModel> listOfConnection) async
+  final String APP_SETTINGS = 'app_settings';
+
+  Future saveSettings(SettingsModel settingsModel) async
   {
     final preferences = await SharedPreferences.getInstance();
-
-    await preferences.setString("url", selctedConnectionModel.url);
-    await preferences.setString("name", selctedConnectionModel.name);
-
+    await preferences.setString(APP_SETTINGS, jsonEncode(settingsModel.toJSON()));
     print("saved Settings");
   }
 
-  Future<ConnectionModel> getSettings() async
+  Future<SettingsModel> getSettings() async
   {
+
     final preferences = await SharedPreferences.getInstance();
-     var url = preferences.getString('url') ?? '';
-    var name = preferences.getString('name') ?? '';
-    return ConnectionModel(url: url, name: name);
+    var jsonString = preferences.getString(APP_SETTINGS);
+    if (jsonString == null)
+      {
+        return SettingsModel(verbindungen: []);
+      }
+    Map<String,dynamic> jsonMap =  jsonDecode(jsonString!);
+    return SettingsModel.fromJSON(jsonMap);
+
+
+
+
   }
 
 }
