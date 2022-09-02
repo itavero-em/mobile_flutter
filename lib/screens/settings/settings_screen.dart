@@ -27,7 +27,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
               title: const Text('Verbindungen'),
               value: Text(
                   'aktive Verbindung:\n${Provider.of<SettingsProvider>(context).settingsModel.aktiveVerbindung.name}\n'
-                      '${Provider.of<SettingsProvider>(context).settingsModel.aktiveVerbindung.url}'),
+                  '${Provider.of<SettingsProvider>(context).settingsModel.aktiveVerbindung.url}'),
               onPressed: (ctx) {
                 Navigator.push(
                   context,
@@ -35,12 +35,23 @@ class _SettingsScreenState extends State<SettingsScreen> {
                       builder: (context) => ConnectionListScreen()),
                 ).then((value) => setState(() {}));
               },
-
+            ),
+          ],
+        ),
+        SettingsSection(
+          title: Text('Scanner'),
+          tiles: <SettingsTile>[
+            SettingsTile.switchTile(
+              title: Text('Kameralicht'),
+              description: Text('dynamisch anschalten'),
+              leading: Icon(Icons.lightbulb),
+              onPressed: (BuildContext context) {},
+              initialValue: false,
+              onToggle: (bool value) {},
             ),
 
           ],
         ),
-
       ],
     );
   }
