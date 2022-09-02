@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:itavero_mobile/screens/settings/settings_screen_scanmode.dart';
 import 'package:provider/provider.dart';
 import 'package:settings_ui/settings_ui.dart';
 
