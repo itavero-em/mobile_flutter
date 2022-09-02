@@ -1,5 +1,6 @@
 import 'dart:convert';
 import 'package:json_annotation/json_annotation.dart';
+import 'settings_model.dart';
 
 @JsonSerializable()
 class ConnectionModel {
@@ -46,23 +47,14 @@ class ConnectionModel {
   }
 
   factory ConnectionModel.fromJson(Map<String, dynamic> map) {
-    return ConnectionModel(
-      name: map['name'] as String,
-      url: map['url'] as String,
-    );
+    if (map.isEmpty || (map['name'] as String).isEmpty && (map['url'] as String).isEmpty) {
+      return SettingsModel.noConnectionModel;
+    } else {
+      return ConnectionModel(
+        name: map['name'] as String,
+        url: map['url'] as String,
+      );
+    }
   }
 
-  // static String encode(List<ConnectionModel> connections) => json.encode(
-  //       connections
-  //           .map<Map<String, dynamic>>(
-  //               (connection) => ConnectionModel.toJSON(connection))
-  //           .toList(),
-  //     );
-  //
-  // static List<ConnectionModel> decode(String ConnectionModels) =>
-  //     (json.decode(ConnectionModels) as List<dynamic>)
-  //         .map<ConnectionModel>((item) => ConnectionModel.fromJSON(item))
-  //         .toList();
-
-//</editor-fold>
 }

@@ -20,10 +20,10 @@ class PreferenceService {
   {
 
     final preferences = await SharedPreferences.getInstance();
-    var jsonString =await preferences.getString(APP_SETTINGS);
+    var jsonString = await preferences.getString(APP_SETTINGS);
     if (jsonString == null)
       {
-        return SettingsModel(verbindungen: []);
+        return SettingsModel(verbindungen: [],aktiveVerbindung: SettingsModel.noConnectionModel);
       } else {
       Map<String, dynamic> jsonMap = await jsonDecode(jsonString);
       return SettingsModel.fromJson(jsonMap);

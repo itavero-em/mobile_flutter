@@ -47,20 +47,22 @@ class _ConnectionListScreenState extends State<ConnectionListScreen> {
                       // A SlidableAction can have an icon and/or a label.
                       SlidableAction(
                         // An action can be bigger than the others.
-                        flex: 2,
-                        onPressed: (context) {},
+                        //flex: 2,
+                        onPressed: (context) {
+                          // TODO: Edit-Screen aufrufen
+                        },
                         backgroundColor: Color(0xFF7BC043),
                         foregroundColor: Colors.white,
                         icon: Icons.edit,
                         label: 'Bearbeiten',
                       ),
-                      SlidableAction(
-                        onPressed: (context) {},
-                        backgroundColor: Color(0xFF21B7CA),
-                        foregroundColor: Colors.white,
-                        icon: Icons.share,
-                        label: 'Share',
-                      ),
+                      // SlidableAction(
+                      //   onPressed: (context) {},
+                      //   backgroundColor: Color(0xFF21B7CA),
+                      //   foregroundColor: Colors.white,
+                      //   icon: Icons.share,
+                      //   label: 'Share',
+                      // ),
                     ],
                   ),
 
@@ -93,7 +95,7 @@ class _ConnectionListScreenState extends State<ConnectionListScreen> {
                       title: Center(
                           child: Row(children: [Text(
                           'Name: ${connectionItem.name}\n(Slide left/right)'),
-                           settingsProvider.aktivConnection==connectionItem?  const Icon(Icons.check,size: 50,color: Colors.green,):Text('')],)
+                           settingsProvider.settingsModel.aktiveVerbindung==connectionItem?  const Icon(Icons.check,size: 50,color: Colors.green,):Text('')],)
                       )
                 )
                 );

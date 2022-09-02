@@ -26,8 +26,8 @@ class _SettingsScreenState extends State<SettingsScreen> {
               leading: const Icon(Icons.language),
               title: const Text('Verbindungen'),
               value: Text(
-                  'aktive Verbindung:\n${Provider.of<SettingsProvider>(context).aktivConnection.name}\n'
-                      '${Provider.of<SettingsProvider>(context).aktivConnection.url}'),
+                  'aktive Verbindung:\n${Provider.of<SettingsProvider>(context).settingsModel.aktiveVerbindung.name}\n'
+                      '${Provider.of<SettingsProvider>(context).settingsModel.aktiveVerbindung.url}'),
               onPressed: (ctx) {
                 Navigator.push(
                   context,
