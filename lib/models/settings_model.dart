@@ -11,6 +11,9 @@ class SettingsModel
   @JsonKey(name: 'aktive_verbindung')
   ConnectionModel aktiveVerbindung;
 
+  @JsonKey(name: 'aktive_scanmode')
+  String aktivScanMode = 'normal';
+
 
   SettingsModel({required this.verbindungen, required this.aktiveVerbindung});
 

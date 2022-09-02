@@ -44,4 +44,10 @@ class SettingsProvider extends ChangeNotifier{
     settingsModel.aktiveVerbindung = connection;
     _modelChanged();
   }
+
+  //Todo hier Enum verwenden
+  void setAktivScanMode(String mode){
+    settingsModel.aktivScanMode = mode;
+    _modelChanged();
+  }
 }
