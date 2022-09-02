@@ -16,5 +16,9 @@ For help getting started with Flutter development, view the
 samples, guidance on mobile development, and a full API reference.
 
 ## Plugins
-flutter_slidable
-provider
+- [flutter_slidable](https://pub.dev/packages/flutter_slidable)
+- [provider](https://pub.dev/packages/provider)
+- [shared_preferences](https://pub.dev/packages/shared_preferences)
+- [settings_ui](https://pub.dev/packages/settings_ui)
+- scandit_flutter_datacapture_barcode
+- [webview_flutter](https://pub.dev/packages/webview_flutter)
