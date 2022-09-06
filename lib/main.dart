@@ -50,11 +50,17 @@ class ItaveroMobile extends StatelessWidget {
     );
   }
 
-  //TODO Come up with a more imaginative greeting
-  //Everyone uses hello world and it's boring.
-  //labels: enhancement, help wanted
-  //assignees: alstr, bouteillerAlan, hbjydev
-  //  milestone: 1
+// TODO: Add integration test for TodoActionsMain.
+//
+// Code that interface with external data have been separated into their own modules.
+// These includes:
+//
+// - `DataStore`
+// - `CodeRepository`
+// - `TaskManagementSystem`
+//
+// They can be mocked by creating a mock version using `__mocks__` folder.
+// https://jestjs.io/docs/en/manual-mocks
 }
 
 class MobileApp extends StatefulWidget {
