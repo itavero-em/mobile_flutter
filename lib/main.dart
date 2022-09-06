@@ -49,7 +49,12 @@ class ItaveroMobile extends StatelessWidget {
       home: MobileApp(),
     );
   }
-  //todo Das ist ein Test
+
+  //TODO Come up with a more imaginative greeting
+  //Everyone uses hello world and it's boring.
+  //labels: enhancement, help wanted
+  //assignees: alstr, bouteillerAlan, hbjydev
+  //  milestone: 1
 }
 
 class MobileApp extends StatefulWidget {
