@@ -1,12 +1,29 @@
 import 'connection_model.dart';
 import 'package:json_annotation/json_annotation.dart';
 
-enum ScanMode {
+enum ScanViewFinderMode {
   line,
-  ru,
-  stopped,
-  paused
+  rectangle,
+  aimer;
+
+
+String get string {
+  switch (this) {
+    case ScanViewFinderMode.aimer:
+      return 'Fadenkreuz';
+    case ScanViewFinderMode.line:
+      return 'Linie';
+    case ScanViewFinderMode.rectangle:
+      return 'Rechteck';
+  }
 }
+}
+
+
+
+
+
+
 @JsonSerializable()
 class SettingsModel
 {
@@ -20,8 +37,8 @@ class SettingsModel
   @JsonKey(name: 'aktive_verbindung')
   ConnectionModel aktiveVerbindung;
 
-  @JsonKey(name: 'aktive_scanmode')
-  String aktivScanMode = 'normal';
+  @JsonKey(name: 'scan_viewfindermode')
+  ScanViewFinderMode scanViewFinderMode = ScanViewFinderMode.line;
 
 
   SettingsModel({required this.verbindungen, required this.aktiveVerbindung});

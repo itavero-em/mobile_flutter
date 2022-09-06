@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:itavero_mobile/models/settings_model.dart';
+import 'package:itavero_mobile/screens/settings/settings_screen_scanmode.dart';
 import 'package:provider/provider.dart';
 import 'package:settings_ui/settings_ui.dart';
 
@@ -70,7 +72,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
               leading: const Icon(Icons.qr_code_scanner),
               title: const Text('Scanmodus'),
               value: Text(
-                  Provider.of<SettingsProvider>(context).settingsModel.aktivScanMode),
+                  Provider.of<SettingsProvider>(context).settingsModel.scanViewFinderMode.string),
             ),
           ],
         ),
@@ -92,23 +94,26 @@ class _SettingsScreenState extends State<SettingsScreen> {
             isDefaultAction: true,
             onPressed: () {
               Navigator.pop(context);
-              settingsProvider.setAktivScanMode('linie');
+              settingsProvider.setScanViewMode(ScanViewFinderMode.line);
             },
-            child: const Text('Linie'),
+            child: Text(ScanViewFinderMode.line.string),
           ),
           CupertinoActionSheetAction(
             onPressed: () {
+              settingsProvider.setScanViewMode(ScanViewFinderMode.rectangle);
               Navigator.pop(context);
-              settingsProvider.setAktivScanMode('rechteck');
+
+
             },
-            child: Text('Rechteck'),
+            child: Text(ScanViewFinderMode.rectangle.string),
           ),
           CupertinoActionSheetAction(
             onPressed: () {
+              settingsProvider.setScanViewMode(ScanViewFinderMode.aimer);
               Navigator.pop(context);
-              settingsProvider.setAktivScanMode('block');
+
             },
-            child: const Text('Block'),
+            child: Text(ScanViewFinderMode.aimer.string),
           ),
 
         ],

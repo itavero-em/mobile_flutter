@@ -46,8 +46,8 @@ class SettingsProvider extends ChangeNotifier{
   }
 
   //Todo hier Enum verwenden
-  void setAktivScanMode(String mode){
-    settingsModel.aktivScanMode = mode;
+  void setScanViewMode(ScanViewFinderMode mode){
+    settingsModel.scanViewFinderMode = mode;
     _modelChanged();
   }
 }
