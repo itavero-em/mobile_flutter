@@ -1,10 +1,19 @@
 import 'connection_model.dart';
 import 'package:json_annotation/json_annotation.dart';
 
+enum ScanMode {
+  line,
+  ru,
+  stopped,
+  paused
+}
 @JsonSerializable()
 class SettingsModel
 {
   static const noConnectionModel = ConnectionModel(name: 'Keine Verbindung!!', url: '');
+
+
+
 
   @JsonKey(name: 'verbindungen')
   final List<ConnectionModel> verbindungen;

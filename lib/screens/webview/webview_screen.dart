@@ -13,9 +13,11 @@ class _WebViewScreenState extends State<WebViewScreen> {
   String ita_url = 'https://itavwdmz01.itavero.de:8443/web_erp/';
   @override
   Widget build(BuildContext context) {
-    return WebView(
-        initialUrl: Provider.of<SettingsProvider>(context).settingsModel.aktiveVerbindung.url,
-        javascriptMode: JavascriptMode.unrestricted,
+    return
+
+    RefreshIndicator(child: WebView(
+      initialUrl: Provider.of<SettingsProvider>(context).settingsModel.aktiveVerbindung.url,
+      javascriptMode: JavascriptMode.unrestricted,
       onProgress: (int progress) {
         print('WebView is loading (progress : $progress%)');
       },
@@ -36,10 +38,23 @@ class _WebViewScreenState extends State<WebViewScreen> {
       onPageFinished: (String url) {
         print('Page finished loading: $url');
       },
-       gestureNavigationEnabled: true,
-      );
+      gestureNavigationEnabled: true,
+    )
+
+
+
+
+        , onRefresh: refresh
+    );
+
 
   }
+
+  Future refresh() async
+  {
+    print('Refresh');
+  }
+
   JavascriptChannel _toasterJavascriptChannel(BuildContext context) {
     return JavascriptChannel(
         name: 'Toaster',
