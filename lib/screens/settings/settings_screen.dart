@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:itavero_mobile/models/settings_model.dart';
-import 'package:itavero_mobile/screens/settings/settings_screen_scanmode.dart';
 import 'package:provider/provider.dart';
 import 'package:settings_ui/settings_ui.dart';
 
@@ -61,11 +60,6 @@ class _SettingsScreenState extends State<SettingsScreen> {
             ),
             SettingsTile.navigation(
               onPressed: (ctx) {
-                // Navigator.push(
-                //   context,
-                //   MaterialPageRoute(
-                //       builder: (context) => SettingsScreenScanMode()),
-                // ).then((value) => setState(() {}));
                 _showActionSheet(context);
 
               },
@@ -91,14 +85,15 @@ class _SettingsScreenState extends State<SettingsScreen> {
           CupertinoActionSheetAction(
             /// This parameter indicates the action would be a default
             /// defualt behavior, turns the action's text to bold text.
-            isDefaultAction: true,
+            isDefaultAction: Provider.of<SettingsProvider>(context).settingsModel.scanViewFinderMode == ScanViewFinderMode.line,
             onPressed: () {
-              Navigator.pop(context);
               settingsProvider.setScanViewMode(ScanViewFinderMode.line);
+              Navigator.pop(context);
             },
             child: Text(ScanViewFinderMode.line.string),
           ),
           CupertinoActionSheetAction(
+            isDefaultAction: Provider.of<SettingsProvider>(context).settingsModel.scanViewFinderMode == ScanViewFinderMode.rectangle,
             onPressed: () {
               settingsProvider.setScanViewMode(ScanViewFinderMode.rectangle);
               Navigator.pop(context);
@@ -108,6 +103,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
             child: Text(ScanViewFinderMode.rectangle.string),
           ),
           CupertinoActionSheetAction(
+            isDefaultAction: Provider.of<SettingsProvider>(context).settingsModel.scanViewFinderMode == ScanViewFinderMode.aimer,
             onPressed: () {
               settingsProvider.setScanViewMode(ScanViewFinderMode.aimer);
               Navigator.pop(context);

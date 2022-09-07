@@ -41,7 +41,7 @@ class SettingsModel
   ScanViewFinderMode scanViewFinderMode = ScanViewFinderMode.line;
 
 
-  SettingsModel({required this.verbindungen, required this.aktiveVerbindung});
+  SettingsModel({required this.verbindungen, required this.aktiveVerbindung, required this.scanViewFinderMode});
 
 
   Map<String, dynamic> toJson() {
@@ -49,6 +49,7 @@ class SettingsModel
 
       'aktive_verbindung': this.aktiveVerbindung,
       'verbindungen': this.verbindungen,
+      'scan_viewfindermode': this.scanViewFinderMode,
 
     };
   }
@@ -58,10 +59,12 @@ factory SettingsModel.fromJson(Map<String, dynamic> map) {
   var list = v.map((e) =>
   ConnectionModel.fromJson(e)
   ).toList();
+  ScanViewFinderMode scanviewfindermode = ScanViewFinderMode.values.elementAt(map['scan_viewfindermode'] ?? 0);
 
   return SettingsModel(
     verbindungen:  list,
-    aktiveVerbindung: ConnectionModel.fromJson(map['aktive_verbindung'])
+    aktiveVerbindung: ConnectionModel.fromJson(map['aktive_verbindung']),
+      scanViewFinderMode: scanviewfindermode
   );
 }
   // factory SettingsModel.fromJSON(Map<String, dynamic> map) {

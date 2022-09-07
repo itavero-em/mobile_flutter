@@ -23,7 +23,7 @@ class PreferenceService {
     var jsonString = await preferences.getString(APP_SETTINGS);
     if (jsonString == null)
       {
-        return SettingsModel(verbindungen: [],aktiveVerbindung: SettingsModel.noConnectionModel);
+        return SettingsModel(verbindungen: [],aktiveVerbindung: SettingsModel.noConnectionModel, scanViewFinderMode: ScanViewFinderMode.line);
       } else {
       Map<String, dynamic> jsonMap = await jsonDecode(jsonString);
       return SettingsModel.fromJson(jsonMap);
