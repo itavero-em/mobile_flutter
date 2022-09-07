@@ -66,7 +66,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
               leading: const Icon(Icons.qr_code_scanner),
               title: const Text('Scanmodus'),
               value: Text(
-                  Provider.of<SettingsProvider>(context).settingsModel.scanViewFinderMode.string),
+                  Provider.of<SettingsProvider>(context).settingsModel.scanViewFinderMode.jsonValue),
             ),
           ],
         ),
@@ -76,11 +76,12 @@ class _SettingsScreenState extends State<SettingsScreen> {
   // This shows a CupertinoModalPopup which hosts a CupertinoActionSheet.
   void _showActionSheet(BuildContext context) {
     // final settingsProvider = Provider.of<SettingsProvider>(context);
+    String possibleValues = ScanViewFinderMode.values.map((e) => e.jsonValue).join(", ").toString();
     showCupertinoModalPopup<void>(
       context: context,
       builder: (BuildContext context) => CupertinoActionSheet(
         title: const Text('Bitte wählen Sie einen Scanmodus aus'),
-        message: const Text('Linie/Rechteck/Block'),
+        message: Text(possibleValues),
         actions: <CupertinoActionSheetAction>[
           CupertinoActionSheetAction(
             /// This parameter indicates the action would be a default
@@ -90,7 +91,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
               settingsProvider.setScanViewMode(ScanViewFinderMode.line);
               Navigator.pop(context);
             },
-            child: Text(ScanViewFinderMode.line.string),
+            child: Text(ScanViewFinderMode.line.jsonValue),
           ),
           CupertinoActionSheetAction(
             isDefaultAction: Provider.of<SettingsProvider>(context).settingsModel.scanViewFinderMode == ScanViewFinderMode.rectangle,
@@ -100,7 +101,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
 
 
             },
-            child: Text(ScanViewFinderMode.rectangle.string),
+            child: Text(ScanViewFinderMode.rectangle.jsonValue),
           ),
           CupertinoActionSheetAction(
             isDefaultAction: Provider.of<SettingsProvider>(context).settingsModel.scanViewFinderMode == ScanViewFinderMode.aimer,
@@ -109,7 +110,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
               Navigator.pop(context);
 
             },
-            child: Text(ScanViewFinderMode.aimer.string),
+            child: Text(ScanViewFinderMode.aimer.jsonValue),
           ),
 
         ],

@@ -2,35 +2,20 @@ import 'connection_model.dart';
 import 'package:json_annotation/json_annotation.dart';
 
 enum ScanViewFinderMode {
-  line,
-  rectangle,
-  aimer;
+  line("Linie"), // You can also use numbers as you wish
+  rectangle("Rechteck"),
+  aimer("Fadenkreuz");
 
-
-String get string {
-  switch (this) {
-    case ScanViewFinderMode.aimer:
-      return 'Fadenkreuz';
-    case ScanViewFinderMode.line:
-      return 'Linie';
-    case ScanViewFinderMode.rectangle:
-      return 'Rechteck';
-  }
+  final dynamic jsonValue;
+  const ScanViewFinderMode(this.jsonValue);
+  static ScanViewFinderMode fromValue(jsonValue) =>
+      ScanViewFinderMode.values.singleWhere((i) => jsonValue == i.jsonValue);
 }
-}
-
-
-
-
-
 
 @JsonSerializable()
-class SettingsModel
-{
-  static const noConnectionModel = ConnectionModel(name: 'Keine Verbindung!!', url: '');
-
-
-
+class SettingsModel {
+  static const noConnectionModel =
+      ConnectionModel(name: 'Keine Verbindung!!', url: '');
 
   @JsonKey(name: 'verbindungen')
   final List<ConnectionModel> verbindungen;
@@ -40,38 +25,34 @@ class SettingsModel
   @JsonKey(name: 'scan_viewfindermode')
   ScanViewFinderMode scanViewFinderMode = ScanViewFinderMode.line;
 
-
-  SettingsModel({required this.verbindungen, required this.aktiveVerbindung, required this.scanViewFinderMode});
-
+  SettingsModel(
+      {required this.verbindungen,
+      required this.aktiveVerbindung,
+      required this.scanViewFinderMode});
 
   Map<String, dynamic> toJson() {
     return {
-
       'aktive_verbindung': this.aktiveVerbindung,
       'verbindungen': this.verbindungen,
-      'scan_viewfindermode': this.scanViewFinderMode,
-
+      'scan_viewfindermode': this.scanViewFinderMode.jsonValue,
     };
   }
-factory SettingsModel.fromJson(Map<String, dynamic> map) {
 
-  var v = map['verbindungen'] as List<dynamic>;
-  var list = v.map((e) =>
-  ConnectionModel.fromJson(e)
-  ).toList();
-  ScanViewFinderMode scanviewfindermode = ScanViewFinderMode.values.elementAt(map['scan_viewfindermode'] ?? 0);
+  factory SettingsModel.fromJson(Map<String, dynamic> map) {
+    var v = map['verbindungen'] as List<dynamic>;
+    var list = v.map((e) => ConnectionModel.fromJson(e)).toList();
+    ScanViewFinderMode scanviewfindermode =
+        ScanViewFinderMode.fromValue(map['scan_viewfindermode'] );
 
-  return SettingsModel(
-    verbindungen:  list,
-    aktiveVerbindung: ConnectionModel.fromJson(map['aktive_verbindung']),
-      scanViewFinderMode: scanviewfindermode
-  );
-}
-  // factory SettingsModel.fromJSON(Map<String, dynamic> map) {
-  //   return SettingsModel(
-  //     verbindungen: map['verbindungen'] as List<ConnectionModel>,
-  //   );
-  // }
-
+    return SettingsModel(
+        verbindungen: list,
+        aktiveVerbindung: ConnectionModel.fromJson(map['aktive_verbindung']),
+        scanViewFinderMode: scanviewfindermode);
+  }
+// factory SettingsModel.fromJSON(Map<String, dynamic> map) {
+//   return SettingsModel(
+//     verbindungen: map['verbindungen'] as List<ConnectionModel>,
+//   );
+// }
 
 }
