@@ -107,10 +107,11 @@ class _MobileAppState extends State<MobileApp> {
         child: _pages.elementAt(_selectedIndex),
       ),
       bottomNavigationBar: BottomNavigationBar(
-        items: const <BottomNavigationBarItem>[
+        items:  <BottomNavigationBarItem>[
           BottomNavigationBarItem(
             icon: Icon(Icons.apps),
-            label: 'Apps',
+            label: _selectedIndex == 1 ?  'Apps' : Provider.of<SettingsProvider>(context, listen: false).settingsModel.aktiveVerbindung.name,
+            activeIcon: Icon(Icons.apps_sharp),
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.settings),

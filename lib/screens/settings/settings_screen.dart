@@ -24,7 +24,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
 
     return SettingsList(
       shrinkWrap: true,
-      platform: DevicePlatform.iOS,
+      platform: DevicePlatform.device,
       sections: [
         SettingsSection(
           title: Text('Einstellungen'),
@@ -77,6 +77,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
             ),
           ],
         ),
+
       ],
     );
   }
