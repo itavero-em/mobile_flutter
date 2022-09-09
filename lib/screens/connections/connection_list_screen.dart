@@ -110,7 +110,7 @@ class _ConnectionListScreenState extends State<ConnectionListScreen> {
                             child: Row(
                           children: [
                             Text(
-                                'Name: ${connectionItem.name}\n(Slide left/right)'),
+                                'Name: ${connectionItem.name}\n${connectionItem.url}'),
                             settingsProvider.settingsModel.aktiveVerbindung ==
                                     connectionItem
                                 ? const Icon(
