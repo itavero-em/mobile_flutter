@@ -56,7 +56,7 @@ class _ConnectionCreateView extends State<ConnectionEditScreen> {
                 onPressed: () {
                   widget.connectionModel.name=_nameCtrl.text;
                   widget.connectionModel.url=_urlCtrl.text;
-                  Provider.of<SettingsProvider>(context, listen: false).changeVerbindung(widget.connectionModel);
+                  Provider.of<SettingsProvider>(context, listen: false).modifyVerbindung(widget.connectionModel);
                   Navigator.pop(context);
                 },
                 child: const Text('Speichere Verbindung'))

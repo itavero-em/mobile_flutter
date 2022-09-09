@@ -25,8 +25,7 @@ class SettingsProvider extends ChangeNotifier{
     notifyListeners();
   }
 
-
-  void changeVerbindung(ConnectionModel connection){
+  void modifyVerbindung(ConnectionModel connection){
     _modelChanged();
   }
 
