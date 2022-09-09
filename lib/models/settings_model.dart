@@ -25,16 +25,21 @@ class SettingsModel {
   @JsonKey(name: 'scan_viewfindermode')
   ScanViewFinderMode scanViewFinderMode = ScanViewFinderMode.line;
 
+  @JsonKey(name: 'kamera_licht')
+  bool cameraLight = false;
+
   SettingsModel(
       {required this.verbindungen,
       required this.aktiveVerbindung,
-      required this.scanViewFinderMode});
+      required this.scanViewFinderMode,
+      required this.cameraLight});
 
   Map<String, dynamic> toJson() {
     return {
       'aktive_verbindung': this.aktiveVerbindung,
       'verbindungen': this.verbindungen,
       'scan_viewfindermode': this.scanViewFinderMode.jsonValue,
+      'kamera_licht' : this.cameraLight
     };
   }
 
@@ -48,11 +53,19 @@ class SettingsModel {
          scanviewfindermode = ScanViewFinderMode.fromValue( jsonViewFinderMode );
 
       }
+    var camLight = false;
+    if (map['kamera_licht'] != null)
+      {
+        camLight = map['kamera_licht'] as bool;
+      }
+
 
     return SettingsModel(
         verbindungen: list,
         aktiveVerbindung: ConnectionModel.fromJson(map['aktive_verbindung']),
-        scanViewFinderMode: scanviewfindermode);
+        scanViewFinderMode: scanviewfindermode,
+      cameraLight: camLight
+    );
   }
 // factory SettingsModel.fromJSON(Map<String, dynamic> map) {
 //   return SettingsModel(

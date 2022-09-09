@@ -24,7 +24,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
 
     return SettingsList(
       shrinkWrap: true,
-      platform: DevicePlatform.device,
+      platform: DevicePlatform.iOS,
       sections: [
         SettingsSection(
           title: Text('Einstellungen'),
@@ -52,11 +52,18 @@ class _SettingsScreenState extends State<SettingsScreen> {
           title: const Text('Scanner'),
           tiles: <SettingsTile>[
             SettingsTile.switchTile(
-              onToggle: (value) {},
-              initialValue: true,
-              leading: const Icon(Icons.lightbulb),
-              title: const Text('Kameralicht'),
-              description: const Text('dynamisch anschalten'),
+              onToggle: (value) {
+                print(value);
+
+                setState(() {
+                  settingsProvider.setCameraLight(value);
+                });
+
+              },
+              initialValue: Provider.of<SettingsProvider>(context).settingsModel.cameraLight,
+              leading: Icon(Icons.lightbulb),
+              title: Text('Kameralicht'),
+              description: Text('dynamisch anschalten'),
             ),
             SettingsTile.navigation(
               onPressed: (ctx) {

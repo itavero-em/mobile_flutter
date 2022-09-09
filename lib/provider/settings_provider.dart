@@ -49,4 +49,9 @@ class SettingsProvider extends ChangeNotifier{
     settingsModel.scanViewFinderMode = mode;
     _modelChanged();
   }
+
+  void setCameraLight(bool cameraLight)
+  {
+    settingsModel.cameraLight = cameraLight;
+  }
 }
