@@ -34,14 +34,15 @@ class _ConnectionListScreenState extends State<ConnectionListScreen> {
                 return Slidable(
                   // Specify a key if the Slidable is dismissible.
                   key: ValueKey(index),
-
                   // The start action pane is the one at the left or the top side.
                   startActionPane: ActionPane(
                     // A motion is a widget used to control how the pane animates.
                     motion: const ScrollMotion(),
 
                     // A pane can dismiss the Slidable.
-                    dismissible: DismissiblePane(onDismissed: () {}),
+                    //dismissible: DismissiblePane(onDismissed: () {
+                    //  print('SDSDDS');
+                    //  }),
 
                     // All actions are defined in the children parameter.
                     children: [
