@@ -18,7 +18,6 @@ class PreferenceService {
 
   Future<SettingsModel> getSettings() async
   {
-
     final preferences = await SharedPreferences.getInstance();
     var jsonString = await preferences.getString(APP_SETTINGS);
     if (jsonString == null)
