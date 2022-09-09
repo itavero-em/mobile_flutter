@@ -4,16 +4,16 @@ import 'package:itavero_mobile/provider/settings_provider.dart';
 import 'package:provider/provider.dart';
 
 
-class ConnectionCreateScreen extends StatefulWidget {
+class ConnectionEditScreen extends StatefulWidget {
   final ConnectionModel? connectionModel;
 
-  const ConnectionCreateScreen({Key? key, this.connectionModel}) : super(key: key);
+  const ConnectionEditScreen({Key? key, this.connectionModel}) : super(key: key);
 
   @override
-  State<ConnectionCreateScreen> createState() => _ConnectionCreateView(connectionModel);
+  State<ConnectionEditScreen> createState() => _ConnectionCreateView(connectionModel);
 }
 
-class _ConnectionCreateView extends State<ConnectionCreateScreen> {
+class _ConnectionCreateView extends State<ConnectionEditScreen> {
   final ConnectionModel? connectionModel;
 
   _ConnectionCreateView({this.connectionModel});
