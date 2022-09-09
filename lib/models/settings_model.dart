@@ -41,8 +41,13 @@ class SettingsModel {
   factory SettingsModel.fromJson(Map<String, dynamic> map) {
     var v = map['verbindungen'] as List<dynamic>;
     var list = v.map((e) => ConnectionModel.fromJson(e)).toList();
-    ScanViewFinderMode scanviewfindermode =
-        ScanViewFinderMode.fromValue(map['scan_viewfindermode'] );
+    var jsonViewFinderMode = map['scan_viewfindermode'];
+    ScanViewFinderMode scanviewfindermode = ScanViewFinderMode.rectangle;
+    if (jsonViewFinderMode != null)
+      {
+         scanviewfindermode = ScanViewFinderMode.fromValue( jsonViewFinderMode );
+
+      }
 
     return SettingsModel(
         verbindungen: list,
