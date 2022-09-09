@@ -5,13 +5,13 @@ import 'settings_model.dart';
 @JsonSerializable()
 class ConnectionModel {
   @JsonKey(name: 'name')
-  final String name;
+  String name = '';
   @JsonKey(name: 'url')
-  final String url;
+  String url = '';
 
 //<editor-fold desc="Data Methods">
 
-  const ConnectionModel({required this.name, required this.url});
+  ConnectionModel({required this.name, required this.url});
 
   @override
   bool operator ==(Object other) =>

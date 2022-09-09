@@ -14,7 +14,7 @@ enum ScanViewFinderMode {
 
 @JsonSerializable()
 class SettingsModel {
-  static const noConnectionModel =
+  static ConnectionModel noConnectionModel =
       ConnectionModel(name: 'Keine Verbindung!!', url: '');
 
   @JsonKey(name: 'verbindungen')
