@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:itavero_mobile/provider/settings_provider.dart';
 import 'package:itavero_mobile/screens/connections/connection_create_screen.dart';
+import 'package:itavero_mobile/screens/connections/connection_edit_screen.dart';
 import 'package:provider/provider.dart';
 
 class ConnectionListScreen extends StatefulWidget {
@@ -49,7 +50,10 @@ class _ConnectionListScreenState extends State<ConnectionListScreen> {
                         // An action can be bigger than the others.
                         //flex: 2,
                         onPressed: (context) {
-                          // TODO: Edit-Screen aufrufen
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(builder: (context) => ConnectionEditScreen(connectionModel: connectionItem)),
+                          ).then((value) => setState(() {}));
                         },
                         backgroundColor: Color(0xFF7BC043),
                         foregroundColor: Colors.white,

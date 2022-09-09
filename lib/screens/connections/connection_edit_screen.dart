@@ -5,24 +5,24 @@ import 'package:provider/provider.dart';
 
 
 class ConnectionEditScreen extends StatefulWidget {
-  final ConnectionModel? connectionModel;
+  final ConnectionModel connectionModel;
 
-  const ConnectionEditScreen({Key? key, this.connectionModel}) : super(key: key);
+  const ConnectionEditScreen({Key? key, required this.connectionModel}) : super(key: key);
 
   @override
-  State<ConnectionEditScreen> createState() => _ConnectionCreateView(connectionModel);
+  State<ConnectionEditScreen> createState() => _ConnectionCreateView();
 }
 
 class _ConnectionCreateView extends State<ConnectionEditScreen> {
-  final ConnectionModel? connectionModel;
 
-  _ConnectionCreateView({this.connectionModel});
-
-  TextEditingController _nameCtrl = TextEditingController(text: connectionModel.name);
-  TextEditingController _urlCtrl = TextEditingController(text: '');
+  late TextEditingController _nameCtrl;
+  late TextEditingController _urlCtrl;
 
   @override
   Widget build(BuildContext context) {
+
+    _nameCtrl = TextEditingController(text: widget.connectionModel.name);
+    _urlCtrl = TextEditingController(text: widget.connectionModel.url);
     return Scaffold(
       appBar: AppBar(
         title: Text('Verbindung bearbeiten'),
@@ -54,11 +54,12 @@ class _ConnectionCreateView extends State<ConnectionEditScreen> {
             ),
             ElevatedButton(
                 onPressed: () {
-                  final connectionModel = ConnectionModel(name: _nameCtrl.text,url: _urlCtrl.text);
-                  Provider.of<SettingsProvider>(context, listen: false).addVerbindung(connectionModel);
+                  widget.connectionModel.name=_nameCtrl.text;
+                  widget.connectionModel.url=_urlCtrl.text;
+                  Provider.of<SettingsProvider>(context, listen: false).changeVerbindung(widget.connectionModel);
                   Navigator.pop(context);
                 },
-                child: const Text('Erstelle Verbindung'))
+                child: const Text('Speichere Verbindung'))
           ],
         ),
       ),

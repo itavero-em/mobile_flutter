@@ -26,6 +26,10 @@ class SettingsProvider extends ChangeNotifier{
   }
 
 
+  void changeVerbindung(ConnectionModel connection){
+    _modelChanged();
+  }
+
   void addVerbindung(ConnectionModel newConnection){
     settingsModel.verbindungen.add(newConnection);
     _modelChanged();
