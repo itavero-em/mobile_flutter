@@ -3,7 +3,6 @@ import 'package:itavero_mobile/models/connection_model.dart';
 import 'package:itavero_mobile/provider/settings_provider.dart';
 import 'package:provider/provider.dart';
 
-
 class ConnectionCreateScreen extends StatefulWidget {
   const ConnectionCreateScreen({Key? key}) : super(key: key);
 
@@ -12,14 +11,38 @@ class ConnectionCreateScreen extends StatefulWidget {
 }
 
 class _ConnectionCreateView extends State<ConnectionCreateScreen> {
-  TextEditingController _nameCtrl = TextEditingController(text: '');
-  TextEditingController _urlCtrl = TextEditingController(text: '');
+  final TextEditingController _nameCtrl = TextEditingController(text: '');
+  final TextEditingController _urlCtrl = TextEditingController(text: '');
+
+  bool isButtonSaveActive = false;
+
+  @override
+  void initState() {
+    _nameCtrl.addListener(() {
+      final isButtonSaveActiveCheck =
+          _nameCtrl.text.isNotEmpty && _urlCtrl.text.isNotEmpty;
+
+      setState(() {
+        isButtonSaveActive = isButtonSaveActiveCheck;
+      });
+    });
+
+    _urlCtrl.addListener(() {
+      final isButtonSaveActiveCheck =
+          _urlCtrl.text.isNotEmpty && _urlCtrl.text.isNotEmpty;
+
+      setState(() {
+        isButtonSaveActive = isButtonSaveActiveCheck;
+      });
+    });
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Erstelle eine Verbindung'),
+        title: const Text('Erstelle eine Verbindung'),
       ),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
@@ -35,7 +58,8 @@ class _ConnectionCreateView extends State<ConnectionCreateScreen> {
                   border: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(20),
                   )),
-            ),TextField(
+            ),
+            TextField(
               controller: _urlCtrl,
               autofocus: true,
               decoration: InputDecoration(
@@ -47,11 +71,15 @@ class _ConnectionCreateView extends State<ConnectionCreateScreen> {
                   )),
             ),
             ElevatedButton(
-                onPressed: () {
-                  final connectionModel = ConnectionModel(name: _nameCtrl.text,url: _urlCtrl.text);
-                  Provider.of<SettingsProvider>(context, listen: false).addVerbindung(connectionModel);
-                  Navigator.pop(context);
-                },
+                onPressed: isButtonSaveActive
+                    ? () {
+                        final connectionModel = ConnectionModel(
+                            name: _nameCtrl.text, url: _urlCtrl.text);
+                        Provider.of<SettingsProvider>(context, listen: false)
+                            .addVerbindung(connectionModel);
+                        Navigator.pop(context);
+                      }
+                    : null,
                 child: const Text('Erstelle Verbindung'))
           ],
         ),
