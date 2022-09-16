@@ -1,6 +1,8 @@
 import 'connection_model.dart';
 import 'package:json_annotation/json_annotation.dart';
 
+part 'settings_model.g.dart';
+
 enum ScanViewFinderMode {
   line("Linie"), // You can also use numbers as you wish
   rectangle("Rechteck"),
@@ -34,16 +36,16 @@ class SettingsModel {
       required this.scanViewFinderMode,
       required this.cameraLight});
 
-  Map<String, dynamic> toJson() {
+ /* Map<String, dynamic> toJson() {
     return {
       'aktive_verbindung': this.aktiveVerbindung,
       'verbindungen': this.verbindungen,
       'scan_viewfindermode': this.scanViewFinderMode.jsonValue,
       'kamera_licht' : this.cameraLight
     };
-  }
+  }*/
 
-  factory SettingsModel.fromJson(Map<String, dynamic> map) {
+/*  factory SettingsModel.fromJson(Map<String, dynamic> map) {
     var v = map['verbindungen'] as List<dynamic>;
     var list = v.map((e) => ConnectionModel.fromJson(e)).toList();
     var jsonViewFinderMode = map['scan_viewfindermode'];
@@ -66,11 +68,17 @@ class SettingsModel {
         scanViewFinderMode: scanviewfindermode,
       cameraLight: camLight
     );
-  }
+  }*/
 // factory SettingsModel.fromJSON(Map<String, dynamic> map) {
 //   return SettingsModel(
 //     verbindungen: map['verbindungen'] as List<ConnectionModel>,
 //   );
 // }
 
+
+
+  factory SettingsModel.fromJson(Map<String, dynamic> json) => _$SettingsModelFromJson(json);
+
+
+  Map<String, dynamic> toJson() => _$SettingsModelToJson(this);
 }

@@ -20,12 +20,21 @@ class PreferenceService {
   {
     final preferences = await SharedPreferences.getInstance();
     var jsonString = await preferences.getString(APP_SETTINGS);
+    SettingsModel defaultModel = SettingsModel(verbindungen: [],aktiveVerbindung: SettingsModel.noConnectionModel, scanViewFinderMode: ScanViewFinderMode.line, cameraLight: false);
     if (jsonString == null)
       {
-        return SettingsModel(verbindungen: [],aktiveVerbindung: SettingsModel.noConnectionModel, scanViewFinderMode: ScanViewFinderMode.line, cameraLight: false);
+        return defaultModel;
       } else {
       Map<String, dynamic> jsonMap = await jsonDecode(jsonString);
-      return SettingsModel.fromJson(jsonMap);
+      SettingsModel model;
+      try{
+        model = SettingsModel.fromJson(jsonMap);
+      } catch(e){
+        model = defaultModel;
+      }
+      print("Model");
+      print(model.toJson());
+      return model;
     }
   }
 

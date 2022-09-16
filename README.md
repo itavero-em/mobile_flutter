@@ -22,3 +22,28 @@ samples, guidance on mobile development, and a full API reference.
 - [settings_ui](https://pub.dev/packages/settings_ui)
 - scandit_flutter_datacapture_barcode
 - [webview_flutter](https://pub.dev/packages/webview_flutter)
+- [build_runner](https://pub.dev/packages/build_runner) --dev
+
+
+## build_runner
+Plugin ist zum generieren von Dart-Code.
+Wir z.B. verwendet für JSON
+
+dart pub add build_runner --dev
+
+flutter pub run build_runner build
+
+Die verfügbaren Befehle sind build, watch, serveund test.
+
+build: Führt einen einzelnen Build aus und wird beendet.
+watch: Führt einen persistenten Build-Server aus, der das Dateisystem auf Änderungen überwacht und bei Bedarf Neuerstellungen durchführt.
+serve: Wie watch, führt aber auch einen Entwicklungsserver aus.
+Standardmäßig bedient dies die Verzeichnisse webund testauf Port 8080bzw. 8081Unten erfahren Sie, wie Sie dies konfigurieren.
+test: Führt einen einzelnen Build aus, erstellt ein zusammengeführtes Ausgabeverzeichnis und führt dann dart run test --precompiled <merged-output-dir>. Nachfolgend finden Sie Anweisungen zum Übergeben benutzerdefinierter Argumente an den Testbefehl.
+
+### bei Problemen mit build_runner
+flutter clean
+
+dart pub get
+
+flutter pub get
