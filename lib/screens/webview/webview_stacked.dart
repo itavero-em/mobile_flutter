@@ -78,8 +78,11 @@ class _WebViewStackedState extends State<WebViewStacked> {
       JavascriptChannel(
         name: 'Notifications',
         onMessageReceived: (message) {
+          // Dieser Aufruf aus Javascript ist notwendig:
+          // -> Notifications.postMessage('Hallo Flutter');
+          // -> 'Hallo Flutter' landet dann in der Message
 
-          // NotificationApi.showNotification(body: 'Body',title: 'Title',payload: 'Payload',id: 1);
+           //NotificationApi.showNotification(body: 'Body',title: 'Title');
           //https://www.youtube.com/watch?v=bRy5dmts3X8
           ScaffoldMessenger.of(context)
               .showSnackBar(SnackBar(content: Text('Notifications:'+message.message)));
