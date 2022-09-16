@@ -46,8 +46,25 @@ class _SettingsScreenState extends State<SettingsScreen> {
                 ).then((value) => setState(() {}));
               },
             ),
+            SettingsTile.switchTile(
+              onToggle: (value) {
+                print(value);
+
+                setState(() {
+                  settingsProvider.enablePushMessages(value);
+                });
+
+              },
+              initialValue: Provider.of<SettingsProvider>(context).settingsModel.pushMessageEnabled,
+              leading: Provider.of<SettingsProvider>(context).settingsModel.pushMessageEnabled ? Icon(Icons.notifications_active) : Icon(Icons.notifications_paused),
+              title: Text('Push Benachrichtigungen'),
+              description: Provider.of<SettingsProvider>(context).settingsModel.pushMessageEnabled ? Text('werden an die App übermittelt'): Text('inaktiv'),
+
+            ),
+
           ],
         ),
+
         SettingsSection(
           title: const Text('Scanner'),
           tiles: <SettingsTile>[
@@ -65,21 +82,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
               title: Text('Kameralicht'),
               description: Provider.of<SettingsProvider>(context).settingsModel.cameraLight ? Text('beim Scannen eingeschaltet'): Text('inaktiv'),
             ),
-            SettingsTile.switchTile(
-              onToggle: (value) {
-                print(value);
 
-                setState(() {
-                  settingsProvider.enablePushMessages(value);
-                });
-
-              },
-              initialValue: Provider.of<SettingsProvider>(context).settingsModel.pushMessageEnabled,
-              leading: Provider.of<SettingsProvider>(context).settingsModel.pushMessageEnabled ? Icon(Icons.notifications_active) : Icon(Icons.notifications_paused),
-              title: Text('Push Benachrichtigungen'),
-              description: Provider.of<SettingsProvider>(context).settingsModel.pushMessageEnabled ? Text('werden an die App übermittelt'): Text('inaktiv'),
-
-            ),
             SettingsTile.navigation(
               onPressed: (ctx) {
                 _showActionSheet(context);
