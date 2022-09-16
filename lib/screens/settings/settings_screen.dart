@@ -63,7 +63,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
               initialValue: Provider.of<SettingsProvider>(context).settingsModel.cameraLight,
               leading: Icon(Icons.lightbulb),
               title: Text('Kameralicht'),
-              description: Text('dynamisch anschalten'),
+              description: Provider.of<SettingsProvider>(context).settingsModel.cameraLight ? Text('beim Scannen eingeschaltet'): Text('inaktiv'),
             ),
             SettingsTile.switchTile(
               onToggle: (value) {
@@ -75,8 +75,9 @@ class _SettingsScreenState extends State<SettingsScreen> {
 
               },
               initialValue: Provider.of<SettingsProvider>(context).settingsModel.pushMessageEnabled,
-              leading: Provider.of<SettingsProvider>(context).settingsModel.pushMessageEnabled ? Icon(Icons.notifications_paused) : Icon(Icons.notifications_active),
+              leading: Provider.of<SettingsProvider>(context).settingsModel.pushMessageEnabled ? Icon(Icons.notifications_active) : Icon(Icons.notifications_paused),
               title: Text('Push Benachrichtigungen'),
+              description: Provider.of<SettingsProvider>(context).settingsModel.pushMessageEnabled ? Text('werden an die App übermittelt'): Text('inaktiv'),
 
             ),
             SettingsTile.navigation(
