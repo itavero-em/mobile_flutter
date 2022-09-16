@@ -13,6 +13,7 @@ import 'package:itavero_mobile/provider/settings_provider.dart';
 import 'package:itavero_mobile/screens/onboarding/onboarding_screen.dart';
 import 'package:itavero_mobile/screens/scanning/barcode_scanner_screen.dart';
 import 'package:itavero_mobile/screens/settings/settings_screen.dart';
+import 'package:itavero_mobile/screens/webview/webview_stacked.dart';
 import 'package:itavero_mobile/services/preference_service.dart';
 import 'package:provider/provider.dart';
 import 'package:scandit_flutter_datacapture_barcode/scandit_flutter_datacapture_barcode.dart';
@@ -71,7 +72,7 @@ class _MobileAppState extends State<MobileApp> {
 
   final List<Widget> _pages = <Widget>[
     Center(
-      child: WebViewScreen(),
+      child: WebViewStacked(),//WebViewScreen(),
     ),
     Center(
       child: Column(
