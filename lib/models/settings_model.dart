@@ -30,55 +30,19 @@ class SettingsModel {
   @JsonKey(name: 'kamera_licht')
   bool cameraLight = false;
 
+  @JsonKey(name: 'push_benachrichtigungen')
+  bool pushMessageEnabled = false;
+
   SettingsModel(
       {required this.verbindungen,
       required this.aktiveVerbindung,
       required this.scanViewFinderMode,
-      required this.cameraLight});
+      required this.cameraLight,
+      required this.pushMessageEnabled});
 
- /* Map<String, dynamic> toJson() {
-    return {
-      'aktive_verbindung': this.aktiveVerbindung,
-      'verbindungen': this.verbindungen,
-      'scan_viewfindermode': this.scanViewFinderMode.jsonValue,
-      'kamera_licht' : this.cameraLight
-    };
-  }*/
-
-/*  factory SettingsModel.fromJson(Map<String, dynamic> map) {
-    var v = map['verbindungen'] as List<dynamic>;
-    var list = v.map((e) => ConnectionModel.fromJson(e)).toList();
-    var jsonViewFinderMode = map['scan_viewfindermode'];
-    ScanViewFinderMode scanviewfindermode = ScanViewFinderMode.rectangle;
-    if (jsonViewFinderMode != null)
-      {
-         scanviewfindermode = ScanViewFinderMode.fromValue( jsonViewFinderMode );
-
-      }
-    var camLight = false;
-    if (map['kamera_licht'] != null)
-      {
-        camLight = map['kamera_licht'] as bool;
-      }
-
-
-    return SettingsModel(
-        verbindungen: list,
-        aktiveVerbindung: ConnectionModel.fromJson(map['aktive_verbindung']),
-        scanViewFinderMode: scanviewfindermode,
-      cameraLight: camLight
-    );
-  }*/
-// factory SettingsModel.fromJSON(Map<String, dynamic> map) {
-//   return SettingsModel(
-//     verbindungen: map['verbindungen'] as List<ConnectionModel>,
-//   );
-// }
-
-
-
-  factory SettingsModel.fromJson(Map<String, dynamic> json) => _$SettingsModelFromJson(json);
-
-
+  // Deserialisieren
+  factory SettingsModel.fromJson(Map<String, dynamic> json) =>
+      _$SettingsModelFromJson(json);
+  // Serialisieren
   Map<String, dynamic> toJson() => _$SettingsModelToJson(this);
 }

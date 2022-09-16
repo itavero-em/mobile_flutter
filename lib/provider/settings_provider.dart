@@ -56,5 +56,12 @@ class SettingsProvider extends ChangeNotifier{
   void setCameraLight(bool cameraLight)
   {
     settingsModel.cameraLight = cameraLight;
+    _modelChanged();
+  }
+
+  void enablePushMessages(bool pushMessage)
+  {
+    settingsModel.pushMessageEnabled = pushMessage;
+    _modelChanged();
   }
 }

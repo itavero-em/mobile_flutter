@@ -4,11 +4,9 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'dart:convert';
 
 class PreferenceService {
-
   final String APP_SETTINGS = 'app_settings';
 
-  Future saveSettings(SettingsModel settingsModel) async
-  {
+  Future saveSettings(SettingsModel settingsModel) async {
     final preferences = await SharedPreferences.getInstance();
     var settingsJson = await settingsModel.toJson();
     var encodedJSON = await jsonEncode(settingsJson);
@@ -16,26 +14,30 @@ class PreferenceService {
     print("saved Settings");
   }
 
-  Future<SettingsModel> getSettings() async
-  {
+  Future<SettingsModel> getSettings() async {
     final preferences = await SharedPreferences.getInstance();
     var jsonString = await preferences.getString(APP_SETTINGS);
-    SettingsModel defaultModel = SettingsModel(verbindungen: [],aktiveVerbindung: SettingsModel.noConnectionModel, scanViewFinderMode: ScanViewFinderMode.line, cameraLight: false);
-    if (jsonString == null)
-      {
-        return defaultModel;
-      } else {
+    SettingsModel defaultModel = SettingsModel(
+        verbindungen: [
+          ConnectionModel(name: 'Hassia Echt', url: 'https://itavwdmz01.itavero.de:8443/web_erp'),
+
+        ],
+        aktiveVerbindung: SettingsModel.noConnectionModel,
+        scanViewFinderMode: ScanViewFinderMode.line,
+        cameraLight: false,
+        pushMessageEnabled: false);
+    if (jsonString == null) {
+      return defaultModel;
+    } else {
       Map<String, dynamic> jsonMap = await jsonDecode(jsonString);
       SettingsModel model;
-      try{
+      try {
         model = SettingsModel.fromJson(jsonMap);
-      } catch(e){
+      } catch (e) {
         model = defaultModel;
+        //TODO: Toast -> Snackbar Info
       }
-      print("Model");
-      print(model.toJson());
       return model;
     }
   }
-
 }

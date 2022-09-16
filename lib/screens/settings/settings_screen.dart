@@ -65,6 +65,20 @@ class _SettingsScreenState extends State<SettingsScreen> {
               title: Text('Kameralicht'),
               description: Text('dynamisch anschalten'),
             ),
+            SettingsTile.switchTile(
+              onToggle: (value) {
+                print(value);
+
+                setState(() {
+                  settingsProvider.enablePushMessages(value);
+                });
+
+              },
+              initialValue: Provider.of<SettingsProvider>(context).settingsModel.pushMessageEnabled,
+              leading: Provider.of<SettingsProvider>(context).settingsModel.pushMessageEnabled ? Icon(Icons.notifications_paused) : Icon(Icons.notifications_active),
+              title: Text('Push Benachrichtigungen'),
+
+            ),
             SettingsTile.navigation(
               onPressed: (ctx) {
                 _showActionSheet(context);

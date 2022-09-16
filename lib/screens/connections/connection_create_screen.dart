@@ -54,7 +54,7 @@ class _ConnectionCreateView extends State<ConnectionCreateScreen> {
               decoration: InputDecoration(
                   labelText: 'Name',
                   helperText: 'Name der Verbindung eingeben',
-                  prefixIcon: Icon(Icons.group),
+                  prefixIcon: Icon(Icons.abc),
                   border: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(20),
                   )),
@@ -65,7 +65,7 @@ class _ConnectionCreateView extends State<ConnectionCreateScreen> {
               decoration: InputDecoration(
                   labelText: 'URL',
                   helperText: 'Url eingeben',
-                  prefixIcon: Icon(Icons.abc),
+                  prefixIcon: Icon(Icons.link),
                   border: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(20),
                   )),
