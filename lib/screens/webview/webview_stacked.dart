@@ -1,10 +1,11 @@
+import 'dart:ui';
+
 import 'package:flutter/material.dart';
 import 'package:itavero_mobile/provider/settings_provider.dart';
 import 'package:provider/provider.dart';
 import 'package:webview_flutter/webview_flutter.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:itavero_mobile/api/notification_api.dart';
-
 
 class WebViewStacked extends StatefulWidget {
   const WebViewStacked({Key? key}) : super(key: key);
@@ -15,11 +16,12 @@ class WebViewStacked extends StatefulWidget {
 
 class _WebViewStackedState extends State<WebViewStacked> {
   var loadingPercentage = 0;
+  var loadingFinished = false;
 
   @override
   Widget build(BuildContext context) {
     return Stack(
-      children: [
+      children: <Widget>[
         WebView(
           debuggingEnabled: true,
           initialUrl: Provider.of<SettingsProvider>(context)
@@ -45,12 +47,14 @@ class _WebViewStackedState extends State<WebViewStacked> {
           onPageStarted: (String url) {
             setState(() {
               loadingPercentage = 0;
+              loadingFinished = false;
             });
             print('Page started loading: $url');
           },
           onPageFinished: (String url) {
             setState(() {
               loadingPercentage = 100;
+              loadingFinished = true;
             });
             print('Page finished loading: $url');
           },
@@ -60,6 +64,33 @@ class _WebViewStackedState extends State<WebViewStacked> {
           LinearProgressIndicator(
             value: loadingPercentage / 100,
             color: Colors.red[400],
+          ),
+        if (loadingPercentage < 100)
+          Center(
+            child: ClipRect(
+              child: BackdropFilter(
+                filter: ImageFilter.blur(
+                  sigmaX: 1.7,
+                  sigmaY: 1.7,
+                ),
+                child: Container(
+                  height: double.infinity,
+                  width: double.infinity,
+                  alignment: Alignment.center,
+                  child: Container(
+                      decoration: BoxDecoration(
+                          color: Colors.grey[200],
+                          border: Border.all(color: Colors.grey),
+                          borderRadius: BorderRadius.circular(10.0)),
+                      child: const Padding(
+                          padding: EdgeInsets.all(25.0),
+                          child: Text("Die Webapps werden geladen ...",
+                              style: TextStyle(
+                                  fontSize: 20.0,
+                                  fontWeight: FontWeight.bold)))),
+                ),
+              ),
+            ),
           ),
       ],
     );
@@ -82,10 +113,10 @@ class _WebViewStackedState extends State<WebViewStacked> {
           // -> Notifications.postMessage('Hallo Flutter');
           // -> 'Hallo Flutter' landet dann in der Message
 
-           //NotificationApi.showNotification(body: 'Body',title: 'Title');
+          //NotificationApi.showNotification(body: 'Body',title: 'Title');
           //https://www.youtube.com/watch?v=bRy5dmts3X8
-          ScaffoldMessenger.of(context)
-              .showSnackBar(SnackBar(content: Text('Notifications:'+message.message)));
+          ScaffoldMessenger.of(context).showSnackBar(
+              SnackBar(content: Text('Notifications:' + message.message)));
         },
       ),
     };

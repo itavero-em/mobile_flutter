@@ -62,13 +62,7 @@ class _ConnectionListScreenState extends State<ConnectionListScreen> {
                           icon: Icons.edit,
                           label: 'Bearbeiten',
                         ),
-                        // SlidableAction(
-                        //   onPressed: (context) {},
-                        //   backgroundColor: Color(0xFF21B7CA),
-                        //   foregroundColor: Colors.white,
-                        //   icon: Icons.share,
-                        //   label: 'Share',
-                        // ),
+
                       ],
                     ),
 
@@ -86,7 +80,7 @@ class _ConnectionListScreenState extends State<ConnectionListScreen> {
                           backgroundColor: Color(0xFFFE4A49),
                           foregroundColor: Colors.white,
                           icon: Icons.delete,
-                          label: 'Delete',
+                          label: 'löschen',
                         ),
                       ],
                     ),
