@@ -45,7 +45,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
     return SettingsTile(
       leading: icon == null ? null : Icon(icon),
       title: Text(title),
-        onPressed: (_) {},
+      onPressed: (_) {},
       value: Text(subtitle.isEmpty ? 'Not set' : subtitle),
     );
   }
@@ -56,24 +56,17 @@ class _SettingsScreenState extends State<SettingsScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return
-
-
-
-      Scaffold(
-
-        appBar:
-           AppBar(
-              title: Container(
-                child: const Text(
-                  'Einstellungen',
-                ),
-                alignment: Alignment.topLeft,
-              ),
-              centerTitle: true,
-              backgroundColor: ItaveroMobile.itacolor),
-                body:
-      SettingsList(
+    return Scaffold(
+      appBar: AppBar(
+          title: Container(
+            child: const Text(
+              'Einstellungen',
+            ),
+            alignment: Alignment.topLeft,
+          ),
+          centerTitle: true,
+          backgroundColor: ItaveroMobile.itacolor),
+      body: SettingsList(
         shrinkWrap: false,
         platform: DevicePlatform.device,
         sections: [
@@ -81,7 +74,6 @@ class _SettingsScreenState extends State<SettingsScreen> {
             title: Text('Allgemein'),
             tiles: <SettingsTile>[
               SettingsTile.navigation(
-
                 leading: const Icon(Icons.language),
                 title: const Text('Verbindungen'),
                 value: Text(Provider.of<SettingsProvider>(context)
@@ -164,7 +156,6 @@ class _SettingsScreenState extends State<SettingsScreen> {
               _infoTileStandard('App version', _packageInfo.version),
               _infoTileStandard('Build number', _packageInfo.buildNumber),
               _infoTileStandard('Build signature', _packageInfo.buildSignature),
-              
             ],
           ),
         ],
