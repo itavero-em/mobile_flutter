@@ -1,6 +1,6 @@
 name: "Build Android"
 env:
-  FLUTTER_VERSION: "staple"
+  FLUTTER_VERSION: "stable"
 on: push
 jobs:
   test:
