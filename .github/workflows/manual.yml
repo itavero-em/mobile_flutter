@@ -1,0 +1,24 @@
+name: Build Android Release
+env:
+  FLUTTER_VERSION: "master"
+on: push
+jobs:
+  test:
+    name: Build APK
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: Install Flutter
+        uses: britannio/action-install-flutter@v1
+        with:
+          version: $FLUTTER_VERSION
+      - name: Get Packages
+        run: flutter pub get
+      - name: Run Tests
+        run: flutter test --no-pub
+      - name: Run deploy
+        run: flutter build apk --release
+      - uses: actions/upload-artifact@v3
+        with:
+          name: mobile_flutter_apk
+          path: build/app/outputs/flutter-apk/app-release.apk
