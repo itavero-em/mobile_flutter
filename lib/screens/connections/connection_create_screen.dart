@@ -3,6 +3,8 @@ import 'package:itavero_mobile/models/connection_model.dart';
 import 'package:itavero_mobile/provider/settings_provider.dart';
 import 'package:provider/provider.dart';
 
+import '../../main.dart';
+
 class ConnectionCreateScreen extends StatefulWidget {
   const ConnectionCreateScreen({Key? key}) : super(key: key);
 
@@ -43,6 +45,7 @@ class _ConnectionCreateView extends State<ConnectionCreateScreen> {
     return Scaffold(
       appBar: AppBar(
         title: const Text('Erstelle eine Verbindung'),
+          backgroundColor: ItaveroMobile.itacolor,
       ),
       body: Padding(
         padding: const EdgeInsets.all(16.0),

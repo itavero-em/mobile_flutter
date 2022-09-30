@@ -3,6 +3,8 @@ import 'package:itavero_mobile/models/connection_model.dart';
 import 'package:itavero_mobile/provider/settings_provider.dart';
 import 'package:provider/provider.dart';
 
+import '../../main.dart';
+
 
 class ConnectionEditScreen extends StatefulWidget {
   final ConnectionModel connectionModel;
@@ -26,6 +28,7 @@ class _ConnectionCreateView extends State<ConnectionEditScreen> {
     return Scaffold(
       appBar: AppBar(
         title: Text('Verbindung bearbeiten'),
+          backgroundColor: ItaveroMobile.itacolor,
       ),
       body: Padding(
         padding: const EdgeInsets.all(16.0),

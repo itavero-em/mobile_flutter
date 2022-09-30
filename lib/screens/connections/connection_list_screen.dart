@@ -5,6 +5,8 @@ import 'package:itavero_mobile/screens/connections/connection_create_screen.dart
 import 'package:itavero_mobile/screens/connections/connection_edit_screen.dart';
 import 'package:provider/provider.dart';
 
+import '../../main.dart';
+
 class ConnectionListScreen extends StatefulWidget {
   const ConnectionListScreen({Key? key}) : super(key: key);
 
@@ -20,6 +22,8 @@ class _ConnectionListScreenState extends State<ConnectionListScreen> {
     return Scaffold(
       appBar: AppBar(
         title: Text('Verbindungen'),
+          backgroundColor: ItaveroMobile.itacolor,
+
       ),
       body: settingsProvider.verbindungen.isEmpty
           ? const Center(

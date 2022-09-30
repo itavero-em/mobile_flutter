@@ -34,7 +34,7 @@ class ItaveroMobile extends StatelessWidget {
   const ItaveroMobile({Key? key}) : super(key: key);
 
   static const String _title = 'itavero mobile app';
-  static const Color _itacolor = Color(0xff3397c8);
+  static const Color itacolor = Color(0xff3397c8);
 
   @override
   Widget build(BuildContext context) {
@@ -98,7 +98,7 @@ class _MobileAppState extends State<MobileApp> {
               alignment: Alignment.topLeft,
             ),
             centerTitle: true,
-            backgroundColor: ItaveroMobile._itacolor),
+            backgroundColor: ItaveroMobile.itacolor),
       ),
       body: _pages.elementAt(_selectedIndex),
       bottomNavigationBar: BottomNavigationBar(
@@ -123,7 +123,7 @@ class _MobileAppState extends State<MobileApp> {
           ),
         ],
         currentIndex: _selectedIndex,
-        selectedItemColor: ItaveroMobile._itacolor,
+        selectedItemColor: ItaveroMobile.itacolor,
         onTap: _onItemTapped,
       ),
     );
