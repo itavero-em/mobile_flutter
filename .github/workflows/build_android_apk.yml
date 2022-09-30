@@ -3,7 +3,7 @@ env:
   FLUTTER_VERSION: "master"
 on: push
 jobs:
-  build:
+  test:
     name: Build APK
     runs-on: ubuntu-latest
     steps:
