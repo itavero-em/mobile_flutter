@@ -15,8 +15,6 @@ import 'package:provider/provider.dart';
 import 'package:scandit_flutter_datacapture_barcode/scandit_flutter_datacapture_barcode.dart';
 import 'package:flutter/cupertino.dart';
 
-
-
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await ScanditFlutterDataCaptureBarcode.initialize();
@@ -56,7 +54,8 @@ class MobileApp extends StatefulWidget {
 
 class _MobileAppState extends State<MobileApp> {
   int _selectedIndex = 1;
- // final PreferenceService _preferenceService = PreferenceService();
+
+  // final PreferenceService _preferenceService = PreferenceService();
 
   @override
   initState() {
@@ -67,13 +66,9 @@ class _MobileAppState extends State<MobileApp> {
     Center(
       child: WebViewStacked(),
     ),
-    Center(
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.start,
-        children: const [
-          SettingsScreen(),
-        ],
-      ),
+    Container(
+      child: SettingsScreen(),
+      alignment: Alignment.topCenter,
     ),
     PlatformApp(
       cupertino: (_, __) => CupertinoAppData(
@@ -108,9 +103,7 @@ class _MobileAppState extends State<MobileApp> {
            */
           // backgroundColor: const Color(0x007bb9),
           backgroundColor: ItaveroMobile._itacolor),
-      body: Center(
-        child: _pages.elementAt(_selectedIndex),
-      ),
+      body: _pages.elementAt(_selectedIndex),
       bottomNavigationBar: BottomNavigationBar(
         items: <BottomNavigationBarItem>[
           BottomNavigationBarItem(
