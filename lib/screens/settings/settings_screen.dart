@@ -42,9 +42,10 @@ class _SettingsScreenState extends State<SettingsScreen> {
 
   SettingsTile _infoTileWithIcon(
       String title, String subtitle, IconData? icon) {
-    return SettingsTile.navigation(
+    return SettingsTile(
       leading: icon == null ? null : Icon(icon),
       title: Text(title),
+        onPressed: (_) {},
       value: Text(subtitle.isEmpty ? 'Not set' : subtitle),
     );
   }
@@ -80,6 +81,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
             title: Text('Allgemein'),
             tiles: <SettingsTile>[
               SettingsTile.navigation(
+
                 leading: const Icon(Icons.language),
                 title: const Text('Verbindungen'),
                 value: Text(Provider.of<SettingsProvider>(context)
@@ -162,6 +164,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
               _infoTileStandard('App version', _packageInfo.version),
               _infoTileStandard('Build number', _packageInfo.buildNumber),
               _infoTileStandard('Build signature', _packageInfo.buildSignature),
+              
             ],
           ),
         ],
