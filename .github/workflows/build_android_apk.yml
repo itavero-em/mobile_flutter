@@ -11,7 +11,7 @@ jobs:
       - name: Install Flutter
         uses: britannio/action-install-flutter@v1
         with:
-          version: $FLUTTER_VERSION
+          version: "master"
       - name: Get Packages
         run: flutter pub get
       - name: Run Tests
@@ -22,3 +22,6 @@ jobs:
         with:
           name: mobile_flutter_apk
           path: build/app/outputs/flutter-apk/app-release.apk
+
+
+
