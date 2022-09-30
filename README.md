@@ -49,9 +49,3 @@ flutter clean
 dart pub get
 
 flutter pub get
-
-###Test
-gkl
-test2
-ggg
-rrr
