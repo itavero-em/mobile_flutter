@@ -86,23 +86,20 @@ class _MobileAppState extends State<MobileApp> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-          title: const Text('itavero.mobile'),
-          /*
-          actions: [
-            IconButton(onPressed: () async
-                {
-                  // ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-                  //     content: Text(
-                  //         'Button wurde gedrückt')));
-
-                }
-                , icon: const Icon( Icons.more_vert))
-          ],
-
-           */
-          // backgroundColor: const Color(0x007bb9),
-          backgroundColor: ItaveroMobile._itacolor),
+      appBar: PreferredSize(
+        preferredSize: Size.fromHeight(20.0),
+        child: AppBar(
+            title: Container(
+              child: const Text(
+                'itavero.mobile',
+                style: TextStyle(fontSize: 12),
+                textAlign: TextAlign.left,
+              ),
+              alignment: Alignment.topLeft,
+            ),
+            centerTitle: true,
+            backgroundColor: ItaveroMobile._itacolor),
+      ),
       body: _pages.elementAt(_selectedIndex),
       bottomNavigationBar: BottomNavigationBar(
         items: <BottomNavigationBarItem>[
