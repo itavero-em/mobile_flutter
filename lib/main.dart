@@ -56,7 +56,7 @@ class MobileApp extends StatefulWidget {
 
 class _MobileAppState extends State<MobileApp> {
   int _selectedIndex = 1;
-  final PreferenceService _preferenceService = PreferenceService();
+ // final PreferenceService _preferenceService = PreferenceService();
 
   @override
   initState() {
@@ -93,6 +93,7 @@ class _MobileAppState extends State<MobileApp> {
     return Scaffold(
       appBar: AppBar(
           title: const Text('itavero.mobile'),
+          /*
           actions: [
             IconButton(onPressed: () async
                 {
@@ -103,6 +104,8 @@ class _MobileAppState extends State<MobileApp> {
                 }
                 , icon: const Icon( Icons.more_vert))
           ],
+
+           */
           // backgroundColor: const Color(0x007bb9),
           backgroundColor: ItaveroMobile._itacolor),
       body: Center(

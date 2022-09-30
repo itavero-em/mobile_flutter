@@ -4,8 +4,6 @@ import 'package:flutter/material.dart';
 import 'package:itavero_mobile/provider/settings_provider.dart';
 import 'package:provider/provider.dart';
 import 'package:webview_flutter/webview_flutter.dart';
-import 'package:flutter_local_notifications/flutter_local_notifications.dart';
-import 'package:itavero_mobile/api/notification_api.dart';
 
 class WebViewStacked extends StatefulWidget {
   const WebViewStacked({Key? key}) : super(key: key);
