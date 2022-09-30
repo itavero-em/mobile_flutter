@@ -1,9 +1,9 @@
-name: Build Android Release
+name: "Build Android"
 env:
   FLUTTER_VERSION: "master"
 on: push
 jobs:
-  test:
+  build:
     name: Build APK
     runs-on: ubuntu-latest
     steps:
