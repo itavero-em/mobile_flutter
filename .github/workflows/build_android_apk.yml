@@ -11,7 +11,7 @@ jobs:
       - name: Install Flutter
         uses: britannio/action-install-flutter@v1
         with:
-          version: "master"
+          version: "stable"
       - name: Flutter Check
         run: flutter doctor -v
       - name: Get Packages
