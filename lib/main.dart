@@ -86,20 +86,7 @@ class _MobileAppState extends State<MobileApp> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: PreferredSize(
-        preferredSize: Size.fromHeight(20.0),
-        child: AppBar(
-            title: Container(
-              child: const Text(
-                'itavero.mobile',
-                style: TextStyle(fontSize: 12),
-                textAlign: TextAlign.left,
-              ),
-              alignment: Alignment.topLeft,
-            ),
-            centerTitle: true,
-            backgroundColor: ItaveroMobile.itacolor),
-      ),
+
       body: _pages.elementAt(_selectedIndex),
       bottomNavigationBar: BottomNavigationBar(
         items: <BottomNavigationBarItem>[
