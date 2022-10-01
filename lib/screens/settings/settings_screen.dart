@@ -146,7 +146,9 @@ class _SettingsScreenState extends State<SettingsScreen> {
                     .scanViewFinderMode
                     .jsonValue),
               ),
+              _infoTileWithIcon('Scandit-Version','Version 6.14.1',Icons.perm_device_info),
             ],
+
           ),
           SettingsSection(
             title: const Text('App-Informationen'),
