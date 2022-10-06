@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:itavero_mobile/provider/settings_provider.dart';
 import 'package:provider/provider.dart';
 import 'package:webview_flutter/webview_flutter.dart';
+import 'package:flutter/foundation.dart';
 
 class WebViewStacked extends StatefulWidget {
   const WebViewStacked({Key? key}) : super(key: key);
@@ -15,13 +16,16 @@ class WebViewStacked extends StatefulWidget {
 class _WebViewStackedState extends State<WebViewStacked> {
   var loadingPercentage = 0;
   var loadingFinished = false;
-
+  var webViewController;
   @override
   Widget build(BuildContext context) {
     return SafeArea(
       child: Stack(
         children: <Widget>[
           WebView(
+            onWebViewCreated: (controller) {
+              webViewController = controller;
+            },
             debuggingEnabled: true,
             initialUrl: Provider.of<SettingsProvider>(context)
                 .settingsModel
@@ -55,6 +59,17 @@ class _WebViewStackedState extends State<WebViewStacked> {
                 loadingPercentage = 100;
                 loadingFinished = true;
               });
+              if (defaultTargetPlatform == TargetPlatform.iOS) {
+                print('Javascript für iOS (Flutter) wurde hinzugefügt');
+                webViewController.runJavascript('''var Scandit = {
+              getDeviceType:function(){return "FLUTTER_IOS"},
+              };''');
+              } else if (defaultTargetPlatform == TargetPlatform.android) {
+                print('Javascript für Android (Flutter) wurde hinzugefügt');
+                webViewController.runJavascript('''var Scandit = {
+              getDeviceType:function(){return "FLUTTER_ANDROID"},
+              };''');
+              }
               print('Page finished loading: $url');
             },
             gestureNavigationEnabled: true,
