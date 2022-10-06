@@ -62,7 +62,8 @@ class _WebViewStackedState extends State<WebViewStacked> {
               if (defaultTargetPlatform == TargetPlatform.iOS) {
                 print('Javascript für iOS (Flutter) wurde hinzugefügt');
                 webViewController.runJavascript('''var Scandit = {
-              getDeviceType:function(){return "FLUTTER_IOS"},
+              getDeviceType:function(){return "FLUTTER_IOS"}
+              ,
               };''');
               } else if (defaultTargetPlatform == TargetPlatform.android) {
                 print('Javascript für Android (Flutter) wurde hinzugefügt');
@@ -115,10 +116,19 @@ class _WebViewStackedState extends State<WebViewStacked> {
   Set<JavascriptChannel> _createJavascriptChannels(BuildContext context) {
     return {
       JavascriptChannel(
-        name: 'Scandit',
+        name: 'ScanditController',
         onMessageReceived: (message) {
-          ScaffoldMessenger.of(context)
-              .showSnackBar(SnackBar(content: Text(message.message)));
+
+          if (message == 'openScan')
+            {
+              // Scanner öffnen per Scandit
+              ScaffoldMessenger.of(context)
+                  .showSnackBar(SnackBar(content: Text('Scanner wird geöffnet '+message.message)));
+            }
+          else {
+            ScaffoldMessenger.of(context)
+                .showSnackBar(SnackBar(content: Text(message.message)));
+          }
         },
       ),
       JavascriptChannel(
