@@ -71,6 +71,7 @@ class _WebViewStackedState extends State<WebViewStacked> {
               getDeviceType:function(){return "FLUTTER_ANDROID"},
               };''');
               }
+
               print('Page finished loading: $url');
             },
             gestureNavigationEnabled: true,
@@ -119,7 +120,7 @@ class _WebViewStackedState extends State<WebViewStacked> {
         name: 'ScanditController',
         onMessageReceived: (message) {
 
-          if (message == 'openScan')
+          if (message.message == 'openScan')
             {
               // Scanner öffnen per Scandit
               ScaffoldMessenger.of(context)
