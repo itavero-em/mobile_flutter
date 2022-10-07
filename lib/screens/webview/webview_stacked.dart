@@ -1,8 +1,12 @@
 import 'dart:ui';
 
 import 'package:flutter/material.dart';
+import 'package:itavero_mobile/main.dart';
 import 'package:itavero_mobile/provider/settings_provider.dart';
+import 'package:itavero_mobile/screens/scanning/barcode_scanner_screen.dart';
 import 'package:provider/provider.dart';
+import 'package:scandit_flutter_datacapture_barcode/scandit_flutter_datacapture_barcode.dart';
+import 'package:scandit_flutter_datacapture_barcode/scandit_flutter_datacapture_barcode_capture.dart';
 import 'package:webview_flutter/webview_flutter.dart';
 import 'package:flutter/foundation.dart';
 
@@ -13,103 +17,134 @@ class WebViewStacked extends StatefulWidget {
   State<WebViewStacked> createState() => _WebViewStackedState();
 }
 
-class _WebViewStackedState extends State<WebViewStacked> {
+class _WebViewStackedState extends State<WebViewStacked>
+    implements BarcodeCaptureListener{
   var loadingPercentage = 0;
+  var scannerAktiv = false;
   var loadingFinished = false;
   var webViewController;
+
+
   @override
   Widget build(BuildContext context) {
-    return SafeArea(
-      child: Stack(
-        children: <Widget>[
-          WebView(
-            onWebViewCreated: (controller) {
-              webViewController = controller;
-            },
-            debuggingEnabled: true,
-            initialUrl: Provider.of<SettingsProvider>(context)
-                .settingsModel
-                .aktiveVerbindung
-                .url,
-            javascriptMode: JavascriptMode.unrestricted,
-            onProgress: (int progress) {
-              setState(() {
-                loadingPercentage = progress;
-              });
-              print('WebView is loading (progress : $progress%)');
-            },
-            javascriptChannels: _createJavascriptChannels(context),
-            navigationDelegate: (NavigationRequest request) {
-              if (request.url.startsWith('https://www.youtube.com/')) {
-                print('blocking navigation to $request}');
-                return NavigationDecision.prevent;
-              }
-              print('allowing navigation to $request');
-              return NavigationDecision.navigate;
-            },
-            onPageStarted: (String url) {
-              setState(() {
-                loadingPercentage = 0;
-                loadingFinished = false;
-              });
-              print('Page started loading: $url');
-            },
-            onPageFinished: (String url) {
-              setState(() {
-                loadingPercentage = 100;
-                loadingFinished = true;
-              });
-              if (defaultTargetPlatform == TargetPlatform.iOS) {
-                print('Javascript für iOS (Flutter) wurde hinzugefügt');
-                webViewController.runJavascript('''var Scandit = {
+
+
+    return Scaffold(
+      body: SafeArea(
+        child: Stack(
+          children: <Widget>[
+            WebView(
+              onWebViewCreated: (controller) {
+                webViewController = controller;
+              },
+              debuggingEnabled: true,
+              initialUrl: Provider
+                  .of<SettingsProvider>(context)
+                  .settingsModel
+                  .aktiveVerbindung
+                  .url,
+              javascriptMode: JavascriptMode.unrestricted,
+              onProgress: (int progress) {
+                setState(() {
+                  loadingPercentage = progress;
+                });
+                print('WebView is loading (progress : $progress%)');
+              },
+              javascriptChannels: _createJavascriptChannels(context),
+              navigationDelegate: (NavigationRequest request) {
+                if (request.url.startsWith('https://www.youtube.com/')) {
+                  print('blocking navigation to $request}');
+                  return NavigationDecision.prevent;
+                }
+                print('allowing navigation to $request');
+                return NavigationDecision.navigate;
+              },
+              onPageStarted: (String url) {
+                setState(() {
+                  loadingPercentage = 0;
+                  loadingFinished = false;
+                });
+                print('Page started loading: $url');
+              },
+              onPageFinished: (String url) {
+                setState(() {
+                  loadingPercentage = 100;
+                  loadingFinished = true;
+                });
+                if (defaultTargetPlatform == TargetPlatform.iOS) {
+                  print('Javascript für iOS (Flutter) wurde hinzugefügt');
+                  webViewController.runJavascript('''var Scandit = {
               getDevicetype:function(){return "FLUTTER_IOS"}
               ,
               };''');
-              } else if (defaultTargetPlatform == TargetPlatform.android) {
-                print('Javascript für Android (Flutter) wurde hinzugefügt');
-                webViewController.runJavascript('''var Scandit = {
+                } else if (defaultTargetPlatform == TargetPlatform.android) {
+                  print('Javascript für Android (Flutter) wurde hinzugefügt');
+                  webViewController.runJavascript('''var Scandit = {
               getDevicetype:function(){return "FLUTTER_ANDROID"},
               };''');
-              }
+                }
 
-              print('Page finished loading: $url');
-            },
-            gestureNavigationEnabled: true,
-          ),
-          if (loadingPercentage < 100)
-            LinearProgressIndicator(
-              value: loadingPercentage / 100,
-              color: Colors.red[400],
+                print('Page finished loading: $url');
+              },
+              gestureNavigationEnabled: true,
             ),
-          if (loadingPercentage < 100)
-            Center(
-              child: ClipRect(
-                child: BackdropFilter(
-                  filter: ImageFilter.blur(
-                    sigmaX: 1.7,
-                    sigmaY: 1.7,
-                  ),
-                  child: Container(
-                    height: double.infinity,
-                    width: double.infinity,
-                    alignment: Alignment.center,
+            if (loadingPercentage < 100)
+              LinearProgressIndicator(
+                value: loadingPercentage / 100,
+                color: Colors.red[400],
+              ),
+            if (loadingPercentage < 100)
+              Center(
+                child: ClipRect(
+                  child: BackdropFilter(
+                    filter: ImageFilter.blur(
+                      sigmaX: 1.7,
+                      sigmaY: 1.7,
+                    ),
                     child: Container(
-                        decoration: BoxDecoration(
-                            color: Colors.grey[200],
-                            border: Border.all(color: Colors.grey),
-                            borderRadius: BorderRadius.circular(10.0)),
-                        child: const Padding(
-                            padding: EdgeInsets.all(25.0),
-                            child: Text("Die Webapps werden geladen ...",
-                                style: TextStyle(
-                                    fontSize: 20.0,
-                                    fontWeight: FontWeight.bold)))),
+                      height: double.infinity,
+                      width: double.infinity,
+                      alignment: Alignment.center,
+                      child: Container(
+                          decoration: BoxDecoration(
+                              color: Colors.grey[200],
+                              border: Border.all(color: Colors.grey),
+                              borderRadius: BorderRadius.circular(10.0)),
+                          child: const Padding(
+                              padding: EdgeInsets.all(25.0),
+                              child: Text("Die Webapps werden geladen ...",
+                                  style: TextStyle(
+                                      fontSize: 20.0,
+                                      fontWeight: FontWeight.bold)))),
+                    ),
                   ),
                 ),
               ),
-            ),
-        ],
+            if (scannerAktiv)
+              Container(
+                //todo hier noch die richtige höhe ermitteln
+                padding: const EdgeInsets.fromLTRB(0,400,0,0),
+                height: double.infinity,
+                width: double.infinity,
+                alignment: Alignment.bottomCenter,
+                  child: BarcodeScannerScreen(barcodeCaptureListener: this),
+              ),
+          ],
+        ),
       ),
+      floatingActionButton: Visibility(
+          visible: scannerAktiv,
+          child: FloatingActionButton(
+            heroTag: 'scan_btn',
+            onPressed: () {
+              setState(() {
+              //todo hier noch den Scan manuell ausführen. Erweiterung Setting: AutoScan an/aus
+              //todo was ist mit dem Abbrechen vom Scannen?
+              });
+
+            },
+            child: Icon(Icons.autofps_select),
+          )),
     );
   }
 
@@ -119,18 +154,11 @@ class _WebViewStackedState extends State<WebViewStacked> {
       JavascriptChannel(
         name: 'ScanditController',
         onMessageReceived: (message) {
-
-          if (message.message == 'openScan')
-            {
-              // Scanner öffnen per Scandit
-              ScaffoldMessenger.of(context)
-                  .showSnackBar(SnackBar(content: Text('Scanner wird geöffnet '+message.message)));
-             var script =  '''if(document.getElementById('scanbutton') != null){     document.getElementById('scanbutton').\$server.sendBarcodeToVaadin('01017')}''';
-
-              webViewController.runJavascript(script);
-
-            }
-          else {
+          if (message.message == 'openScan') {
+            setState(() {
+              scannerAktiv = true;
+            });
+          } else {
             ScaffoldMessenger.of(context)
                 .showSnackBar(SnackBar(content: Text(message.message)));
           }
@@ -150,6 +178,24 @@ class _WebViewStackedState extends State<WebViewStacked> {
         },
       ),
     };
+  }
+
+  @override
+  void didScan(BarcodeCapture barcodeCapture, BarcodeCaptureSession session) {
+    var code = session.newlyRecognizedBarcodes.first;
+    var data = (code.data == null || code.data?.isEmpty == true) ? code.rawData : code.data;
+
+    setState(() {
+      var script =
+      '''if(document.getElementById('scanbutton') != null){     document.getElementById('scanbutton').\$server.sendBarcodeToVaadin('$data')}''';
+      webViewController.runJavascript(script);
+      scannerAktiv = false;
+    });
+  }
+
+  @override
+  void didUpdateSession(BarcodeCapture barcodeCapture, BarcodeCaptureSession session) {
+    // TODO: implement didUpdateSession
   }
 // ... to here.
 }
