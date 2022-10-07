@@ -62,13 +62,13 @@ class _WebViewStackedState extends State<WebViewStacked> {
               if (defaultTargetPlatform == TargetPlatform.iOS) {
                 print('Javascript für iOS (Flutter) wurde hinzugefügt');
                 webViewController.runJavascript('''var Scandit = {
-              getDeviceType:function(){return "FLUTTER_IOS"}
+              getDevicetype:function(){return "FLUTTER_IOS"}
               ,
               };''');
               } else if (defaultTargetPlatform == TargetPlatform.android) {
                 print('Javascript für Android (Flutter) wurde hinzugefügt');
                 webViewController.runJavascript('''var Scandit = {
-              getDeviceType:function(){return "FLUTTER_ANDROID"},
+              getDevicetype:function(){return "FLUTTER_ANDROID"},
               };''');
               }
 
