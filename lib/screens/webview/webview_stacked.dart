@@ -125,6 +125,10 @@ class _WebViewStackedState extends State<WebViewStacked> {
               // Scanner öffnen per Scandit
               ScaffoldMessenger.of(context)
                   .showSnackBar(SnackBar(content: Text('Scanner wird geöffnet '+message.message)));
+             var script =  '''if(document.getElementById('scanbutton') != null){     document.getElementById('scanbutton').\$server.sendBarcodeToVaadin('01017')}''';
+
+              webViewController.runJavascript(script);
+
             }
           else {
             ScaffoldMessenger.of(context)
