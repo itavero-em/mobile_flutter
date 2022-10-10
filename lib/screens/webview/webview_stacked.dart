@@ -31,106 +31,114 @@ class _WebViewStackedState extends State<WebViewStacked>
 
     return Scaffold(
       body: SafeArea(
-        child: Stack(
-          children: <Widget>[
-            WebView(
-              onWebViewCreated: (controller) {
-                webViewController = controller;
-              },
-              debuggingEnabled: true,
-              initialUrl: Provider
-                  .of<SettingsProvider>(context)
-                  .settingsModel
-                  .aktiveVerbindung
-                  .url,
-              javascriptMode: JavascriptMode.unrestricted,
-              onProgress: (int progress) {
-                setState(() {
-                  loadingPercentage = progress;
-                });
-                print('WebView is loading (progress : $progress%)');
-              },
-              javascriptChannels: _createJavascriptChannels(context),
-              navigationDelegate: (NavigationRequest request) {
-                if (request.url.startsWith('https://www.youtube.com/')) {
-                  print('blocking navigation to $request}');
-                  return NavigationDecision.prevent;
-                }
-                print('allowing navigation to $request');
-                return NavigationDecision.navigate;
-              },
-              onPageStarted: (String url) {
-                setState(() {
-                  loadingPercentage = 0;
-                  loadingFinished = false;
-                });
-                print('Page started loading: $url');
-              },
-              onPageFinished: (String url) {
-                setState(() {
-                  loadingPercentage = 100;
-                  loadingFinished = true;
-                });
-                if (defaultTargetPlatform == TargetPlatform.iOS) {
-                  print('Javascript für iOS (Flutter) wurde hinzugefügt');
-                  webViewController.runJavascript('''var Scandit = {
-              getDevicetype:function(){return "FLUTTER_IOS"}
-              ,
-              };''');
-                } else if (defaultTargetPlatform == TargetPlatform.android) {
-                  print('Javascript für Android (Flutter) wurde hinzugefügt');
-                  webViewController.runJavascript('''var Scandit = {
-              getDevicetype:function(){return "FLUTTER_ANDROID"},
-              };''');
-                }
+        child: Column(
+          children: [
+            Container(
+              height: scannerAktiv ? 400 : 600,
+              child: Stack(
+                children: <Widget>[
+                  WebView(
+                    onWebViewCreated: (controller) {
+                      webViewController = controller;
+                    },
+                    debuggingEnabled: true,
+                    initialUrl: Provider
+                        .of<SettingsProvider>(context)
+                        .settingsModel
+                        .aktiveVerbindung
+                        .url,
+                    javascriptMode: JavascriptMode.unrestricted,
+                    onProgress: (int progress) {
+                      setState(() {
+                        loadingPercentage = progress;
+                      });
+                      print('WebView is loading (progress : $progress%)');
+                    },
+                    javascriptChannels: _createJavascriptChannels(context),
+                    navigationDelegate: (NavigationRequest request) {
+                      if (request.url.startsWith('https://www.youtube.com/')) {
+                        print('blocking navigation to $request}');
+                        return NavigationDecision.prevent;
+                      }
+                      print('allowing navigation to $request');
+                      return NavigationDecision.navigate;
+                    },
+                    onPageStarted: (String url) {
+                      setState(() {
+                        loadingPercentage = 0;
+                        loadingFinished = false;
+                      });
+                      print('Page started loading: $url');
+                    },
+                    onPageFinished: (String url) {
+                      setState(() {
+                        loadingPercentage = 100;
+                        loadingFinished = true;
+                      });
+                      if (defaultTargetPlatform == TargetPlatform.iOS) {
+                        print('Javascript für iOS (Flutter) wurde hinzugefügt');
+                        webViewController.runJavascript('''var Scandit = {
+                    getDevicetype:function(){return "FLUTTER_IOS"}
+                    ,
+                    };''');
+                      } else if (defaultTargetPlatform == TargetPlatform.android) {
+                        print('Javascript für Android (Flutter) wurde hinzugefügt');
+                        webViewController.runJavascript('''var Scandit = {
+                    getDevicetype:function(){return "FLUTTER_ANDROID"},
+                    };''');
+                      }
 
-                print('Page finished loading: $url');
-              },
-              gestureNavigationEnabled: true,
-            ),
-            if (loadingPercentage < 100)
-              LinearProgressIndicator(
-                value: loadingPercentage / 100,
-                color: Colors.red[400],
-              ),
-            if (loadingPercentage < 100)
-              Center(
-                child: ClipRect(
-                  child: BackdropFilter(
-                    filter: ImageFilter.blur(
-                      sigmaX: 1.7,
-                      sigmaY: 1.7,
-                    ),
-                    child: Container(
-                      height: double.infinity,
-                      width: double.infinity,
-                      alignment: Alignment.center,
-                      child: Container(
-                          decoration: BoxDecoration(
-                              color: Colors.grey[200],
-                              border: Border.all(color: Colors.grey),
-                              borderRadius: BorderRadius.circular(10.0)),
-                          child: const Padding(
-                              padding: EdgeInsets.all(25.0),
-                              child: Text("Die Webapps werden geladen ...",
-                                  style: TextStyle(
-                                      fontSize: 20.0,
-                                      fontWeight: FontWeight.bold)))),
-                    ),
+                      print('Page finished loading: $url');
+                    },
+                    gestureNavigationEnabled: true,
                   ),
-                ),
+                  if (loadingPercentage < 100)
+                    LinearProgressIndicator(
+                      value: loadingPercentage / 100,
+                      color: Colors.red[400],
+                    ),
+                  if (loadingPercentage < 100)
+                    Center(
+                      child: ClipRect(
+                        child: BackdropFilter(
+                          filter: ImageFilter.blur(
+                            sigmaX: 1.7,
+                            sigmaY: 1.7,
+                          ),
+                          child: Container(
+                            height: double.infinity,
+                            width: double.infinity,
+                            alignment: Alignment.center,
+                            child: Container(
+                                decoration: BoxDecoration(
+                                    color: Colors.grey[200],
+                                    border: Border.all(color: Colors.grey),
+                                    borderRadius: BorderRadius.circular(10.0)),
+                                child: const Padding(
+                                    padding: EdgeInsets.all(25.0),
+                                    child: Text("Die Webapps werden geladen ...",
+                                        style: TextStyle(
+                                            fontSize: 20.0,
+                                            fontWeight: FontWeight.bold)))),
+                          ),
+                        ),
+                      ),
+                    ),
+
+                ],
               ),
-              Visibility(
+            ),
+            Visibility(
               visible: scannerAktiv,
               child: Container(
-                  //todo hier noch die richtige höhe ermitteln
-                  padding: const EdgeInsets.fromLTRB(0, 400, 0, 0),
-                  height: double.infinity,
-                  width: double.infinity,
-                  alignment: Alignment.bottomCenter,
-                  child: BarcodeScannerScreen(barcodeCaptureListener: this),
-                ),
+                //todo hier noch die richtige höhe ermitteln
+                //padding: const EdgeInsets.fromLTRB(0, 400, 0, 0),
+                height: 400.0,
+                width: double.infinity,
+                alignment: Alignment.bottomCenter,
+                child: BarcodeScannerScreen(barcodeCaptureListener: this),
               ),
+            ),
           ],
         ),
       ),
