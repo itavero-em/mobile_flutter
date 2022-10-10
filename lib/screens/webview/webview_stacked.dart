@@ -140,12 +140,16 @@ class _WebViewStackedState extends State<WebViewStacked>
             heroTag: 'scan_btn',
             onPressed: () {
               setState(() {
-              //todo hier noch den Scan manuell ausführen. Erweiterung Setting: AutoScan an/aus
-              //todo was ist mit dem Abbrechen vom Scannen?
+                setState(() {
+                  scannerAktiv = false;
+                });
               });
 
             },
-            child: Icon(Icons.autofps_select),
+            backgroundColor: Colors.red,
+            child: Icon(Icons.cancel_presentation
+              ,
+            ),
 
           )),
     );

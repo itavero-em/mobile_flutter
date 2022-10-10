@@ -115,15 +115,15 @@ class _SettingsScreenState extends State<SettingsScreen> {
             ],
           ),
           SettingsSection(
-          title: const Text('ScannerV2'),
+          title: const Text('Scandit'),
           tiles: <SettingsTile>[
                 SettingsTile.navigation(
-                  leading: const Icon(Icons.language),
+                  leading: const Icon(Icons.document_scanner_outlined),
                   title: const Text('Konfiguration'),
                   value: Text(Provider.of<SettingsProvider>(context)
                       .settingsModel
-                      .aktiveVerbindung
-                      .name),
+                      .scanViewFinderMode.jsonValue
+                      ),
                   onPressed: (ctx) {
                     Navigator.push(
                       context,
