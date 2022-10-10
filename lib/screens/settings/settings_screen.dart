@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:itavero_mobile/models/settings_model.dart';
+import 'package:itavero_mobile/screens/settings/setting_scandit_screen.dart';
 import 'package:provider/provider.dart';
 import 'package:settings_ui/settings_ui.dart';
 
@@ -114,42 +115,28 @@ class _SettingsScreenState extends State<SettingsScreen> {
             ],
           ),
           SettingsSection(
-            title: const Text('Scanner'),
-            tiles: <SettingsTile>[
-              SettingsTile.switchTile(
-                onToggle: (value) {
-                  print(value);
-
-                  setState(() {
-                    settingsProvider.setCameraLight(value);
-                  });
-                },
-                initialValue: Provider.of<SettingsProvider>(context)
-                    .settingsModel
-                    .cameraLight,
-                leading: Icon(Icons.lightbulb),
-                title: Text('Kameralicht'),
-                description: Provider.of<SettingsProvider>(context)
-                        .settingsModel
-                        .cameraLight
-                    ? Text('beim Scannen eingeschaltet')
-                    : Text('inaktiv'),
-              ),
-              SettingsTile.navigation(
-                onPressed: (ctx) {
-                  _showActionSheet(context);
-                },
-                leading: const Icon(Icons.qr_code_scanner),
-                title: const Text('Scanmodus'),
-                value: Text(Provider.of<SettingsProvider>(context)
-                    .settingsModel
-                    .scanViewFinderMode
-                    .jsonValue),
-              ),
-              _infoTileWithIcon('Scandit-Version','Version 6.14.1',Icons.perm_device_info),
-            ],
+          title: const Text('ScannerV2'),
+          tiles: <SettingsTile>[
+                SettingsTile.navigation(
+                  leading: const Icon(Icons.language),
+                  title: const Text('Konfiguration'),
+                  value: Text(Provider.of<SettingsProvider>(context)
+                      .settingsModel
+                      .aktiveVerbindung
+                      .name),
+                  onPressed: (ctx) {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => ScanditSettings()),
+                    ).then((value) => setState(() {}));
+                  },
+                ),
+          ],
 
           ),
+
+
           SettingsSection(
             title: const Text('App-Informationen'),
             tiles: <SettingsTile>[
@@ -159,57 +146,6 @@ class _SettingsScreenState extends State<SettingsScreen> {
               _infoTileStandard('Build number', _packageInfo.buildNumber),
               _infoTileStandard('Build signature', _packageInfo.buildSignature),
             ],
-          ),
-        ],
-      ),
-    );
-  }
-
-  // This shows a CupertinoModalPopup which hosts a CupertinoActionSheet.
-  void _showActionSheet(BuildContext context) {
-    // final settingsProvider = Provider.of<SettingsProvider>(context);
-    String possibleValues =
-        ScanViewFinderMode.values.map((e) => e.jsonValue).join(", ").toString();
-    showCupertinoModalPopup<void>(
-      context: context,
-      builder: (BuildContext context) => CupertinoActionSheet(
-        title: const Text('Bitte wählen Sie einen Scanmodus aus'),
-        message: Text(possibleValues),
-        actions: <CupertinoActionSheetAction>[
-          CupertinoActionSheetAction(
-            /// This parameter indicates the action would be a default
-            /// defualt behavior, turns the action's text to bold text.
-            isDefaultAction: Provider.of<SettingsProvider>(context)
-                    .settingsModel
-                    .scanViewFinderMode ==
-                ScanViewFinderMode.line,
-            onPressed: () {
-              settingsProvider.setScanViewMode(ScanViewFinderMode.line);
-              Navigator.pop(context);
-            },
-            child: Text(ScanViewFinderMode.line.jsonValue),
-          ),
-          CupertinoActionSheetAction(
-            isDefaultAction: Provider.of<SettingsProvider>(context)
-                    .settingsModel
-                    .scanViewFinderMode ==
-                ScanViewFinderMode.rectangle,
-            onPressed: () {
-              settingsProvider.setScanViewMode(ScanViewFinderMode.rectangle);
-              Navigator.pop(context);
-            },
-            child: Text(ScanViewFinderMode.rectangle.jsonValue),
-          ),
-          CupertinoActionSheetAction(
-            isDefaultAction: Provider.of<SettingsProvider>(context)
-                    .settingsModel
-                    .scanViewFinderMode ==
-                ScanViewFinderMode.aimer,
-            onPressed: () {
-              settingsProvider.setScanViewMode(ScanViewFinderMode.aimer);
-              Navigator.pop(context);
-            },
-            child: Text(ScanViewFinderMode.aimer.jsonValue),
           ),
         ],
       ),
