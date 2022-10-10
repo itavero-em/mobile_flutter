@@ -14,6 +14,17 @@ enum ScanViewFinderMode {
       ScanViewFinderMode.values.singleWhere((i) => jsonValue == i.jsonValue);
 }
 
+enum ScanMode {
+  single("SingleScan"), // You can also use numbers as you wish
+  multi("MultiScan"),
+  all("ScanAll");
+
+  final dynamic jsonValue;
+  const ScanMode(this.jsonValue);
+  static ScanMode fromValue(jsonValue) =>
+      ScanMode.values.singleWhere((i) => jsonValue == i.jsonValue);
+}
+
 @JsonSerializable()
 class SettingsModel {
   static ConnectionModel noConnectionModel =
@@ -26,6 +37,9 @@ class SettingsModel {
 
   @JsonKey(name: 'scan_viewfindermode')
   ScanViewFinderMode scanViewFinderMode = ScanViewFinderMode.line;
+
+  @JsonKey(name: 'scan_mode')
+  ScanMode scanMode = ScanMode.single;
 
   @JsonKey(name: 'kamera_licht')
   bool cameraLight = false;

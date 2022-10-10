@@ -58,10 +58,21 @@ class _ScanditSettingsState extends State<ScanditSettings> {
               ),
               SettingsTile.navigation(
                 onPressed: (ctx) {
-                  _showActionSheet(context);
+                  _showScanMode(context);
                 },
                 leading: const Icon(Icons.qr_code_scanner),
-                title: const Text('Scanmodus'),
+                title: const Text('Scanmode'),
+                value: Text(Provider.of<SettingsProvider>(context)
+                    .settingsModel
+                    .scanMode
+                    .jsonValue),
+              ),
+              SettingsTile.navigation(
+                onPressed: (ctx) {
+                  _showScanViewMode(context);
+                },
+                leading: const Icon(Icons.qr_code_scanner),
+                title: const Text('ScanViewmode'),
                 value: Text(Provider.of<SettingsProvider>(context)
                     .settingsModel
                     .scanViewFinderMode
@@ -87,14 +98,14 @@ class _ScanditSettingsState extends State<ScanditSettings> {
   }
 
   // This shows a CupertinoModalPopup which hosts a CupertinoActionSheet.
-  void _showActionSheet(BuildContext context) {
+  void _showScanViewMode(BuildContext context) {
     // final settingsProvider = Provider.of<SettingsProvider>(context);
     String possibleValues =
     ScanViewFinderMode.values.map((e) => e.jsonValue).join(", ").toString();
     showCupertinoModalPopup<void>(
       context: context,
       builder: (BuildContext context) => CupertinoActionSheet(
-        title: const Text('Bitte wählen Sie einen Scanmodus aus'),
+        title: const Text('Bitte wählen Sie einen Scanviewmodus aus'),
         message: Text(possibleValues),
         actions: <CupertinoActionSheetAction>[
           CupertinoActionSheetAction(
@@ -131,6 +142,57 @@ class _ScanditSettingsState extends State<ScanditSettings> {
               Navigator.pop(context);
             },
             child: Text(ScanViewFinderMode.aimer.jsonValue),
+          ),
+        ],
+      ),
+    );
+  }
+
+  // This shows a CupertinoModalPopup which hosts a CupertinoActionSheet.
+  void _showScanMode(BuildContext context) {
+    // final settingsProvider = Provider.of<SettingsProvider>(context);
+    String possibleValues =
+    ScanViewFinderMode.values.map((e) => e.jsonValue).join(", ").toString();
+    showCupertinoModalPopup<void>(
+      context: context,
+      builder: (BuildContext context) => CupertinoActionSheet(
+        title: const Text('Bitte wählen Sie einen Scanmodus aus'),
+        message: Text(possibleValues),
+        actions: <CupertinoActionSheetAction>[
+          CupertinoActionSheetAction(
+            /// This parameter indicates the action would be a default
+            /// defualt behavior, turns the action's text to bold text.
+            isDefaultAction: Provider.of<SettingsProvider>(context)
+                .settingsModel
+                .scanMode ==
+                ScanMode.single,
+            onPressed: () {
+              settingsProvider.setScanMode(ScanMode.single);
+              Navigator.pop(context);
+            },
+            child: Text(ScanMode.single.jsonValue),
+          ),
+          CupertinoActionSheetAction(
+            isDefaultAction: Provider.of<SettingsProvider>(context)
+                .settingsModel
+                .scanMode ==
+                ScanMode.multi,
+            onPressed: () {
+              settingsProvider.setScanMode(ScanMode.multi);
+              Navigator.pop(context);
+            },
+            child: Text(ScanMode.multi.jsonValue),
+          ),
+          CupertinoActionSheetAction(
+            isDefaultAction: Provider.of<SettingsProvider>(context)
+                .settingsModel
+                .scanMode ==
+                ScanMode.all,
+            onPressed: () {
+              settingsProvider.setScanMode(ScanMode.all);
+              Navigator.pop(context);
+            },
+            child: Text(ScanMode.all.jsonValue),
           ),
         ],
       ),
