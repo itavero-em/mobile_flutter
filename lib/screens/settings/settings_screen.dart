@@ -135,7 +135,15 @@ class _SettingsScreenState extends State<SettingsScreen> {
           ],
 
           ),
+          SettingsSection(
+            title: const Text('Apps'),
+            tiles: <SettingsTile>[
 
+              SettingsTile(title: Text("title"), value:  Text("Text"),)
+
+            ],
+
+          ),
 
           SettingsSection(
             title: const Text('App-Informationen'),

@@ -10,16 +10,19 @@ import 'package:scandit_flutter_datacapture_barcode/scandit_flutter_datacapture_
 import 'package:scandit_flutter_datacapture_barcode/scandit_flutter_datacapture_barcode_capture.dart';
 import 'package:scandit_flutter_datacapture_core/scandit_flutter_datacapture_core.dart';
 
-const String licenseKey = 'AXe64LeBIzGcMYxuxQ2Hrlwe7PXwPbCf/hnoLL5AHB84JQCyAXB4OMpts/6zcFXNTnYwVaNG1RbGYp75hHmG329Epdv/TvKNRVXvZOdcczPWL6p1LGoISAECuI9eDVfzhWDCMbMsnEFvQr0r63xyVOWUdSwJUF8qtKLqe4DzJvctCGPRioJnbrew0Tt2Ce2V90PPtbw1NdOyQbcxEvjY/N6wdABBr2hzIaZkpMt/S4bh74xAoeN1yZGTuuPWFloKiMaNf3+QAyzNxmriFlXib8glIBas/kaQUsfUl6fpRBNeluTBxoMfxLFL/MuXsxG6cMZLwFr1jt9DIQvShQG8khAVylVR5z87591coZHLroh/AOAB3X2wHBrqzyXasGicuFsYesqQDWn4L2A4ZRTQPuqaH9FiwPK1mhNhvB8oijMmVNisFvR/fLwmh9rvxMtGX6k3rSuMqliCaP5HpGiYPESgR/LrZg2moh/PShAtq3uXIEVoJiPV+fTq+rmuxWeVyyM9HYEDKzkjOibfQ/YsTSPHtXPBTSKvLSE49qcdTj+8imdLIV7YpA0B7drbPLfSqeR+GoG3GYOuITUORnXNY+a9II1TH/Qt5o+SCd7nSNCeTEH8/YEg4UEjtNL9nPOVImRH8gEBA8bjf5SWzQo2anSWJzEkc7Qhb8ejpiAKwo5WZ4NWz6EdlOwKjPTIrb6CwvjHAptn4c2cThI+YGGspkgt/QAohRW2Kbnpcpd/oF0X0BiE+mmY0PCxLZShe6Ji3YU0hoKyai8vYOCoCq1+GklnzfN+SrexktM2XPY=';
+const String licenseKey =
+    'AXe64LeBIzGcMYxuxQ2Hrlwe7PXwPbCf/hnoLL5AHB84JQCyAXB4OMpts/6zcFXNTnYwVaNG1RbGYp75hHmG329Epdv/TvKNRVXvZOdcczPWL6p1LGoISAECuI9eDVfzhWDCMbMsnEFvQr0r63xyVOWUdSwJUF8qtKLqe4DzJvctCGPRioJnbrew0Tt2Ce2V90PPtbw1NdOyQbcxEvjY/N6wdABBr2hzIaZkpMt/S4bh74xAoeN1yZGTuuPWFloKiMaNf3+QAyzNxmriFlXib8glIBas/kaQUsfUl6fpRBNeluTBxoMfxLFL/MuXsxG6cMZLwFr1jt9DIQvShQG8khAVylVR5z87591coZHLroh/AOAB3X2wHBrqzyXasGicuFsYesqQDWn4L2A4ZRTQPuqaH9FiwPK1mhNhvB8oijMmVNisFvR/fLwmh9rvxMtGX6k3rSuMqliCaP5HpGiYPESgR/LrZg2moh/PShAtq3uXIEVoJiPV+fTq+rmuxWeVyyM9HYEDKzkjOibfQ/YsTSPHtXPBTSKvLSE49qcdTj+8imdLIV7YpA0B7drbPLfSqeR+GoG3GYOuITUORnXNY+a9II1TH/Qt5o+SCd7nSNCeTEH8/YEg4UEjtNL9nPOVImRH8gEBA8bjf5SWzQo2anSWJzEkc7Qhb8ejpiAKwo5WZ4NWz6EdlOwKjPTIrb6CwvjHAptn4c2cThI+YGGspkgt/QAohRW2Kbnpcpd/oF0X0BiE+mmY0PCxLZShe6Ji3YU0hoKyai8vYOCoCq1+GklnzfN+SrexktM2XPY=';
 
 class BarcodeScannerScreen extends StatefulWidget {
   final BarcodeCaptureListener barcodeCaptureListener;
 
-  const BarcodeScannerScreen({Key? key, required this.barcodeCaptureListener}) : super(key: key);
+  const BarcodeScannerScreen({Key? key, required this.barcodeCaptureListener})
+      : super(key: key);
 
   // Create data capture context using your license key.
   @override
-  State<StatefulWidget> createState() => _BarcodeScannerScreenState(DataCaptureContext.forLicenseKey(licenseKey));
+  State<StatefulWidget> createState() =>
+      _BarcodeScannerScreenState(DataCaptureContext.forLicenseKey(licenseKey));
 }
 
 class _BarcodeScannerScreenState extends State<BarcodeScannerScreen>
@@ -31,18 +34,17 @@ class _BarcodeScannerScreenState extends State<BarcodeScannerScreen>
   late BarcodeCapture _barcodeCapture;
   late DataCaptureView _captureView;
 
-
   bool _isPermissionMessageVisible = false;
 
   _BarcodeScannerScreenState(this._context);
 
   void _checkPermission() {
     Permission.camera.request().isGranted.then((value) => setState(() {
-      _isPermissionMessageVisible = !value;
-      if (value) {
-        _camera?.switchToDesiredState(FrameSourceState.on);
-      }
-    }));
+          _isPermissionMessageVisible = !value;
+          if (value) {
+            _camera?.switchToDesiredState(FrameSourceState.on);
+          }
+        }));
   }
 
   @override
@@ -76,8 +78,6 @@ class _BarcodeScannerScreenState extends State<BarcodeScannerScreen>
       Symbology.interleavedTwoOfFive
     });
 
-
-
     // Some linear/1d barcode symbologies allow you to encode variable-length data. By default, the Scandit
     // Data Capture SDK only scans barcodes in a certain length range. If your application requires scanning of one
     // of these symbologies, and the length is falling outside the default range, you may need to adjust the "active
@@ -88,7 +88,7 @@ class _BarcodeScannerScreenState extends State<BarcodeScannerScreen>
 
     // Create new barcode capture mode with the settings from above.
     _barcodeCapture = BarcodeCapture.forContext(_context, captureSettings)
-    // Register self as a listener to get informed whenever a new barcode got recognized.
+      // Register self as a listener to get informed whenever a new barcode got recognized.
       ..addListener(widget.barcodeCaptureListener);
 
     // To visualize the on-going barcode capturing process on screen, setup a data capture view that renders the
@@ -97,32 +97,43 @@ class _BarcodeScannerScreenState extends State<BarcodeScannerScreen>
 
     // Add a barcode capture overlay to the data capture view to render the location of captured barcodes on top of
     // the video preview. This is optional, but recommended for better visual feedback.
-    BarcodeCaptureOverlay overlay = BarcodeCaptureOverlay.withBarcodeCaptureForViewWithStyle(
-        _barcodeCapture, _captureView, BarcodeCaptureOverlayStyle.frame);
+    BarcodeCaptureOverlay overlay =
+        BarcodeCaptureOverlay.withBarcodeCaptureForViewWithStyle(
+            _barcodeCapture, _captureView, BarcodeCaptureOverlayStyle.frame);
+
+    
+    var cameraLightOn = Provider.of<SettingsProvider>(context, listen: false)
+        .settingsModel.cameraLight;
+
+    _camera?.desiredTorchState = cameraLightOn ? TorchState.auto : TorchState.off;
 
 
-      ScanViewFinderMode mode = Provider.of<SettingsProvider>(context,listen: false).settingsModel.scanViewFinderMode;
-      switch ( mode ) {
-        case ScanViewFinderMode.rectangle:
-          overlay ..viewfinder =
-          RectangularViewfinder.withStyleAndLineStyle(
-              RectangularViewfinderStyle.square, RectangularViewfinderLineStyle.light);
-          break;
-        case ScanViewFinderMode.line:
-
-          overlay ..viewfinder = LaserlineViewfinder.withStyle(LaserlineViewfinderStyle.legacy);
-          break;
-        case ScanViewFinderMode.aimer:
-          overlay ..viewfinder = AimerViewfinder();
-          break;
-      }
-
-
+    ScanViewFinderMode mode =
+        Provider.of<SettingsProvider>(context, listen: false)
+            .settingsModel
+            .scanViewFinderMode;
+    switch (mode) {
+      case ScanViewFinderMode.rectangle:
+        overlay
+          ..viewfinder = RectangularViewfinder.withStyleAndLineStyle(
+              RectangularViewfinderStyle.square,
+              RectangularViewfinderLineStyle.light);
+        break;
+      case ScanViewFinderMode.line:
+        overlay
+          ..viewfinder =
+              LaserlineViewfinder.withStyle(LaserlineViewfinderStyle.legacy);
+        break;
+      case ScanViewFinderMode.aimer:
+        overlay..viewfinder = AimerViewfinder();
+        break;
+    }
 
     // Adjust the overlay's barcode highlighting to match the new viewfinder styles and improve the visibility of feedback.
     // With 6.10 we will introduce this visual treatment as a new style for the overlay.
     //todo Farbe noch über Settings
-    overlay.brush = Brush(Color.fromARGB(0, 0, 0, 0), Color.fromARGB(255, 255, 255, 255), 3);
+    overlay.brush = Brush(
+        Color.fromARGB(0, 0, 0, 0), Color.fromARGB(255, 255, 255, 255), 3);
 
     _captureView.addOverlay(overlay);
 
@@ -140,7 +151,8 @@ class _BarcodeScannerScreenState extends State<BarcodeScannerScreen>
     Widget child;
     if (_isPermissionMessageVisible) {
       child = PlatformText('No permission to access the camera!',
-          style: TextStyle(fontSize: 14, fontWeight: FontWeight.bold, color: Colors.black));
+          style: TextStyle(
+              fontSize: 14, fontWeight: FontWeight.bold, color: Colors.black));
     } else {
       child = _captureView;
     }
@@ -156,9 +168,9 @@ class _BarcodeScannerScreenState extends State<BarcodeScannerScreen>
     }
   }
 
-
   @override
-  void didUpdateSession(BarcodeCapture barcodeCapture, BarcodeCaptureSession session) {}
+  void didUpdateSession(
+      BarcodeCapture barcodeCapture, BarcodeCaptureSession session) {}
 
   @override
   void dispose() {
