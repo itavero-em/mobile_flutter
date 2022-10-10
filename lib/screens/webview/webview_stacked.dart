@@ -120,14 +120,16 @@ class _WebViewStackedState extends State<WebViewStacked>
                   ),
                 ),
               ),
-            if (scannerAktiv)
-              Container(
-                //todo hier noch die richtige höhe ermitteln
-                padding: const EdgeInsets.fromLTRB(0,400,0,0),
-                height: double.infinity,
-                width: double.infinity,
-                alignment: Alignment.bottomCenter,
+              Visibility(
+              visible: scannerAktiv,
+              child: Container(
+                  //todo hier noch die richtige höhe ermitteln
+                  padding: const EdgeInsets.fromLTRB(0, 400, 0, 0),
+                  height: double.infinity,
+                  width: double.infinity,
+                  alignment: Alignment.bottomCenter,
                   child: BarcodeScannerScreen(barcodeCaptureListener: this),
+                ),
               ),
           ],
         ),
@@ -144,6 +146,7 @@ class _WebViewStackedState extends State<WebViewStacked>
 
             },
             child: Icon(Icons.autofps_select),
+
           )),
     );
   }
