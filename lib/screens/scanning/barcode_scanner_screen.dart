@@ -100,22 +100,24 @@ class _BarcodeScannerScreenState extends State<BarcodeScannerScreen>
     BarcodeCaptureOverlay overlay = BarcodeCaptureOverlay.withBarcodeCaptureForViewWithStyle(
         _barcodeCapture, _captureView, BarcodeCaptureOverlayStyle.frame);
 
-    //todo Problem beim Aufruf
-    ScanViewFinderMode mode = ScanViewFinderMode.rectangle;//Provider.of<SettingsProvider>(context).settingsModel.scanViewFinderMode;
-    switch ( mode ) {
-      case ScanViewFinderMode.rectangle:
-        overlay ..viewfinder =
-        RectangularViewfinder.withStyleAndLineStyle(
-              RectangularViewfinderStyle.square, RectangularViewfinderLineStyle.light);
-        break;
-      case ScanViewFinderMode.line:
 
-        overlay ..viewfinder = LaserlineViewfinder.withStyle(LaserlineViewfinderStyle.animated);
-        break;
-      case ScanViewFinderMode.aimer:
-        overlay ..viewfinder = AimerViewfinder();
-        break;
-    }
+      ScanViewFinderMode mode = Provider.of<SettingsProvider>(context,listen: false).settingsModel.scanViewFinderMode;
+      switch ( mode ) {
+        case ScanViewFinderMode.rectangle:
+          overlay ..viewfinder =
+          RectangularViewfinder.withStyleAndLineStyle(
+              RectangularViewfinderStyle.square, RectangularViewfinderLineStyle.light);
+          break;
+        case ScanViewFinderMode.line:
+
+          overlay ..viewfinder = LaserlineViewfinder.withStyle(LaserlineViewfinderStyle.legacy);
+          break;
+        case ScanViewFinderMode.aimer:
+          overlay ..viewfinder = AimerViewfinder();
+          break;
+      }
+
+
 
     // Adjust the overlay's barcode highlighting to match the new viewfinder styles and improve the visibility of feedback.
     // With 6.10 we will introduce this visual treatment as a new style for the overlay.
