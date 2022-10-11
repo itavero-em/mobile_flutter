@@ -1,12 +1,17 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:flutter_platform_widgets/flutter_platform_widgets.dart';
 import 'package:itavero_mobile/provider/settings_provider.dart';
 import 'package:provider/provider.dart';
+import 'package:scandit_flutter_datacapture_barcode/scandit_flutter_datacapture_barcode.dart';
+import 'package:scandit_flutter_datacapture_barcode/scandit_flutter_datacapture_barcode_capture.dart';
 import 'package:settings_ui/settings_ui.dart';
+import 'package:split_view/split_view.dart';
 
 import '../../main.dart';
 import '../../models/settings_model.dart';
+import '../scanning/barcode_scanner_screen.dart';
 
 class ScanditSettings extends StatefulWidget {
   const ScanditSettings({Key? key}) : super(key: key);
@@ -15,7 +20,8 @@ class ScanditSettings extends StatefulWidget {
   State<ScanditSettings> createState() => _ScanditSettingsState();
 }
 
-class _ScanditSettingsState extends State<ScanditSettings> {
+class _ScanditSettingsState extends State<ScanditSettings>
+    implements BarcodeCaptureListener{
   get settingsProvider => Provider.of<SettingsProvider>(context, listen: false);
 
   @override
@@ -30,61 +36,99 @@ class _ScanditSettingsState extends State<ScanditSettings> {
           ),
           centerTitle: true,
           backgroundColor: ItaveroMobile.itacolor),
-      body: SettingsList(
-        shrinkWrap: false,
-        platform: DevicePlatform.device,
-        sections: [
-          SettingsSection(
-            title: const Text('Scanner'),
-            tiles: <SettingsTile>[
-              SettingsTile.switchTile(
-                onToggle: (value) {
-                  print(value);
+      body: SplitView(
+        viewMode: SplitViewMode.Vertical,
+        indicator: SplitIndicator(viewMode: SplitViewMode.Vertical),
+        activeIndicator: SplitIndicator(
+          viewMode: SplitViewMode.Vertical,
+          isActive: true,
+        ),
+        children: [SettingsList(
+          shrinkWrap: false,
+          platform: DevicePlatform.device,
+          sections: [
+            SettingsSection(
+              title: const Text('Scanner'),
+              tiles: <SettingsTile>[
+                SettingsTile.switchTile(
+                  onToggle: (value) {
+                    print(value);
 
-                  setState(() {
-                    settingsProvider.setCameraLight(value);
-                  });
-                },
-                initialValue: Provider.of<SettingsProvider>(context)
-                    .settingsModel
-                    .cameraLight,
-                leading: Icon(Icons.lightbulb),
-                title: Text('Kameralicht'),
-                description: Provider.of<SettingsProvider>(context)
-                    .settingsModel
-                    .cameraLight
-                    ? Text('beim Scannen eingeschaltet')
-                    : Text('inaktiv'),
-              ),
-              SettingsTile.navigation(
-                onPressed: (ctx) {
-                  _showScanMode(context);
-                },
-                leading: const Icon(Icons.qr_code_scanner),
-                title: const Text('Scanmode'),
-                value: Text(Provider.of<SettingsProvider>(context)
-                    .settingsModel
-                    .scanMode
-                    .jsonValue),
-              ),
-              SettingsTile.navigation(
-                onPressed: (ctx) {
-                  _showScanViewMode(context);
-                },
-                leading: const Icon(Icons.qr_code_scanner),
-                title: const Text('ScanViewmode'),
-                value: Text(Provider.of<SettingsProvider>(context)
-                    .settingsModel
-                    .scanViewFinderMode
-                    .jsonValue),
-              ),
-              _infoTileWithIcon('Scandit-Version','Version 6.14.1',Icons.perm_device_info),
-            ],
+                    setState(() {
+                      settingsProvider.setCameraLight(value);
+                    });
+                  },
+                  initialValue: Provider.of<SettingsProvider>(context)
+                      .settingsModel
+                      .cameraLight,
+                  leading: Icon(Icons.lightbulb),
+                  title: Text('Kameralicht'),
+                  description: Provider.of<SettingsProvider>(context)
+                      .settingsModel
+                      .cameraLight
+                      ? Text('beim Scannen eingeschaltet')
+                      : Text('inaktiv'),
+                ),
+                SettingsTile.navigation(
+                  onPressed: (ctx) {
+                    _showScanMode(context);
+                  },
+                  leading: const Icon(Icons.qr_code_scanner),
+                  title: const Text('Scanmode'),
+                  value: Text(Provider.of<SettingsProvider>(context)
+                      .settingsModel
+                      .scanMode
+                      .jsonValue),
+                ),
+                SettingsTile.navigation(
+                  onPressed: (ctx) {
+                    _showScanViewMode(context);
+                  },
+                  leading: const Icon(Icons.qr_code_scanner),
+                  title: const Text('ScanViewmode'),
+                  value: Text(Provider.of<SettingsProvider>(context)
+                      .settingsModel
+                      .scanViewFinderMode
+                      .jsonValue),
+                ),
+                _infoTileWithIcon('Scandit-Version','Version 6.14.1',Icons.perm_device_info),
+              ],
 
-          ),
-        ],
+            ),
+          ],
+        ),
+          BarcodeScannerScreen(barcodeCaptureListener: this,),
+      ]
       ),
     );
+  }
+
+  @override
+  void didScan(BarcodeCapture barcodeCapture, BarcodeCaptureSession session) async {
+    var code = session.newlyRecognizedBarcodes.first;
+    var data = (code.data == null || code.data?.isEmpty == true) ? code.rawData : code.data;
+    var humanReadableSymbology = SymbologyDescription.forSymbology(code.symbology);
+
+    await showPlatformDialog(
+        context: context,
+        builder: (_) => PlatformAlertDialog(
+          content: PlatformText(
+            'Scanned: $data\n (${humanReadableSymbology.readableName})',
+            style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
+          ),
+          actions: [
+            PlatformDialogAction(
+                child: PlatformText('OK'),
+                onPressed: () {
+                  Navigator.of(context, rootNavigator: true).pop();
+                })
+          ],
+        ));
+  }
+
+  @override
+  void didUpdateSession(BarcodeCapture barcodeCapture, BarcodeCaptureSession session) {
+    // TODO: implement didUpdateSession
   }
 
   SettingsTile _infoTileWithIcon(

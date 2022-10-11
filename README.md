@@ -23,6 +23,7 @@ samples, guidance on mobile development, and a full API reference.
 - scandit_flutter_datacapture_barcode
 - [webview_flutter](https://pub.dev/packages/webview_flutter)
 - [build_runner](https://pub.dev/packages/build_runner) --dev
+- [split_view](https://pub.dev/packages/split_view/install) 
 
 
 

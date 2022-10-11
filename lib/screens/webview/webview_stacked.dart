@@ -7,6 +7,7 @@ import 'package:itavero_mobile/screens/scanning/barcode_scanner_screen.dart';
 import 'package:provider/provider.dart';
 import 'package:scandit_flutter_datacapture_barcode/scandit_flutter_datacapture_barcode.dart';
 import 'package:scandit_flutter_datacapture_barcode/scandit_flutter_datacapture_barcode_capture.dart';
+import 'package:split_view/split_view.dart';
 import 'package:webview_flutter/webview_flutter.dart';
 import 'package:flutter/foundation.dart';
 
@@ -20,7 +21,7 @@ class WebViewStacked extends StatefulWidget {
 class _WebViewStackedState extends State<WebViewStacked>
     implements BarcodeCaptureListener{
   var loadingPercentage = 0;
-  var scannerAktiv = false;
+  var scannerAktiv = true;
   var loadingFinished = false;
   var webViewController;
 
@@ -31,10 +32,14 @@ class _WebViewStackedState extends State<WebViewStacked>
 
     return Scaffold(
       body: SafeArea(
-        child: Column(
+        child: SplitView(
+          viewMode: SplitViewMode.Vertical,
+          indicator: SplitIndicator(viewMode: SplitViewMode.Vertical),
+          //controller: SplitViewController(limits: [null, WeightLimit(max: 0.3)]),
+          onWeightChanged: (w) => print("Vertical $w"),
           children: [
             Container(
-              height: scannerAktiv ? 400 : 600,
+              //height: scannerAktiv ? 400 : 600,
               child: Stack(
                 children: <Widget>[
                   WebView(
@@ -133,12 +138,13 @@ class _WebViewStackedState extends State<WebViewStacked>
               child: Container(
                 //todo hier noch die richtige höhe ermitteln
                 //padding: const EdgeInsets.fromLTRB(0, 400, 0, 0),
-                height: 400.0,
+                height: double.infinity,
                 width: double.infinity,
                 alignment: Alignment.bottomCenter,
                 child: BarcodeScannerScreen(barcodeCaptureListener: this),
               ),
             ),
+
           ],
         ),
       ),
