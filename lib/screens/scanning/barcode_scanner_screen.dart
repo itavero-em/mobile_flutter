@@ -16,7 +16,7 @@ const String licenseKey =
 class BarcodeScannerScreen extends StatefulWidget {
   final BarcodeCaptureListener barcodeCaptureListener;
 
-  const BarcodeScannerScreen({Key? key, required this.barcodeCaptureListener})
+  const BarcodeScannerScreen({Key? key,  required this.barcodeCaptureListener})
       : super(key: key);
 
   // Create data capture context using your license key.

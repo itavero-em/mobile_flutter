@@ -5,10 +5,7 @@
  */
 
 import 'package:flutter/material.dart';
-import 'package:flutter_platform_widgets/flutter_platform_widgets.dart';
 import 'package:itavero_mobile/provider/settings_provider.dart';
-import 'package:itavero_mobile/screens/scanning/barcode_scanner_screen.dart';
-import 'package:itavero_mobile/screens/scanning/barcode_scanner_screen_demo.dart';
 import 'package:itavero_mobile/screens/settings/settings_screen.dart';
 import 'package:itavero_mobile/screens/webview/webview_stacked.dart';
 import 'package:itavero_mobile/services/preference_service.dart';
@@ -74,11 +71,6 @@ class _MobileAppState extends State<MobileApp> {
       child: SettingsScreen(),
       alignment: Alignment.topCenter,
     ),
-    PlatformApp(
-      cupertino: (_, __) => CupertinoAppData(
-          theme: CupertinoThemeData(brightness: Brightness.light)),
-      home: BarcodeScannerDemoScreen(),
-    ),
   ];
 
   void _onItemTapped(int index) {
@@ -108,10 +100,7 @@ class _MobileAppState extends State<MobileApp> {
             icon: Icon(Icons.settings),
             label: 'Einstellungen',
           ),
-          const BottomNavigationBarItem(
-            icon: Icon(Icons.document_scanner_outlined),
-            label: 'Scan',
-          ),
+
         ],
         currentIndex: _selectedIndex,
         selectedItemColor: ItaveroMobile.itacolor,
