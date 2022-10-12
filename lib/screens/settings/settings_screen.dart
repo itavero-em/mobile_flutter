@@ -9,6 +9,8 @@ import '../../provider/settings_provider.dart';
 import '../connections/connection_list_screen.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:package_info_plus/package_info_plus.dart';
+import 'package:itavero_mobile/main.dart';
+
 
 class SettingsScreen extends StatefulWidget {
   const SettingsScreen({Key? key}) : super(key: key);
@@ -121,9 +123,13 @@ class _SettingsScreenState extends State<SettingsScreen> {
                 SettingsTile.navigation(
                   leading: const Icon(Icons.document_scanner_outlined),
                   title: const Text('Konfiguration'),
-                  value: Text(Provider.of<SettingsProvider>(context)
+                  description: Text('Scan-View-Mode:  ${Provider.of<SettingsProvider>(context)
                       .settingsModel
-                      .scanViewFinderMode.jsonValue
+                      .scanViewFinderMode.jsonValue}\nScan-Modus: ${Provider.of<SettingsProvider>(context)
+                      .settingsModel
+                      .scanMode.jsonValue}\nKameralicht: ${Provider.of<SettingsProvider>(context)
+                      .settingsModel
+                      .cameraLight ? 'an': 'aus'}'
                       ),
                   onPressed: (ctx) {
                     Navigator.push(
@@ -137,11 +143,15 @@ class _SettingsScreenState extends State<SettingsScreen> {
 
           ),
           SettingsSection(
-            title: const Text('Apps'),
+            title: const Text('App-Einstellungen'),
             tiles: <SettingsTile>[
 
-              SettingsTile(title: Text("title"), value:  Text("Text"),)
-
+              SettingsTile.navigation(
+    title: Text('Cache bereinigen'),description: Text('Es wird der Zwischenspeicher der Applikation gelöscht. Bitte nur im Fehlerfall anwenden'),
+              onPressed: (ctx) {
+                  //webView.getW
+                  ScaffoldMessenger.of(ctx).showSnackBar(SnackBar(content: Text("Cache wurde bereinigt")));
+              },)
             ],
 
           ),

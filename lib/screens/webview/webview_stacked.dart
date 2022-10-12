@@ -20,7 +20,7 @@ class _WebViewStackedState extends State<WebViewStacked>
   var loadingPercentage = 0;
   var scannerAktiv = false;
   var loadingFinished = false;
-  var webViewController;
+  var  webViewController;
 
 
   @override
