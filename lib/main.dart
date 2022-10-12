@@ -13,11 +13,12 @@ import 'package:provider/provider.dart';
 import 'package:scandit_flutter_datacapture_barcode/scandit_flutter_datacapture_barcode.dart';
 import 'package:flutter/cupertino.dart';
 
-
+late WebViewStacked webView;
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await ScanditFlutterDataCaptureBarcode.initialize();
+  webView = WebViewStacked();
 
   PreferenceService().getSettings().then((value) => {
         runApp(MultiProvider(
@@ -65,7 +66,7 @@ class _MobileAppState extends State<MobileApp> {
 
   final List<Widget> _pages = <Widget>[
     Center(
-      child: WebViewStacked(),
+      child: webView,
     ),
     Container(
       child: SettingsScreen(),
