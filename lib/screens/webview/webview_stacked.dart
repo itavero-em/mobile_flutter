@@ -13,6 +13,15 @@ class WebViewStacked extends StatefulWidget {
 
   @override
   State<WebViewStacked> createState() => _WebViewStackedState();
+
+
+  static void clearCache(BuildContext context)
+  {
+    context.findAncestorStateOfType<_WebViewStackedState>()?.webViewController.clearCache();
+    final cookieManger = CookieManager();
+    cookieManger.clearCookies();
+  }
+
 }
 
 class _WebViewStackedState extends State<WebViewStacked>
@@ -20,7 +29,8 @@ class _WebViewStackedState extends State<WebViewStacked>
   var loadingPercentage = 0;
   var scannerAktiv = false;
   var loadingFinished = false;
-  var  webViewController;
+  late WebViewController webViewController;
+
 
 
   @override

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_platform_widgets/flutter_platform_widgets.dart';
 import 'package:itavero_mobile/models/settings_model.dart';
 import 'package:itavero_mobile/screens/settings/setting_scandit_screen.dart';
 import 'package:provider/provider.dart';
@@ -11,6 +12,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:package_info_plus/package_info_plus.dart';
 import 'package:itavero_mobile/main.dart';
 
+import '../webview/webview_stacked.dart';
 
 class SettingsScreen extends StatefulWidget {
   const SettingsScreen({Key? key}) : super(key: key);
@@ -59,7 +61,6 @@ class _SettingsScreenState extends State<SettingsScreen> {
 
   @override
   Widget build(BuildContext context) {
-
     return Scaffold(
       appBar: AppBar(
           title: Container(
@@ -118,44 +119,50 @@ class _SettingsScreenState extends State<SettingsScreen> {
             ],
           ),
           SettingsSection(
-          title: const Text('Scandit'),
-          tiles: <SettingsTile>[
-                SettingsTile.navigation(
-                  leading: const Icon(Icons.document_scanner_outlined),
-                  title: const Text('Konfiguration'),
-                  description: Text('Scan-View-Mode:  ${Provider.of<SettingsProvider>(context)
-                      .settingsModel
-                      .scanViewFinderMode.jsonValue}\nScan-Modus: ${Provider.of<SettingsProvider>(context)
-                      .settingsModel
-                      .scanMode.jsonValue}\nKameralicht: ${Provider.of<SettingsProvider>(context)
-                      .settingsModel
-                      .cameraLight ? 'an': 'aus'}'
-                      ),
-                  onPressed: (ctx) {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) => ScanditSettings()),
-                    ).then((value) => setState(() {}));
-                  },
-                ),
-          ],
-
+            title: const Text('Scandit'),
+            tiles: <SettingsTile>[
+              SettingsTile.navigation(
+                leading: const Icon(Icons.document_scanner_outlined),
+                title: const Text('Konfiguration'),
+                description: Text(
+                    'Scan-View-Mode:  ${Provider.of<SettingsProvider>(context).settingsModel.scanViewFinderMode.jsonValue}\nScan-Modus: ${Provider.of<SettingsProvider>(context).settingsModel.scanMode.jsonValue}\nKameralicht: ${Provider.of<SettingsProvider>(context).settingsModel.cameraLight ? 'an' : 'aus'}'),
+                onPressed: (ctx) {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => ScanditSettings()),
+                  ).then((value) => setState(() {}));
+                },
+              ),
+            ],
           ),
           SettingsSection(
             title: const Text('App-Einstellungen'),
             tiles: <SettingsTile>[
-
               SettingsTile.navigation(
-    title: Text('Cache bereinigen'),description: Text('Es wird der Zwischenspeicher der Applikation gelöscht. Bitte nur im Fehlerfall anwenden'),
-              onPressed: (ctx) {
+                title: Text('Cache bereinigen'),
+                description: Text(
+                    'Es wird der Zwischenspeicher der Applikation gelöscht. Bitte nur im Fehlerfall anwenden'),
+                onPressed: (ctx) {
                   //webView.getW
-                  ScaffoldMessenger.of(ctx).showSnackBar(SnackBar(content: Text("Cache wurde bereinigt")));
-              },)
+
+                  ScaffoldMessenger.of(ctx).showSnackBar(
+                      SnackBar(content: Text("Cache wurde bereinigt")));
+                },
+              ),
+              SettingsTile.navigation(
+                title: Text('Auf Werkseinstellungen zurücksetzen',
+                    style: TextStyle(color: Colors.black)),
+                description: Text(
+                    'Es werden alle Daten zurückgesetzt. Achtung alle manuell gespeicherten Verbindungen werden gelöscht.',
+                    style: TextStyle(color: Colors.red)),
+                onPressed: (ctx)
+                {
+                  showAbfrageDialog(ctx);
+                  //webView.getW
+                },
+              )
             ],
-
           ),
-
           SettingsSection(
             title: const Text('App-Informationen'),
             tiles: <SettingsTile>[
@@ -169,5 +176,43 @@ class _SettingsScreenState extends State<SettingsScreen> {
         ],
       ),
     );
+  }
+
+  showAbfrageDialog(BuildContext ctx)
+  {
+
+    showDialog(
+        context: ctx,
+        builder: (BuildContext context) {
+          return
+            CupertinoAlertDialog(
+              title: Text('Werkseinstellungen wiederherstellen?'),
+              content: Text(
+                  'Wollen Sie wirklich die Werkseinstellungen wiederherstellen?'),
+              actions: [
+                CupertinoDialogAction(
+                    child: Text("Ja"),
+                    onPressed: () {
+                      print("Ja");
+                      WebViewStacked.clearCache(context);
+                      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                          content: Text(
+                              "Noch111 offen. Werkseinstellungen wurden wieder hergestellt")));
+                      Navigator.pop(context);
+                    }),
+                CupertinoDialogAction(
+                  child: Text("Nein"),
+                  onPressed: () {
+
+                    Navigator.pop(context);
+                  },
+                ),
+              ],
+            );
+
+
+        });
+
+
   }
 }
