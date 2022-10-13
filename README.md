@@ -32,10 +32,11 @@ samples, guidance on mobile development, and a full API reference.
 Plugin ist zum generieren von Dart-Code.
 Wir z.B. verwendet für JSON
 
+```
 dart pub add build_runner --dev
 
 flutter pub run build_runner build
-
+```
 Die verfügbaren Befehle sind build, watch, serveund test.
 
 build: Führt einen einzelnen Build aus und wird beendet.
@@ -45,8 +46,21 @@ Standardmäßig bedient dies die Verzeichnisse webund testauf Port 8080bzw. 8081
 test: Führt einen einzelnen Build aus, erstellt ein zusammengeführtes Ausgabeverzeichnis und führt dann dart run test --precompiled <merged-output-dir>. Nachfolgend finden Sie Anweisungen zum Übergeben benutzerdefinierter Argumente an den Testbefehl.
 
 ### bei Problemen mit build_runner
+
+```
 flutter clean
 
 dart pub get
 
 flutter pub get
+```
+
+### Generierung von App-Icons
+Es ist möglich ein Icon für alle Größen in iOS und Android generieren zu lassen. Das Basis Icon liegt unter
+/assets/icon/icon.png
+
+Für die Generierung muss folgendes ausgeführt werden:
+
+```
+flutter pub run flutter_launcher_icons:main
+```
