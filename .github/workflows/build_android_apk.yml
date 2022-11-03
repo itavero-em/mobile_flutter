@@ -2,14 +2,16 @@ name: "Build Android"
 env:
   FLUTTER_VERSION: "stable"
   
-#on:
-#  push:
+on:
+  push:
 #    branches: [ "master" ]
-#    tags:
-#      - 'v*'
+    tags:
+      - 'v*'
 #  pull_request:
 #    branches: [ "master" ]
-on: workflow_dispatch
+
+# on: workflow_dispatch
+
 # Run monthly, at 00:00 on the 1st day of month.
 # schedule:
 #     - cron: '0 0 * * *'
