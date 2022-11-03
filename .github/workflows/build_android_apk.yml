@@ -2,15 +2,15 @@ name: "Build Android"
 env:
   FLUTTER_VERSION: "stable"
   
-#on:
-#  push:
+on:
+  push:
 #    branches: [ "master" ]
-#    tags:
-#      - 'v*'
+    tags:
+      - 'v*'
 #  pull_request:
 #    branches: [ "master" ]
 
-on: workflow_dispatch
+#on: workflow_dispatch
 
 # Run monthly, at 00:00 on the 1st day of month.
 # schedule:
@@ -70,7 +70,7 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} 
         with:
           tag_name: ${{ github.ref }}
-          release_name: Release ${{ github.ref }} 
+          release_name: Release ${{ github.ref }}
       - name: Upload Release APK
         id: upload_release_asset
         uses: actions/upload-release-asset@v1.0.1
