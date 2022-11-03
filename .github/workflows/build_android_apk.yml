@@ -51,11 +51,11 @@ jobs:
         run: flutter build apk --release
       - uses: actions/upload-artifact@v3
         with:
-          name: mobile_flutter_apk
+          name: apk
           path: build/app/outputs/flutter-apk/app-release.apk
   release:
     name: Release APK
-    needs: mobile_flutter_apk
+    needs: apk
     if: startsWith(github.ref, 'refs/tags/v')
     runs-on: ubuntu-latest
     steps:
