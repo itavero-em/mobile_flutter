@@ -49,7 +49,7 @@ jobs:
       - name: Get Packages
         run: flutter pub get
       - name: Run deploy
-        run: flutter build apk --release
+        run: flutter build apk
       - uses: actions/upload-artifact@v3
         with:
           name: apk
