@@ -42,7 +42,7 @@ jobs:
       - name: Install Flutter
         uses: britannio/action-install-flutter@v1
         with:
-          flutter-version: '0.0.3'
+          #flutter-version: '0.0.3'
           version: "stable"
       - name: Flutter Check
         run: flutter doctor -v
@@ -80,5 +80,5 @@ jobs:
         with:
           upload_url: ${{ steps.create_release.outputs.upload_url }}
           asset_path: apk/app-release.apk
-          asset_name: ItaveroMobile-${{ github.ref }}.apk
+          asset_name: ItaveroMobile.apk
           asset_content_type: application/zip
