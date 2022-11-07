@@ -30,6 +30,7 @@ jobs:
         run:
           echo bin_hier
           echo $TEST
+          echo $FLUTTER_VERSION
 
       - name: Install Apple Certificate
         uses: apple-actions/import-codesign-certs@v1
