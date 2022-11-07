@@ -24,6 +24,10 @@ jobs:
       - name: Checkout the code
         uses: actions/checkout@v2
 
+      - name: EnvAusgabe
+          echo bin_hier
+          echo ${{ secrets.DISTRIBUTION }}
+
       - name: Install Apple Certificate
         uses: apple-actions/import-codesign-certs@v1
         with:
