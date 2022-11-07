@@ -64,3 +64,9 @@ Für die Generierung muss folgendes ausgeführt werden:
 ```
 flutter pub run flutter_launcher_icons:main
 ```
+
+## Base46 verschlüsseln
+Muss noch dokumentiert werden.
+...
+certutil -encode C:\Temp\ios_profile\AdHocProfile.mobileprovision tmp.b64 && findstr /v /c:- tmp.b64 > AdHocProfile.b64 && del tmp.b64
+...
