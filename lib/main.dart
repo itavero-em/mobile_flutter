@@ -6,6 +6,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:itavero_mobile/provider/settings_provider.dart';
+import 'package:itavero_mobile/screens/onboarding/onboarding_screen.dart';
 import 'package:itavero_mobile/screens/settings/settings_screen.dart';
 import 'package:itavero_mobile/screens/webview/webview_stacked.dart';
 import 'package:itavero_mobile/services/preference_service.dart';
@@ -42,7 +43,7 @@ class ItaveroMobile extends StatelessWidget {
   Widget build(BuildContext context) {
     return const MaterialApp(
       title: _title,
-      home: MobileApp(),
+      home: OnBoardingScreen(),
     );
   }
 }
