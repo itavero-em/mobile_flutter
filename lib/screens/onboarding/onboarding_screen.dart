@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:introduction_screen/introduction_screen.dart';
 import 'package:itavero_mobile/main.dart';
 
@@ -11,8 +12,6 @@ class OnBoardingScreen extends StatefulWidget {
 
 class _OnBoardingScreenState extends State<OnBoardingScreen> {
   final introKey = GlobalKey<IntroductionScreenState>();
-
-
 
   /*SizedBox get _signupButton {
     return SizedBox(
@@ -44,14 +43,19 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
     );
   }
 
+  final Widget svg = SvgPicture.asset(
+      "assets/images/undraw_mobile_development_re_wwsn.svg",
+      semanticsLabel: 'Image 1',
+  height: 40,);
 
   @override
   Widget build(BuildContext context) {
     const bodyStyle = TextStyle(fontSize: 19.0);
     const pageDecoration = const PageDecoration(
       titleTextStyle: TextStyle(fontSize: 28.0, fontWeight: FontWeight.w700),
+      titlePadding: EdgeInsets.fromLTRB(0, 140.0, 0, 0),
       bodyTextStyle: bodyStyle,
-      bodyPadding: EdgeInsets.fromLTRB(16.0, 0.0, 16.0, 16.0),
+      bodyPadding: EdgeInsets.fromLTRB(16.0, 30.0, 16.0, 16.0),
       pageColor: Colors.white,
       imagePadding: EdgeInsets.zero,
     );
@@ -73,36 +77,61 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
         height: 60,
         child: ElevatedButton(
           child: const Text(
-            'Let\'s go right away!',
+            'Überspringen',
             style: TextStyle(fontSize: 16.0, fontWeight: FontWeight.bold),
           ),
           onPressed: () => _onIntroEnd(context),
         ),
       ),
-      pages: [PageViewModel(
-        title: "Willkommen",
-        bodyWidget: Column(
-          children: [Text("Nun ist es endlich so weit. Du kannst ab sofort "
-              "ausgewaehlte Logistikprozesse auf ganz bequem ueber dein Mobiles "
-              "Endgeraet durchfuehren.", style: TextStyle(fontSize: 16), textAlign: TextAlign.center),
+      pages: [
+        PageViewModel(
+          title: "Willkommen",
+          bodyWidget: Column(
+            mainAxisAlignment: MainAxisAlignment.spaceAround,
+            children: [
+              Center(
+                child: Row(
+                  children: [
+                    const Image(
+                        image: AssetImage('assets/images/developer-no1.png'),
+                        width: 150,
+                        height: 150),
+                    const Image(
+                        image: AssetImage('assets/images/developer-no2.png'),
+                        width: 150,
+                        height: 150)
+                  ],
+                ),
+              ),
+              SizedBox(height: 40),
+              Text(
+                  "Nun ist es endlich so weit.\nDu kannst ab sofort "
+                  "ausgewählte Logistikprozesse auf ganz bequem über dein Mobiles "
+                  "Endgeraet durchführen.",
+                  style: TextStyle(fontSize: 22),
+                  textAlign: TextAlign.center),
             ],
+          ),
+          decoration: pageDecoration,
         ),
-        image: Center(
-          child: Row(children: [const Image(image: AssetImage('assets/images/developer-no1.png'),
-          width: 150,
-          height: 150
+        PageViewModel(
+          title: "Inspiration",
+          bodyWidget: Column(
+            children: [
+              Text(
+                  "Sprich uns an, wenn du Ideen hast, wie wir deine Arbeit erleichtern können, indem wir neue Web-Apps bauen.",
+                  style: TextStyle(fontSize: 22),
+                  textAlign: TextAlign.center),
+              SizedBox(height: 40),
+              SvgPicture.asset(
+                "assets/images/undraw_mobile_development_re_wwsn.svg",
+                semanticsLabel: 'Image 1',
+                height: 250,),
+            ],
           ),
-            const Image(image: AssetImage('assets/images/developer-no2.png'),
-              width: 150,
-              height: 150)],
-          ),
+          decoration: pageDecoration,
         )
-        ,
-        decoration: pageDecoration,
-      ),PageViewModel(
-        title: "Einstellungen",
-        body: "Hier der Text",
-      )],
+      ],
       onDone: () => _onIntroEnd(context),
       //onSkip: () => _onIntroEnd(context), // You can override onSkip callback
       showSkipButton: false,
@@ -115,23 +144,18 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
       next: const Icon(Icons.arrow_forward),
       done: const Text('Skip', style: TextStyle(fontWeight: FontWeight.w600)),
       controlsMargin: const EdgeInsets.all(16),
-      controlsPadding: EdgeInsets.fromLTRB(8.0,4.0,8.0,4.0),
+      controlsPadding: EdgeInsets.fromLTRB(8.0, 4.0, 8.0, 4.0),
       dotsDecorator: const DotsDecorator(
-          size: Size(10.0,10.0),
-        color: Color(0xFFBDBDBD),
-        activeSize: Size(22.0,10.0),
-        activeShape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.all(Radius.circular(25.0)
-          ),
-        )
-      ),
+          size: Size(10.0, 10.0),
+          color: Color(0xFFBDBDBD),
+          activeSize: Size(22.0, 10.0),
+          activeShape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.all(Radius.circular(25.0)),
+          )),
       dotsContainerDecorator: const ShapeDecoration(
           color: Colors.black87,
           shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.all(Radius.circular(8.0))
-          )
-      ),
+              borderRadius: BorderRadius.all(Radius.circular(8.0)))),
     );
   }
 }
-
