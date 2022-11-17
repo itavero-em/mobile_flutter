@@ -25,7 +25,8 @@ class PreferenceService {
         aktiveVerbindung: SettingsModel.noConnectionModel,
         scanViewFinderMode: ScanViewFinderMode.line,
         cameraLight: false,
-        pushMessageEnabled: false);
+        pushMessageEnabled: false,
+        showIntro: false);
     if (jsonString == null) {
       return defaultModel;
     } else {

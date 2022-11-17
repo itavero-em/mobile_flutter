@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:introduction_screen/introduction_screen.dart';
 import 'package:itavero_mobile/main.dart';
+import 'package:itavero_mobile/provider/settings_provider.dart';
+import 'package:provider/provider.dart';
 
 class OnBoardingScreen extends StatefulWidget {
   const OnBoardingScreen({Key? key}) : super(key: key);
@@ -38,6 +40,7 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
   }*/
 
   void _onIntroEnd(context) {
+    Provider.of<SettingsProvider>(context, listen: false).setShowIntro(false);
     Navigator.of(context).push(
       MaterialPageRoute(builder: (_) => MobileApp()),
     );
@@ -90,19 +93,11 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
             mainAxisAlignment: MainAxisAlignment.spaceAround,
             children: [
               Center(
-                child: Row(
-                  children: [
-                    const Image(
-                        image: AssetImage('assets/images/developer-no1.png'),
-                        width: 150,
-                        height: 150),
-                    const Image(
-                        image: AssetImage('assets/images/developer-no2.png'),
-                        width: 150,
-                        height: 150)
-                  ],
+                child: SvgPicture.asset(
+          "assets/images/undraw_mobile_application_re_13u3.svg",
+            semanticsLabel: 'Image 1',
+            height: 250,),
                 ),
-              ),
               SizedBox(height: 40),
               Text(
                   "Nun ist es endlich so weit.\nDu kannst ab sofort "

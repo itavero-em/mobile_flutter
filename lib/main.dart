@@ -37,14 +37,23 @@ class ItaveroMobile extends StatelessWidget {
   const ItaveroMobile({Key? key}) : super(key: key);
 
   static const String _title = 'itavero mobile app';
-  static const Color itacolor = Color(0xff3397c8);
+  static const Color itacolor = Color.fromRGBO(0,131,191,1);//#0083bf
 
   @override
   Widget build(BuildContext context) {
+    bool showIntro = Provider.of<SettingsProvider>(context, listen: false)
+        .settingsModel.showIntro;
+
+    if(showIntro)
     return const MaterialApp(
       title: _title,
       home: OnBoardingScreen(),
     );
+    else
+      return const MaterialApp(
+        title: _title,
+        home: MobileApp(),
+      );
   }
 }
 

@@ -64,9 +64,15 @@ class SettingsProvider extends ChangeNotifier{
     _modelChanged();
   }
 
-  void enablePushMessages(bool pushMessage)
+  void setPushMessages(bool pushMessage)
   {
     settingsModel.pushMessageEnabled = pushMessage;
+    _modelChanged();
+  }
+
+  void setShowIntro(bool showIntro)
+  {
+    settingsModel.showIntro = showIntro;
     _modelChanged();
   }
 }

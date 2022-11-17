@@ -17,6 +17,7 @@ SettingsModel _$SettingsModelFromJson(Map<String, dynamic> json) =>
           $enumDecode(_$ScanViewFinderModeEnumMap, json['scan_viewfindermode']),
       cameraLight: json['kamera_licht'] as bool,
       pushMessageEnabled: json['push_benachrichtigungen'] as bool,
+      showIntro: json['show_intro'] as bool,
     );
 
 Map<String, dynamic> _$SettingsModelToJson(SettingsModel instance) =>
@@ -27,6 +28,7 @@ Map<String, dynamic> _$SettingsModelToJson(SettingsModel instance) =>
           _$ScanViewFinderModeEnumMap[instance.scanViewFinderMode]!,
       'kamera_licht': instance.cameraLight,
       'push_benachrichtigungen': instance.pushMessageEnabled,
+      'show_intro': instance.showIntro,
     };
 
 const _$ScanViewFinderModeEnumMap = {

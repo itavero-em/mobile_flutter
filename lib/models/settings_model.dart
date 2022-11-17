@@ -44,6 +44,9 @@ class SettingsModel {
   @JsonKey(name: 'kamera_licht')
   bool cameraLight = false;
 
+  @JsonKey(name: 'show_intro')
+  bool showIntro = true;
+
   @JsonKey(name: 'push_benachrichtigungen')
   bool pushMessageEnabled = false;
 
@@ -52,7 +55,8 @@ class SettingsModel {
       required this.aktiveVerbindung,
       required this.scanViewFinderMode,
       required this.cameraLight,
-      required this.pushMessageEnabled});
+      required this.pushMessageEnabled,
+        required this.showIntro});
 
   // Deserialisieren
   factory SettingsModel.fromJson(Map<String, dynamic> json) =>

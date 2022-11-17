@@ -76,7 +76,10 @@ class _SettingsScreenState extends State<SettingsScreen> {
         platform: DevicePlatform.device,
         sections: [
           SettingsSection(
-            title: Text('Allgemein'),
+            title: Text('Allgemein',
+                style: TextStyle(
+                    color: ItaveroMobile.itacolor,
+                    fontWeight: FontWeight.bold)),
             tiles: <SettingsTile>[
               SettingsTile.navigation(
                 leading: const Icon(Icons.language),
@@ -98,7 +101,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                   print(value);
 
                   setState(() {
-                    settingsProvider.enablePushMessages(value);
+                    settingsProvider.setPushMessages(value);
                   });
                 },
                 initialValue: Provider.of<SettingsProvider>(context)
@@ -116,10 +119,36 @@ class _SettingsScreenState extends State<SettingsScreen> {
                     ? Text('werden an die App übermittelt')
                     : Text('inaktiv'),
               ),
+              SettingsTile.switchTile(
+                onToggle: (value) {
+                  print(value);
+
+                  setState(() {
+                    settingsProvider.setShowIntro(value);
+                  });
+                },
+                initialValue: Provider.of<SettingsProvider>(context)
+                    .settingsModel
+                    .showIntro,
+                leading: Provider.of<SettingsProvider>(context)
+                    .settingsModel
+                    .showIntro
+                    ? Icon(Icons.inbox)
+                    : Icon(Icons.inbox),
+                title: Text('Intro anzeigen'),
+                description: Provider.of<SettingsProvider>(context)
+                    .settingsModel
+                    .showIntro
+                    ? Text('Intro wird beim nächten Start einmal angezeigt.')
+                    : Text('Intro wird beim nächsten Start nicht mehr angezeigt.'),
+              ),
             ],
           ),
           SettingsSection(
-            title: const Text('Scandit'),
+            title: const Text('Scandit',
+                style: TextStyle(
+                    color: ItaveroMobile.itacolor,
+                    fontWeight: FontWeight.bold)),
             tiles: <SettingsTile>[
               SettingsTile.navigation(
                 leading: const Icon(Icons.document_scanner_outlined),
@@ -136,7 +165,10 @@ class _SettingsScreenState extends State<SettingsScreen> {
             ],
           ),
           SettingsSection(
-            title: const Text('App-Einstellungen'),
+            title: const Text('App-Einstellungen',
+                style: TextStyle(
+                    color: ItaveroMobile.itacolor,
+                    fontWeight: FontWeight.bold)),
             tiles: <SettingsTile>[
               SettingsTile.navigation(
                 title: Text('Cache bereinigen'),
@@ -155,8 +187,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                 description: Text(
                     'Es werden alle Daten zurückgesetzt. Achtung alle manuell gespeicherten Verbindungen werden gelöscht.',
                     style: TextStyle(color: Colors.red)),
-                onPressed: (ctx)
-                {
+                onPressed: (ctx) {
                   showAbfrageDialog(ctx);
                   //webView.getW
                 },
@@ -164,7 +195,10 @@ class _SettingsScreenState extends State<SettingsScreen> {
             ],
           ),
           SettingsSection(
-            title: const Text('App-Informationen'),
+            title: const Text('App-Informationen',
+                style: TextStyle(
+                    color: ItaveroMobile.itacolor,
+                    fontWeight: FontWeight.bold)),
             tiles: <SettingsTile>[
               _infoTileStandard('App name', _packageInfo.appName),
               _infoTileStandard('Package name', _packageInfo.packageName),
@@ -178,41 +212,33 @@ class _SettingsScreenState extends State<SettingsScreen> {
     );
   }
 
-  showAbfrageDialog(BuildContext ctx)
-  {
-
+  showAbfrageDialog(BuildContext ctx) {
     showDialog(
         context: ctx,
         builder: (BuildContext context) {
-          return
-            CupertinoAlertDialog(
-              title: Text('Werkseinstellungen wiederherstellen?'),
-              content: Text(
-                  'Wollen Sie wirklich die Werkseinstellungen wiederherstellen?'),
-              actions: [
-                CupertinoDialogAction(
-                    child: Text("Ja"),
-                    onPressed: () {
-                      print("Ja");
-                      WebViewStacked.clearCache(context);
-                      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-                          content: Text(
-                              "Noch111 offen. Werkseinstellungen wurden wieder hergestellt")));
-                      Navigator.pop(context);
-                    }),
-                CupertinoDialogAction(
-                  child: Text("Nein"),
+          return CupertinoAlertDialog(
+            title: Text('Werkseinstellungen wiederherstellen?'),
+            content: Text(
+                'Wollen Sie wirklich die Werkseinstellungen wiederherstellen?'),
+            actions: [
+              CupertinoDialogAction(
+                  child: Text("Ja"),
                   onPressed: () {
-
+                    print("Ja");
+                    WebViewStacked.clearCache(context);
+                    ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                        content: Text(
+                            "Noch111 offen. Werkseinstellungen wurden wieder hergestellt")));
                     Navigator.pop(context);
-                  },
-                ),
-              ],
-            );
-
-
+                  }),
+              CupertinoDialogAction(
+                child: Text("Nein"),
+                onPressed: () {
+                  Navigator.pop(context);
+                },
+              ),
+            ],
+          );
         });
-
-
   }
 }
