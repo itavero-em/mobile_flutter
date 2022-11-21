@@ -39,10 +39,18 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
     );
   }*/
 
+
   void _onIntroEnd(context) {
     Provider.of<SettingsProvider>(context, listen: false).setShowIntro(false);
-    Navigator.of(context).push(
+    /*Navigator.of(context).push(
       MaterialPageRoute(builder: (_) => MobileApp()),
+    );*/
+
+    // Ohne Zurück-Button
+    Navigator.pushAndRemoveUntil(
+      context,
+      MaterialPageRoute(builder: (context) => MobileApp()),
+          (Route<dynamic> route) => false,
     );
   }
 
