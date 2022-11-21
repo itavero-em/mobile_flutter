@@ -96,14 +96,14 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
                 child: SvgPicture.asset(
           "assets/images/undraw_mobile_application_re_13u3.svg",
             semanticsLabel: 'Image 1',
-            height: 250,),
+            height: 150,),
                 ),
-              SizedBox(height: 40),
+              SizedBox(height: 20),
               Text(
-                  "Nun ist es endlich so weit.\nDu kannst ab sofort "
-                  "ausgewählte Logistikprozesse auf ganz bequem über dein Mobiles "
-                  "Endgeraet durchführen.",
-                  style: TextStyle(fontSize: 22),
+                  "Nun ist es endlich soweit.\nDu kannst ab sofort "
+                  "ausgewählte Logistikprozesse auch ganz bequem über dein mobiles "
+                  "Endgerät durchführen.",
+                  style: TextStyle(fontSize: 18),
                   textAlign: TextAlign.center),
             ],
           ),
@@ -115,13 +115,13 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
             children: [
               Text(
                   "Sprich uns an, wenn du Ideen hast, wie wir deine Arbeit erleichtern können, indem wir neue Web-Apps bauen.",
-                  style: TextStyle(fontSize: 22),
+                  style: TextStyle(fontSize: 18),
                   textAlign: TextAlign.center),
-              SizedBox(height: 40),
+              SizedBox(height: 20),
               SvgPicture.asset(
                 "assets/images/undraw_mobile_development_re_wwsn.svg",
                 semanticsLabel: 'Image 1',
-                height: 250,),
+                height: 150,),
             ],
           ),
           decoration: pageDecoration,

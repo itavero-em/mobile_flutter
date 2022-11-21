@@ -26,7 +26,7 @@ class PreferenceService {
         scanViewFinderMode: ScanViewFinderMode.line,
         cameraLight: false,
         pushMessageEnabled: false,
-        showIntro: false);
+        showIntro: true);
     if (jsonString == null) {
       return defaultModel;
     } else {
