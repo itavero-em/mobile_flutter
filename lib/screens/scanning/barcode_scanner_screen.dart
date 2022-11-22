@@ -47,6 +47,8 @@ class _BarcodeScannerScreenState extends State<BarcodeScannerScreen>
         }));
   }
 
+  get barcodeCapture => _barcodeCapture;
+
   @override
   void initState() {
     super.initState();

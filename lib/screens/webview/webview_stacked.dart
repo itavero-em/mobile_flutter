@@ -31,11 +31,11 @@ class _WebViewStackedState extends State<WebViewStacked>
   var loadingFinished = false;
   late WebViewController webViewController;
 
-
+late BarcodeScannerScreen _barcodeScannerScreen;
 
   @override
   Widget build(BuildContext context) {
-    var barcodeScannerScreen = BarcodeScannerScreen(barcodeCaptureListener: this);
+    _barcodeScannerScreen = BarcodeScannerScreen(barcodeCaptureListener: this);
     return Scaffold(
       body: SafeArea(
         child: Column(
@@ -145,7 +145,7 @@ class _WebViewStackedState extends State<WebViewStacked>
               flex: scannerAktiv ? 1:0,
               child: Visibility(
                 visible: scannerAktiv,
-                child: barcodeScannerScreen,
+                child: _barcodeScannerScreen,
               ),
             ),
           ],
@@ -204,6 +204,7 @@ class _WebViewStackedState extends State<WebViewStacked>
 
   @override
   void didScan(BarcodeCapture barcodeCapture, BarcodeCaptureSession session) {
+    barcodeCapture.isEnabled = false;
     var code = session.newlyRecognizedBarcodes.first;
     var data = (code.data == null || code.data?.isEmpty == true)
         ? code.rawData
@@ -218,9 +219,8 @@ class _WebViewStackedState extends State<WebViewStacked>
   }
 
   @override
-  void didUpdateSession(
-      BarcodeCapture barcodeCapture, BarcodeCaptureSession session) {
-    // TODO: implement didUpdateSession
+  void didUpdateSession( BarcodeCapture barcodeCapture, BarcodeCaptureSession session) {
+    barcodeCapture.isEnabled = scannerAktiv;
   }
 // ... to here.
 }

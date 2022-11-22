@@ -37,13 +37,16 @@ class _ScanditSettingsState extends State<ScanditSettings>
           centerTitle: true,
           backgroundColor: ItaveroMobile.itacolor),
       body: SplitView(
+        controller: SplitViewController( limits: [WeightLimit(max: 0.8, min: 0.2)]),
         viewMode: SplitViewMode.Vertical,
         indicator: SplitIndicator(viewMode: SplitViewMode.Vertical),
         activeIndicator: SplitIndicator(
           viewMode: SplitViewMode.Vertical,
           isActive: true,
         ),
-        children: [SettingsList(
+        children: [
+          BarcodeScannerScreen(barcodeCaptureListener: this),
+          SettingsList(
           shrinkWrap: false,
           platform: DevicePlatform.device,
           sections: [
@@ -96,8 +99,7 @@ class _ScanditSettingsState extends State<ScanditSettings>
 
             ),
           ],
-        ),
-          BarcodeScannerScreen(barcodeCaptureListener: this,),
+        )
       ]
       ),
     );
@@ -105,6 +107,7 @@ class _ScanditSettingsState extends State<ScanditSettings>
 
   @override
   void didScan(BarcodeCapture barcodeCapture, BarcodeCaptureSession session) async {
+    barcodeCapture.isEnabled = false;
     var code = session.newlyRecognizedBarcodes.first;
     var data = (code.data == null || code.data?.isEmpty == true) ? code.rawData : code.data;
     var humanReadableSymbology = SymbologyDescription.forSymbology(code.symbology);
@@ -121,6 +124,7 @@ class _ScanditSettingsState extends State<ScanditSettings>
                 child: PlatformText('OK'),
                 onPressed: () {
                   Navigator.of(context, rootNavigator: true).pop();
+                  barcodeCapture.isEnabled = true;
                 })
           ],
         ));
