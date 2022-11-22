@@ -79,7 +79,7 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
         child: SafeArea(
           child: Padding(
             padding: const EdgeInsets.only(top: 16, left: 16),
-            child: const Image(image: AssetImage('assets/images/logo_ita.gif')),
+            child: const Image(image: AssetImage('assets/images/itavero.png')),
           ),
         ),
       ),
