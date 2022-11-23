@@ -15,11 +15,15 @@ For help getting started with Flutter development, view the
 [online documentation](https://docs.flutter.dev/), which offers tutorials,
 samples, guidance on mobile development, and a full API reference.
 
+## Build IPA/APK
+flutter build ipa --export-method enterprise --obfuscate --split-debug-info true
+flutter build apk
+
 ## Plugins
 - [flutter_slidable](https://pub.dev/packages/flutter_slidable)
 - [provider](https://pub.dev/packages/provider)
 - [shared_preferences](https://pub.dev/packages/shared_preferences)
-- [settings_ui](https://pub.dev/packages/settings_ui)
+- [settings _ui](https://pub.dev/packages/settings_ui)
 - scandit_flutter_datacapture_barcode
 - [webview_flutter](https://pub.dev/packages/webview_flutter)
 - [build_runner](https://pub.dev/packages/build_runner) --dev

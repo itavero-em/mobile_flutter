@@ -79,7 +79,7 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
         child: SafeArea(
           child: Padding(
             padding: const EdgeInsets.only(top: 16, left: 16),
-            child: const Image(image: AssetImage('assets/images/itavero.png')),
+            child: const Image(image: AssetImage('assets/images/logo_ita.gif')),
           ),
         ),
       ),
@@ -109,7 +109,7 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
               SizedBox(height: 20),
               Text(
                   "Nun ist es endlich soweit.\nDu kannst ab sofort "
-                  "ausgewählte Logistikprozesse auch ganz bequem über dein mobiles "
+                  "ausgewählte Prisma-Prozesse auch ganz bequem über dein mobiles "
                   "Endgerät durchführen.",
                   style: TextStyle(fontSize: 18),
                   textAlign: TextAlign.center),
