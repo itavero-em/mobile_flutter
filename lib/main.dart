@@ -5,6 +5,7 @@
  */
 
 import 'package:flutter/material.dart';
+import 'package:itavero_mobile/models/settings_model.dart';
 import 'package:itavero_mobile/provider/settings_provider.dart';
 import 'package:itavero_mobile/screens/onboarding/onboarding_screen.dart';
 import 'package:itavero_mobile/screens/settings/settings_screen.dart';
@@ -13,6 +14,7 @@ import 'package:itavero_mobile/services/preference_service.dart';
 import 'package:provider/provider.dart';
 import 'package:scandit_flutter_datacapture_barcode/scandit_flutter_datacapture_barcode.dart';
 import 'package:flutter/cupertino.dart';
+
 
 late WebViewStacked webView;
 
@@ -65,13 +67,19 @@ class MobileApp extends StatefulWidget {
 }
 
 class _MobileAppState extends State<MobileApp> {
-  int _selectedIndex = 1;
+  int _selectedIndex = 0;
 
   // final PreferenceService _preferenceService = PreferenceService();
 
   @override
   initState() {
     super.initState();
+    if(Provider.of<SettingsProvider>(context, listen: false)
+        .settingsModel
+        .aktiveVerbindung==SettingsModel.noConnectionModel)
+    {
+      _selectedIndex =1;
+    }
   }
 
   final List<Widget> _pages = <Widget>[
@@ -92,6 +100,8 @@ class _MobileAppState extends State<MobileApp> {
 
   @override
   Widget build(BuildContext context) {
+
+
     return Scaffold(
 
       body: _pages.elementAt(_selectedIndex),

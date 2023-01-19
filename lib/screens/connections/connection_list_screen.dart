@@ -4,6 +4,7 @@ import 'package:itavero_mobile/provider/settings_provider.dart';
 import 'package:itavero_mobile/screens/connections/connection_create_screen.dart';
 import 'package:itavero_mobile/screens/connections/connection_edit_screen.dart';
 import 'package:provider/provider.dart';
+import 'package:auto_size_text/auto_size_text.dart';
 
 import '../../main.dart';
 
@@ -22,8 +23,7 @@ class _ConnectionListScreenState extends State<ConnectionListScreen> {
     return Scaffold(
       appBar: AppBar(
         title: Text('Verbindungen'),
-          backgroundColor: ItaveroMobile.itacolor,
-
+        backgroundColor: ItaveroMobile.itacolor,
       ),
       body: settingsProvider.verbindungen.isEmpty
           ? const Center(
@@ -66,7 +66,6 @@ class _ConnectionListScreenState extends State<ConnectionListScreen> {
                           icon: Icons.edit,
                           label: 'Bearbeiten',
                         ),
-
                       ],
                     ),
 
@@ -104,21 +103,37 @@ class _ConnectionListScreenState extends State<ConnectionListScreen> {
                                     connectionModel: connectionItem)),
                           ).then((value) => setState(() {}));
                         },
-                        title: Center(
-                            child: Row(
-                          children: [
-                            Text(
-                                'Name: ${connectionItem.name}\n${connectionItem.url}'),
-                            settingsProvider.settingsModel.aktiveVerbindung ==
-                                    connectionItem
-                                ? const Icon(
-                                    Icons.check,
-                                    size: 50,
-                                    color: Colors.green,
-                                  )
-                                : Text('')
-                          ],
-                        ))));
+                        title: Row(children: [
+                          Expanded(
+                              child: SizedBox(
+                                  height: 50,
+                                  child: Column(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    children: [
+                                      Expanded(
+                                          child: AutoSizeText(
+                                        'Name: ${connectionItem.name}',
+                                        style: TextStyle(fontSize: 20),
+                                        maxLines: 1,
+                                      )),
+                                      Expanded(
+                                          child: AutoSizeText(
+                                        '${connectionItem.url}',
+                                        style: TextStyle(fontSize: 20),
+                                        maxLines: 1,
+                                      ))
+                                    ],
+                                  ))),
+                          settingsProvider.settingsModel.aktiveVerbindung ==
+                                  connectionItem
+                              ? const Icon(
+                                  Icons.check,
+                                  size: 50,
+                                  color: Colors.green,
+                                )
+                              : Text('')
+                        ])));
               }),
       floatingActionButton: FloatingActionButton(
         heroTag: 'add_classes_btn',

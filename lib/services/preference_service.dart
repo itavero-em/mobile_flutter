@@ -19,8 +19,7 @@ class PreferenceService {
     var jsonString = await preferences.getString(APP_SETTINGS);
     SettingsModel defaultModel = SettingsModel(
         verbindungen: [
-          ConnectionModel(name: 'Hassia Echt', url: 'https://itavwdmz01.itavero.de:8443/web_erp'),
-
+          ConnectionModel(name: 'Beispiel', url: 'https://domain.de:8080/webseite'),
         ],
         aktiveVerbindung: SettingsModel.noConnectionModel,
         scanViewFinderMode: ScanViewFinderMode.line,
