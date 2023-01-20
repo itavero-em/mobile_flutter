@@ -28,6 +28,8 @@ flutter build apk
 - [webview_flutter](https://pub.dev/packages/webview_flutter)
 - [build_runner](https://pub.dev/packages/build_runner) --dev
 - [split_view](https://pub.dev/packages/split_view/install) 
+- [introduction_screen](https://pub.dev/packages/introduction_screen)
+- [auto_size_text](https://pub.dev/packages/auto_size_text)
 
 
 
