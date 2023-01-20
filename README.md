@@ -17,6 +17,7 @@ samples, guidance on mobile development, and a full API reference.
 
 ## Build IPA/APK
 flutter build ipa --export-method enterprise --obfuscate --split-debug-info true
+
 flutter build apk
 
 ## Plugins
