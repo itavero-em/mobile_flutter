@@ -200,7 +200,7 @@ class _ScanditSettingsState extends State<ScanditSettings>
   void _showScanMode(BuildContext context) {
     // final settingsProvider = Provider.of<SettingsProvider>(context);
     String possibleValues =
-    ScanViewFinderMode.values.map((e) => e.jsonValue).join(", ").toString();
+    ScanMode.values.map((e) => e.jsonValue).join(", ").toString();
     showCupertinoModalPopup<void>(
       context: context,
       builder: (BuildContext context) => CupertinoActionSheet(
