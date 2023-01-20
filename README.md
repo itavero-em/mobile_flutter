@@ -74,9 +74,9 @@ flutter pub run flutter_launcher_icons:main
 
 ## Flutter Native Splash
 Konfiguration in der Datei pubspec.yml, danach folgenden Befehl ausführen
-...
+```
 flutter pub run flutter_native_splash:create
-...
+```
 
 
 ## Base46 verschlüsseln
