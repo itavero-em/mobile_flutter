@@ -71,6 +71,13 @@ Für die Generierung muss folgendes ausgeführt werden:
 flutter pub run flutter_launcher_icons:main
 ```
 
+## Flutter Native Splash
+Konfiguration in der Datei pubspec.yml, danach den Befehl
+...
+flutter pub run flutter_native_splash:create
+...
+ausführen
+
 ## Base46 verschlüsseln
 Muss noch dokumentiert werden.
 ...
