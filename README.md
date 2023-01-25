@@ -44,7 +44,7 @@ dart pub add build_runner --dev
 
 flutter pub run build_runner build
 ```
-Die verfügbaren Befehle sind build, watch, serveund test.
+Die verfügbaren Befehle sind build, watch, serve und test.
 
 build: Führt einen einzelnen Build aus und wird beendet.
 watch: Führt einen persistenten Build-Server aus, der das Dateisystem auf Änderungen überwacht und bei Bedarf Neuerstellungen durchführt.
