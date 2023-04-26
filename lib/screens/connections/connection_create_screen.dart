@@ -18,6 +18,8 @@ class _ConnectionCreateView extends State<ConnectionCreateScreen> {
 
   bool isButtonSaveActive = false;
 
+
+
   @override
   void initState() {
     _nameCtrl.addListener(() {
