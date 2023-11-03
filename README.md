@@ -16,9 +16,14 @@ For help getting started with Flutter development, view the
 samples, guidance on mobile development, and a full API reference.
 
 ## Build IPA/APK
-flutter build ipa --export-method enterprise --obfuscate --split-debug-info true
+flutter build ipa --export-method enterprise --obfuscate --split-debug-info true    
+(aktuell geht das erstellen der IOS App nur ueber XCode. Siehe Meldung:
+Try distributing the app in Xcode: "open /Users/itaverobm/IdeaProjects/mobile_flutter/build/ios/archive/Runner.xcarchive"
+Dazu die Datei öffnen und den Button Distribute App druecken.)
 
 flutter build apk
+
+Danach auf 
 
 ## Plugins
 - [flutter_slidable](https://pub.dev/packages/flutter_slidable)
