@@ -18,7 +18,7 @@ class WebViewStacked extends StatefulWidget {
   static void clearCache(BuildContext context)
   {
     context.findAncestorStateOfType<_WebViewStackedState>()?.webViewController.clearCache();
-    final cookieManger = CookieManager();
+    final cookieManger = WebViewCookieManager();
     cookieManger.clearCookies();
   }
 
@@ -45,64 +45,64 @@ late BarcodeScannerScreen _barcodeScannerScreen;
               child: Container(
                 child: Stack(
                   children: <Widget>[
-                    WebView(
-                      onWebViewCreated: (controller) {
-                        webViewController = controller;
-                      },
-                      debuggingEnabled: true,
-                      initialUrl: Provider.of<SettingsProvider>(context)
-                          .settingsModel
-                          .aktiveVerbindung
-                          .url,
-                      javascriptMode: JavascriptMode.unrestricted,
-                      onProgress: (int progress) {
-                        setState(() {
-                          loadingPercentage = progress;
-                        });
-                        print('WebView is loading (progress : $progress%)');
-                      },
-                      javascriptChannels: _createJavascriptChannels(context),
-                      navigationDelegate: (NavigationRequest request) {
-                        if (request.url
-                            .startsWith('https://www.youtube.com/')) {
-                          print('blocking navigation to $request}');
-                          return NavigationDecision.prevent;
-                        }
-                        print('allowing navigation to $request');
-                        return NavigationDecision.navigate;
-                      },
-                      onPageStarted: (String url) {
-                        setState(() {
-                          loadingPercentage = 0;
-                          loadingFinished = false;
-                        });
-                        print('Page started loading: $url');
-                      },
-                      onPageFinished: (String url) {
-                        setState(() {
-                          loadingPercentage = 100;
-                          loadingFinished = true;
-                        });
-                        if (defaultTargetPlatform == TargetPlatform.iOS) {
-                          print(
-                              'Javascript für iOS (Flutter) wurde hinzugefügt');
-                          webViewController.runJavascript('''var Scandit = {
-                      getDevicetype:function(){return "FLUTTER_IOS"}
-                      ,
-                      };''');
-                        } else if (defaultTargetPlatform ==
-                            TargetPlatform.android) {
-                          print(
-                              'Javascript für Android (Flutter) wurde hinzugefügt');
-                          webViewController.runJavascript('''var Scandit = {
-                      getDevicetype:function(){return "FLUTTER_ANDROID"},
-                      };''');
-                        }
-
-                        print('Page finished loading: $url');
-                      },
-                      gestureNavigationEnabled: true,
-                    ),
+                    // WebView(
+                    //   onWebViewCreated: (controller) {
+                    //     webViewController = controller;
+                    //   },
+                    //   debuggingEnabled: true,
+                    //   initialUrl: Provider.of<SettingsProvider>(context)
+                    //       .settingsModel
+                    //       .aktiveVerbindung
+                    //       .url,
+                    //   javascriptMode: JavascriptMode.unrestricted,
+                    //   onProgress: (int progress) {
+                    //     setState(() {
+                    //       loadingPercentage = progress;
+                    //     });
+                    //     print('WebView is loading (progress : $progress%)');
+                    //   },
+                    //   javascriptChannels: _createJavascriptChannels(context),
+                    //   navigationDelegate: (NavigationRequest request) {
+                    //     if (request.url
+                    //         .startsWith('https://www.youtube.com/')) {
+                    //       print('blocking navigation to $request}');
+                    //       return NavigationDecision.prevent;
+                    //     }
+                    //     print('allowing navigation to $request');
+                    //     return NavigationDecision.navigate;
+                    //   },
+                    //   onPageStarted: (String url) {
+                    //     setState(() {
+                    //       loadingPercentage = 0;
+                    //       loadingFinished = false;
+                    //     });
+                    //     print('Page started loading: $url');
+                    //   },
+                    //   onPageFinished: (String url) {
+                    //     setState(() {
+                    //       loadingPercentage = 100;
+                    //       loadingFinished = true;
+                    //     });
+                    //     if (defaultTargetPlatform == TargetPlatform.iOS) {
+                    //       print(
+                    //           'Javascript für iOS (Flutter) wurde hinzugefügt');
+                    //       webViewController.runJavascript('''var Scandit = {
+                    //   getDevicetype:function(){return "FLUTTER_IOS"}
+                    //   ,
+                    //   };''');
+                    //     } else if (defaultTargetPlatform ==
+                    //         TargetPlatform.android) {
+                    //       print(
+                    //           'Javascript für Android (Flutter) wurde hinzugefügt');
+                    //       webViewController.runJavascript('''var Scandit = {
+                    //   getDevicetype:function(){return "FLUTTER_ANDROID"},
+                    //   };''');
+                    //     }
+                    //
+                    //     print('Page finished loading: $url');
+                    //   },
+                    //   gestureNavigationEnabled: true,
+                    // ),
                     if (loadingPercentage < 100)
                       LinearProgressIndicator(
                         value: loadingPercentage / 100,
@@ -171,36 +171,36 @@ late BarcodeScannerScreen _barcodeScannerScreen;
   }
 
   // Add from here ...
-  Set<JavascriptChannel> _createJavascriptChannels(BuildContext context) {
-    return {
-      JavascriptChannel(
-        name: 'ScanditController',
-        onMessageReceived: (message) {
-          if (message.message == 'openScan') {
-            setState(() {
-              scannerAktiv = true;
-            });
-          } else {
-            ScaffoldMessenger.of(context)
-                .showSnackBar(SnackBar(content: Text(message.message)));
-          }
-        },
-      ),
-      JavascriptChannel(
-        name: 'Notifications',
-        onMessageReceived: (message) {
-          // Dieser Aufruf aus Javascript ist notwendig:
-          // -> Notifications.postMessage('Hallo Flutter');
-          // -> 'Hallo Flutter' landet dann in der Message
-
-          //NotificationApi.showNotification(body: 'Body',title: 'Title');
-          //https://www.youtube.com/watch?v=bRy5dmts3X8
-          ScaffoldMessenger.of(context).showSnackBar(
-              SnackBar(content: Text('Notifications:' + message.message)));
-        },
-      ),
-    };
-  }
+  // Set<JavascriptChannel> _createJavascriptChannels(BuildContext context) {
+  //   return {
+  //     JavascriptChannel(
+  //       name: 'ScanditController',
+  //       onMessageReceived: (message) {
+  //         if (message.message == 'openScan') {
+  //           setState(() {
+  //             scannerAktiv = true;
+  //           });
+  //         } else {
+  //           ScaffoldMessenger.of(context)
+  //               .showSnackBar(SnackBar(content: Text(message.message)));
+  //         }
+  //       },
+  //     ),
+  //     JavascriptChannel(
+  //       name: 'Notifications',
+  //       onMessageReceived: (message) {
+  //         // Dieser Aufruf aus Javascript ist notwendig:
+  //         // -> Notifications.postMessage('Hallo Flutter');
+  //         // -> 'Hallo Flutter' landet dann in der Message
+  //
+  //         //NotificationApi.showNotification(body: 'Body',title: 'Title');
+  //         //https://www.youtube.com/watch?v=bRy5dmts3X8
+  //         ScaffoldMessenger.of(context).showSnackBar(
+  //             SnackBar(content: Text('Notifications:' + message.message)));
+  //       },
+  //     ),
+  //   };
+  // }
 
   @override
   void didScan(BarcodeCapture barcodeCapture, BarcodeCaptureSession session) {
@@ -213,7 +213,7 @@ late BarcodeScannerScreen _barcodeScannerScreen;
     setState(() {
       var script =
           '''if(document.getElementById('scanbutton') != null){     document.getElementById('scanbutton').\$server.sendBarcodeToVaadin('$data')}''';
-      webViewController.runJavascript(script);
+      webViewController.runJavaScript(script);
       scannerAktiv = false;
     });
   }

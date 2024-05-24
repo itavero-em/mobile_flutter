@@ -1,6 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_platform_widgets/flutter_platform_widgets.dart';
-import 'package:itavero_mobile/models/settings_model.dart';
 import 'package:itavero_mobile/screens/settings/setting_scandit_screen.dart';
 import 'package:provider/provider.dart';
 import 'package:settings_ui/settings_ui.dart';
@@ -10,7 +8,6 @@ import '../../provider/settings_provider.dart';
 import '../connections/connection_list_screen.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:package_info_plus/package_info_plus.dart';
-import 'package:itavero_mobile/main.dart';
 
 import '../webview/webview_stacked.dart';
 

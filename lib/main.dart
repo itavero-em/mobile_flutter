@@ -13,7 +13,6 @@ import 'package:itavero_mobile/screens/webview/webview_stacked.dart';
 import 'package:itavero_mobile/services/preference_service.dart';
 import 'package:provider/provider.dart';
 import 'package:scandit_flutter_datacapture_barcode/scandit_flutter_datacapture_barcode.dart';
-import 'package:flutter/cupertino.dart';
 
 
 late WebViewStacked webView;
