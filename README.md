@@ -23,7 +23,6 @@ Dazu die Datei öffnen und den Button Distribute App druecken.)
 
 flutter build apk
 
-Danach auf 
 
 ## Plugins
 - [flutter_slidable](https://pub.dev/packages/flutter_slidable)
