@@ -47,6 +47,9 @@ class SettingsModel {
   @JsonKey(name: 'show_intro')
   bool showIntro = true;
 
+  @JsonKey(name: 'scan_bluetooth')
+  bool scanScanditAktiv = true;
+
   @JsonKey(name: 'push_benachrichtigungen')
   bool pushMessageEnabled = false;
 

@@ -29,7 +29,6 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
-    version: 3.10.4
 
 
 

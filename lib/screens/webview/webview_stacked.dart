@@ -17,7 +17,7 @@ class WebViewStacked extends StatefulWidget {
 
   static void clearCache(BuildContext context)
   {
-    context.findAncestorStateOfType<_WebViewStackedState>()?.webViewController.clearCache();
+    context.findAncestorStateOfType<_WebViewStackedState>()?._controller.clearCache();
     final cookieManger = WebViewCookieManager();
     cookieManger.clearCookies();
   }
@@ -29,9 +29,69 @@ class _WebViewStackedState extends State<WebViewStacked>
   var loadingPercentage = 0;
   var scannerAktiv = false;
   var loadingFinished = false;
-  late WebViewController webViewController;
+  late WebViewController _controller;
 
 late BarcodeScannerScreen _barcodeScannerScreen;
+
+
+  @override
+  void initState() {
+    super.initState();
+    //_controller = WebViewController();
+    _controller = WebViewController()
+    ..setJavaScriptMode(JavaScriptMode.unrestricted)
+      ..setNavigationDelegate(
+        NavigationDelegate(
+
+          onProgress: (int progress) {
+            setState(() {
+              loadingPercentage = progress;
+            });
+            print('WebView is loading (progress : $progress%)');
+          },
+          onPageStarted: (String url) {
+            setState(() {
+              loadingPercentage = 0;
+              loadingFinished = false;
+            });
+          },
+          onPageFinished: (String url) {
+            setState(() {
+              loadingPercentage = 100;
+              loadingFinished = true;
+            });
+
+            if (defaultTargetPlatform == TargetPlatform.iOS) {
+              print(
+                  'Javascript für iOS (Flutter) wurde hinzugefügt');
+              _controller.runJavaScript('''var Scandit = {
+                      getDevicetype:function(){return "FLUTTER_IOS"}
+                      ,
+                      };''');
+            } else if (defaultTargetPlatform ==
+            TargetPlatform.android) {
+            print(
+            'Javascript für Android (Flutter) wurde hinzugefügt');
+            _controller.runJavaScript('''var Scandit = {
+                      getDevicetype:function(){return "FLUTTER_ANDROID"},
+                      };''');
+            }
+
+            print('Page finished loading: $url');
+
+          },
+        ),
+      );
+  }
+
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    _controller.loadRequest(Uri.parse(Provider.of<SettingsProvider>(context)
+        .settingsModel
+        .aktiveVerbindung
+        .url));
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -45,6 +105,7 @@ late BarcodeScannerScreen _barcodeScannerScreen;
               child: Container(
                 child: Stack(
                   children: <Widget>[
+                    WebViewWidget(controller: _controller),
                     // WebView(
                     //   onWebViewCreated: (controller) {
                     //     webViewController = controller;
@@ -86,7 +147,7 @@ late BarcodeScannerScreen _barcodeScannerScreen;
                     //     if (defaultTargetPlatform == TargetPlatform.iOS) {
                     //       print(
                     //           'Javascript für iOS (Flutter) wurde hinzugefügt');
-                    //       webViewController.runJavascript('''var Scandit = {
+                    //       _controller.runJavaScript('''var Scandit = {
                     //   getDevicetype:function(){return "FLUTTER_IOS"}
                     //   ,
                     //   };''');
@@ -94,7 +155,7 @@ late BarcodeScannerScreen _barcodeScannerScreen;
                     //         TargetPlatform.android) {
                     //       print(
                     //           'Javascript für Android (Flutter) wurde hinzugefügt');
-                    //       webViewController.runJavascript('''var Scandit = {
+                    //       _controller.runJavaScript('''var Scandit = {
                     //   getDevicetype:function(){return "FLUTTER_ANDROID"},
                     //   };''');
                     //     }
@@ -213,7 +274,7 @@ late BarcodeScannerScreen _barcodeScannerScreen;
     setState(() {
       var script =
           '''if(document.getElementById('scanbutton') != null){     document.getElementById('scanbutton').\$server.sendBarcodeToVaadin('$data')}''';
-      webViewController.runJavaScript(script);
+      _controller.runJavaScript(script);
       scannerAktiv = false;
     });
   }

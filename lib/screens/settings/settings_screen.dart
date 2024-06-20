@@ -147,6 +147,29 @@ class _SettingsScreenState extends State<SettingsScreen> {
                     color: ItaveroMobile.itacolor,
                     fontWeight: FontWeight.bold)),
             tiles: <SettingsTile>[
+              SettingsTile.switchTile(
+              onToggle: (value) {
+                print(value);
+
+                setState(() {
+                  settingsProvider.setShowIntro(value);
+                });
+              },
+              initialValue: Provider.of<SettingsProvider>(context)
+                  .settingsModel
+                  .scanScanditAktiv,
+              leading: Provider.of<SettingsProvider>(context)
+                  .settingsModel
+                  .scanScanditAktiv
+                  ? Icon(Icons.inbox)
+                  : Icon(Icons.inbox),
+              title: Text('Scandit Engine'),
+              description: Provider.of<SettingsProvider>(context)
+                  .settingsModel
+                  .scanScanditAktiv
+                  ? Text('Scandit ist aktiv')
+                  : Text('Scandit nicht aktiv, Bluetooth Scanner kann verwendet werden.'),
+            ),
               SettingsTile.navigation(
                 leading: const Icon(Icons.document_scanner_outlined),
                 title: const Text('Konfiguration'),
