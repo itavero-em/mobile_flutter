@@ -152,7 +152,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                 print(value);
 
                 setState(() {
-                  settingsProvider.setShowIntro(value);
+                  settingsProvider.setScanditAktiv(value);
                 });
               },
               initialValue: Provider.of<SettingsProvider>(context)

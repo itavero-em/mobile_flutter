@@ -47,7 +47,7 @@ class SettingsModel {
   @JsonKey(name: 'show_intro')
   bool showIntro = true;
 
-  @JsonKey(name: 'scan_bluetooth')
+  @JsonKey(name: 'scandit_aktiv')
   bool scanScanditAktiv = true;
 
   @JsonKey(name: 'push_benachrichtigungen')
