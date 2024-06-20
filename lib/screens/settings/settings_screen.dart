@@ -157,16 +157,16 @@ class _SettingsScreenState extends State<SettingsScreen> {
               },
               initialValue: Provider.of<SettingsProvider>(context)
                   .settingsModel
-                  .scanScanditAktiv,
+                  .scanditAktiv,
               leading: Provider.of<SettingsProvider>(context)
                   .settingsModel
-                  .scanScanditAktiv
-                  ? Icon(Icons.inbox)
-                  : Icon(Icons.inbox),
+                  .scanditAktiv
+                  ? Icon(Icons.scanner)
+                  : Icon(Icons.bluetooth),
               title: Text('Scandit Engine'),
               description: Provider.of<SettingsProvider>(context)
                   .settingsModel
-                  .scanScanditAktiv
+                  .scanditAktiv
                   ? Text('Scandit ist aktiv')
                   : Text('Scandit nicht aktiv, Bluetooth Scanner kann verwendet werden.'),
             ),

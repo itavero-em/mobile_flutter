@@ -78,7 +78,7 @@ class SettingsProvider extends ChangeNotifier{
 
   void setScanditAktiv(bool aktiv)
     {
-      settingsModel.setScanditAktiv = aktiv;
+      settingsModel.scanditAktiv = aktiv;
       _modelChanged();
     }
 }

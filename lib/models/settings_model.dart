@@ -48,7 +48,7 @@ class SettingsModel {
   bool showIntro = true;
 
   @JsonKey(name: 'scandit_aktiv')
-  bool scanScanditAktiv = true;
+  bool scanditAktiv = true;
 
   @JsonKey(name: 'push_benachrichtigungen')
   bool pushMessageEnabled = false;
