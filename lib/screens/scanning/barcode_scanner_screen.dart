@@ -168,9 +168,7 @@ class _BarcodeScannerScreenState extends State<BarcodeScannerScreen>
     }
   }
 
-  @override
-  void didUpdateSession(
-      BarcodeCapture barcodeCapture, BarcodeCaptureSession session) {}
+
 
   @override
   void dispose() {

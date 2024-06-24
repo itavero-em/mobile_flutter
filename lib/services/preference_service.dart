@@ -17,14 +17,16 @@ class PreferenceService {
   Future<SettingsModel> getSettings() async {
     final preferences = await SharedPreferences.getInstance();
     var jsonString = await preferences.getString(APP_SETTINGS);
+    var itaConnection = ConnectionModel(name: 'ita vero GmbH', url: 'https:www.itavero.de');
     SettingsModel defaultModel = SettingsModel(
         verbindungen: [
-          ConnectionModel(name: 'Beispiel', url: 'https://domain.de:8080/webseite'),
+          itaConnection,
         ],
-        aktiveVerbindung: SettingsModel.noConnectionModel,
+        aktiveVerbindung: itaConnection,
         scanViewFinderMode: ScanViewFinderMode.line,
         cameraLight: false,
         pushMessageEnabled: false,
+        scanditAktiv: true,
         showIntro: true);
     if (jsonString == null) {
       return defaultModel;

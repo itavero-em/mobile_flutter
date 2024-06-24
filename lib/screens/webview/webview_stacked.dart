@@ -3,6 +3,7 @@ import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:itavero_mobile/provider/settings_provider.dart';
 import 'package:itavero_mobile/screens/scanning/barcode_scanner_screen.dart';
+import 'package:itavero_mobile/screens/scanning/bluetooth_scanner_screen.dart';
 import 'package:provider/provider.dart';
 import 'package:scandit_flutter_datacapture_barcode/scandit_flutter_datacapture_barcode_capture.dart';
 import 'package:webview_flutter/webview_flutter.dart';
@@ -28,15 +29,21 @@ class _WebViewStackedState extends State<WebViewStacked>
     implements BarcodeCaptureListener {
   var loadingPercentage = 0;
   var scannerAktiv = false;
+  var scanditAktiv = true;
   var loadingFinished = false;
   late WebViewController _controller;
 
 late BarcodeScannerScreen _barcodeScannerScreen;
+late BluetoothScannerScreen _bluetoothScannerScreen;
 
 
   @override
   void initState() {
     super.initState();
+    scanditAktiv =
+        Provider.of<SettingsProvider>(context, listen: false)
+            .settingsModel
+            .scanditAktiv;
     //_controller = WebViewController();
     _controller = WebViewController()
     ..setJavaScriptMode(JavaScriptMode.unrestricted)
@@ -82,6 +89,24 @@ late BarcodeScannerScreen _barcodeScannerScreen;
           },
         ),
       );
+
+    _controller.addJavaScriptChannel('ScanditController', onMessageReceived: (message) {
+      if (message.message == 'openScan') {
+        setState(() {
+          scannerAktiv = true;
+        });
+      } else {
+        ScaffoldMessenger.of(context)
+            .showSnackBar(SnackBar(content: Text(message.message)));
+      }
+    });
+
+    _controller.addJavaScriptChannel('Notifications', onMessageReceived: (message) {
+          //NotificationApi.showNotification(body: 'Body',title: 'Title');
+          //https://www.youtube.com/watch?v=bRy5dmts3X8
+          ScaffoldMessenger.of(context).showSnackBar(
+              SnackBar(content: Text('Notifications:' + message.message)));
+        });
   }
 
   @override
@@ -95,13 +120,17 @@ late BarcodeScannerScreen _barcodeScannerScreen;
 
   @override
   Widget build(BuildContext context) {
-    _barcodeScannerScreen = BarcodeScannerScreen(barcodeCaptureListener: this);
+    if(scanditAktiv)
+      _barcodeScannerScreen = BarcodeScannerScreen(barcodeCaptureListener: this);
+    else
+      _bluetoothScannerScreen = BluetoothScannerScreen(onCallback: _processScannedValue);
+
     return Scaffold(
       body: SafeArea(
         child: Column(
           children: [
             Expanded(
-              flex: scannerAktiv ? 2:1,
+              flex: scannerAktiv ? 4:1,
               child: Container(
                 child: Stack(
                   children: <Widget>[
@@ -206,7 +235,7 @@ late BarcodeScannerScreen _barcodeScannerScreen;
               flex: scannerAktiv ? 1:0,
               child: Visibility(
                 visible: scannerAktiv,
-                child: _barcodeScannerScreen,
+                child: scanditAktiv ? _barcodeScannerScreen : _bluetoothScannerScreen,
               ),
             ),
           ],
@@ -231,38 +260,6 @@ late BarcodeScannerScreen _barcodeScannerScreen;
     );
   }
 
-  // Add from here ...
-  // Set<JavascriptChannel> _createJavascriptChannels(BuildContext context) {
-  //   return {
-  //     JavascriptChannel(
-  //       name: 'ScanditController',
-  //       onMessageReceived: (message) {
-  //         if (message.message == 'openScan') {
-  //           setState(() {
-  //             scannerAktiv = true;
-  //           });
-  //         } else {
-  //           ScaffoldMessenger.of(context)
-  //               .showSnackBar(SnackBar(content: Text(message.message)));
-  //         }
-  //       },
-  //     ),
-  //     JavascriptChannel(
-  //       name: 'Notifications',
-  //       onMessageReceived: (message) {
-  //         // Dieser Aufruf aus Javascript ist notwendig:
-  //         // -> Notifications.postMessage('Hallo Flutter');
-  //         // -> 'Hallo Flutter' landet dann in der Message
-  //
-  //         //NotificationApi.showNotification(body: 'Body',title: 'Title');
-  //         //https://www.youtube.com/watch?v=bRy5dmts3X8
-  //         ScaffoldMessenger.of(context).showSnackBar(
-  //             SnackBar(content: Text('Notifications:' + message.message)));
-  //       },
-  //     ),
-  //   };
-  // }
-
   @override
   void didScan(BarcodeCapture barcodeCapture, BarcodeCaptureSession session) {
     barcodeCapture.isEnabled = false;
@@ -271,9 +268,15 @@ late BarcodeScannerScreen _barcodeScannerScreen;
         ? code.rawData
         : code.data;
 
+    _processScannedValue(data);
+  }
+
+  void _processScannedValue(var value) {
+    // Verarbeite den eingegebenen Wert hier
+    print('Verarbeiteter Text: $value');
     setState(() {
       var script =
-          '''if(document.getElementById('scanbutton') != null){     document.getElementById('scanbutton').\$server.sendBarcodeToVaadin('$data')}''';
+      '''if(document.getElementById('scanbutton') != null){     document.getElementById('scanbutton').\$server.sendBarcodeToVaadin('$value')}''';
       _controller.runJavaScript(script);
       scannerAktiv = false;
     });

@@ -59,6 +59,7 @@ class SettingsModel {
       required this.scanViewFinderMode,
       required this.cameraLight,
       required this.pushMessageEnabled,
+        required this.scanditAktiv,
         required this.showIntro});
 
   // Deserialisieren
