@@ -47,20 +47,24 @@ class SettingsModel {
   @JsonKey(name: 'show_intro')
   bool showIntro = true;
 
+  @JsonKey(name: 'push_benachrichtigungen')
+  bool pushMessageEnabled = false;
+
   @JsonKey(name: 'scandit_aktiv')
   bool scanditAktiv = true;
 
-  @JsonKey(name: 'push_benachrichtigungen')
-  bool pushMessageEnabled = false;
+  @JsonKey(name: 'scandit_manual_scan')
+  bool scanditManualScan = false;
 
   SettingsModel(
       {required this.verbindungen,
       required this.aktiveVerbindung,
       required this.scanViewFinderMode,
       required this.cameraLight,
+        required this.showIntro,
       required this.pushMessageEnabled,
         required this.scanditAktiv,
-        required this.showIntro});
+        required this.scanditManualScan});
 
   // Deserialisieren
   factory SettingsModel.fromJson(Map<String, dynamic> json) =>

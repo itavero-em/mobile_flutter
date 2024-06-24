@@ -8,13 +8,13 @@ import 'package:scandit_flutter_datacapture_barcode/scandit_flutter_datacapture_
 import 'package:scandit_flutter_datacapture_barcode/scandit_flutter_datacapture_barcode_capture.dart';
 import 'package:scandit_flutter_datacapture_core/scandit_flutter_datacapture_core.dart';
 
-
 class BarcodeScannerScreen extends StatefulWidget {
-  static const String licenseKey = 'Ab8CKaOBNznRIQFd/w9NKYsZmx/m43ah21Idb5VyB+PaM/IBznVXJ8h4wS49anNj3F1lXJJ9Sxb9QPA2u2z8MoJaGDakfrllxWffKpJqJhiUOnglr1Mr4rs5qi5sTVJ5OBJx2cEHEeG4Owg00T1RoB0sm06LvdVTsCwq5gD3x4jnoBsr1zG46XtTR4/3n0V2hsk4UPV7N2i3pTq2lR+HvkBAINx6wzC7Sjb0enEUtS1PYKjDQj6LHdE4EsITHhfVaDc81kjAmytyLYiCMvLg/WQsirGEACzKX3uLVWri77Y6LLOxNYOOW+vZmJyM1u00GOFqD8ZZ74nrqPOHiL37NjXzqgfXpGAz8TGdvE5LFZ+TdxYmTj9Lmua0euYNt8w9tlo3Pn7GT47+ffXo+uON+i8HeIdJ9Hi8/f3hK/VdP5912mLFcJ1HAhI47NnAZ/UHrEzcdBQeYMAtORlBLy1FGBAiZcTN3osST2Y0iPm2AxtsA8uok3+dX6fpqaYuI10OPB4/YVkC212wAK5ucpPMLIzuXPz+/9oVfFMxesL2hYNPE7zx+H9FiYhLs36sQHkKK/yw9MdXlU+bmyitqSWcxsvPuO0HuUUtyZU9+2o0Gs3v7A3wXnmzP4GEfYxw5tx4C1yUeqLPV74z7g6Son33RFZHFzxUiq1zmuG97XZqdPM6LM5Xth8cMjZWbdN38EMtcqz2ks9GOFEMD1Kp9WENpv7JkKklZ0Id9dpYOc5rcFKnDZZVkPzMHxXNnYcDblF6BbU/n4r5XfXIofvxEKwXFUxlTihzN10VJE+jF7euR+mdgzu752DFWhuX15X3UOSTug==';
+  static const String licenseKey =
+      'Ab8CKaOBNznRIQFd/w9NKYsZmx/m43ah21Idb5VyB+PaM/IBznVXJ8h4wS49anNj3F1lXJJ9Sxb9QPA2u2z8MoJaGDakfrllxWffKpJqJhiUOnglr1Mr4rs5qi5sTVJ5OBJx2cEHEeG4Owg00T1RoB0sm06LvdVTsCwq5gD3x4jnoBsr1zG46XtTR4/3n0V2hsk4UPV7N2i3pTq2lR+HvkBAINx6wzC7Sjb0enEUtS1PYKjDQj6LHdE4EsITHhfVaDc81kjAmytyLYiCMvLg/WQsirGEACzKX3uLVWri77Y6LLOxNYOOW+vZmJyM1u00GOFqD8ZZ74nrqPOHiL37NjXzqgfXpGAz8TGdvE5LFZ+TdxYmTj9Lmua0euYNt8w9tlo3Pn7GT47+ffXo+uON+i8HeIdJ9Hi8/f3hK/VdP5912mLFcJ1HAhI47NnAZ/UHrEzcdBQeYMAtORlBLy1FGBAiZcTN3osST2Y0iPm2AxtsA8uok3+dX6fpqaYuI10OPB4/YVkC212wAK5ucpPMLIzuXPz+/9oVfFMxesL2hYNPE7zx+H9FiYhLs36sQHkKK/yw9MdXlU+bmyitqSWcxsvPuO0HuUUtyZU9+2o0Gs3v7A3wXnmzP4GEfYxw5tx4C1yUeqLPV74z7g6Son33RFZHFzxUiq1zmuG97XZqdPM6LM5Xth8cMjZWbdN38EMtcqz2ks9GOFEMD1Kp9WENpv7JkKklZ0Id9dpYOc5rcFKnDZZVkPzMHxXNnYcDblF6BbU/n4r5XfXIofvxEKwXFUxlTihzN10VJE+jF7euR+mdgzu752DFWhuX15X3UOSTug==';
 
   final BarcodeCaptureListener barcodeCaptureListener;
 
-  const BarcodeScannerScreen({Key? key,  required this.barcodeCaptureListener})
+  const BarcodeScannerScreen({Key? key, required this.barcodeCaptureListener})
       : super(key: key);
 
   // Create data capture context using your license key.
@@ -101,12 +101,12 @@ class _BarcodeScannerScreenState extends State<BarcodeScannerScreen>
         BarcodeCaptureOverlay.withBarcodeCaptureForViewWithStyle(
             _barcodeCapture, _captureView, BarcodeCaptureOverlayStyle.frame);
 
-    
     var cameraLightOn = Provider.of<SettingsProvider>(context, listen: false)
-        .settingsModel.cameraLight;
+        .settingsModel
+        .cameraLight;
 
-    _camera?.desiredTorchState = cameraLightOn ? TorchState.auto : TorchState.off;
-
+    _camera?.desiredTorchState =
+        cameraLightOn ? TorchState.auto : TorchState.off;
 
     ScanViewFinderMode mode =
         Provider.of<SettingsProvider>(context, listen: false)
@@ -143,6 +143,16 @@ class _BarcodeScannerScreenState extends State<BarcodeScannerScreen>
       _context.setFrameSource(_camera!);
     }
     _camera?.switchToDesiredState(FrameSourceState.on);
+
+    if (Provider.of<SettingsProvider>(context, listen: false)
+        .settingsModel
+        .scanditManualScan)
+      _barcodeCapture.isEnabled = false;
+    else
+      _barcodeCapture.isEnabled = true;
+  }
+
+  void startScanning() {
     _barcodeCapture.isEnabled = true;
   }
 
@@ -154,7 +164,39 @@ class _BarcodeScannerScreenState extends State<BarcodeScannerScreen>
           style: TextStyle(
               fontSize: 14, fontWeight: FontWeight.bold, color: Colors.black));
     } else {
-      child = _captureView;
+      // child = _captureView;
+      child = LayoutBuilder(builder: (context, constraints) {
+        return Stack(
+          children: <Widget>[
+            Positioned(
+              top: 0,
+              left: 0,
+              height: constraints.maxHeight,
+              width: constraints.maxWidth,
+              child: _captureView,
+            ),
+            Positioned(
+              bottom: 16,
+              right: 80,
+              child: Visibility(
+                visible: Provider.of<SettingsProvider>(context, listen: false)
+                    .settingsModel
+                    .scanditManualScan,
+                child: FloatingActionButton(
+                  onPressed: () {
+                    startScanning();
+                  },
+
+                  backgroundColor: Colors.green,
+                  child: Icon(Icons.barcode_reader),
+                  heroTag:
+                      'manual_barcode_scan', // Helden-Tag für Hero-Animationen
+                ),
+              ),
+            ),
+          ],
+        );
+      });
     }
     return Center(child: child);
   }
@@ -167,8 +209,6 @@ class _BarcodeScannerScreenState extends State<BarcodeScannerScreen>
       _camera?.switchToDesiredState(FrameSourceState.off);
     }
   }
-
-
 
   @override
   void dispose() {

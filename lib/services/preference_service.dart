@@ -27,7 +27,8 @@ class PreferenceService {
         cameraLight: false,
         pushMessageEnabled: false,
         scanditAktiv: true,
-        showIntro: true);
+        showIntro: true,
+        scanditManualScan: false);
     if (jsonString == null) {
       return defaultModel;
     } else {

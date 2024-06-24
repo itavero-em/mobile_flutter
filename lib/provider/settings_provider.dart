@@ -81,4 +81,10 @@ class SettingsProvider extends ChangeNotifier{
       settingsModel.scanditAktiv = aktiv;
       _modelChanged();
     }
+
+  void setScanditManualScan(bool scanditManualScan)
+  {
+    settingsModel.scanditManualScan = scanditManualScan;
+    _modelChanged();
+  }
 }

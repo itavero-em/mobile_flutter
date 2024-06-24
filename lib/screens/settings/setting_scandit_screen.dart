@@ -71,6 +71,29 @@ class _ScanditSettingsState extends State<ScanditSettings>
                       ? Text('beim Scannen eingeschaltet')
                       : Text('inaktiv'),
                 ),
+                SettingsTile.switchTile(
+                  onToggle: (value) {
+                    print(value);
+
+                    setState(() {
+                      settingsProvider.setScanditManualScan(value);
+                    });
+                  },
+                  initialValue: Provider.of<SettingsProvider>(context)
+                      .settingsModel
+                      .scanditManualScan,
+                  leading: Provider.of<SettingsProvider>(context)
+                      .settingsModel
+                      .scanditManualScan
+                      ? Icon(Icons.pan_tool_alt)
+                  : Icon(Icons.auto_fix_high),
+                  title: Text('Manuelle Scan-Auslösung'),
+                  description: Provider.of<SettingsProvider>(context)
+                      .settingsModel
+                      .scanditManualScan
+                      ? Text('Der Scanvorgang beginnt nur, wenn Sie den "Scannen" Button drücken.')
+                      : Text('Der Scanvorgang beginnt automatisch.'),
+                ),
                 SettingsTile.navigation(
                   onPressed: (ctx) {
                     _showScanMode(context);
