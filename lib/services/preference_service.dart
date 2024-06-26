@@ -28,7 +28,7 @@ class PreferenceService {
         pushMessageEnabled: false,
         scanditAktiv: true,
         showIntro: true,
-        scanditManualScan: false);
+        scanditManualScan: false,scanMode: ScanMode.single);
     if (jsonString == null) {
       return defaultModel;
     } else {

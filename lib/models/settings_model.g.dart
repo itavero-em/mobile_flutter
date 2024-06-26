@@ -20,6 +20,7 @@ SettingsModel _$SettingsModelFromJson(Map<String, dynamic> json) =>
       pushMessageEnabled: json['push_benachrichtigungen'] as bool,
       scanditAktiv: json['scandit_aktiv'] as bool? ?? true,
       scanditManualScan: json['manual_scan'] as bool? ?? false,
+      scanMode: $enumDecode(_$ScanModeEnumMap, json['scan_mode'] ?? 'single'),
     );
 
 Map<String, dynamic> _$SettingsModelToJson(SettingsModel instance) =>
@@ -33,10 +34,16 @@ Map<String, dynamic> _$SettingsModelToJson(SettingsModel instance) =>
       'push_benachrichtigungen': instance.pushMessageEnabled,
       'scandit_aktiv': instance.scanditAktiv,
       'manual_scan': instance.scanditManualScan,
+      'scan_mode': _$ScanModeEnumMap[instance.scanMode]!,
     };
 
 const _$ScanViewFinderModeEnumMap = {
   ScanViewFinderMode.line: 'line',
   ScanViewFinderMode.rectangle: 'rectangle',
   ScanViewFinderMode.aimer: 'aimer',
+};
+
+const _$ScanModeEnumMap = {
+  ScanMode.single: 'single',
+  ScanMode.multi: 'multi',
 };

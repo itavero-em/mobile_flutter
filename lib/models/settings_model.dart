@@ -16,8 +16,8 @@ enum ScanViewFinderMode {
 
 enum ScanMode {
   single("SingleScan"), // You can also use numbers as you wish
-  multi("MultiScan"),
-  all("ScanAll");
+  multi("MultiScan");
+
 
   final dynamic jsonValue;
   const ScanMode(this.jsonValue);
@@ -64,7 +64,8 @@ class SettingsModel {
         required this.showIntro,
       required this.pushMessageEnabled,
         required this.scanditAktiv,
-        required this.scanditManualScan});
+        required this.scanditManualScan,
+        required this.scanMode});
 
   // Deserialisieren
   factory SettingsModel.fromJson(Map<String, dynamic> json) =>

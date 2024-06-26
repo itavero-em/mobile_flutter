@@ -44,7 +44,9 @@ class _ScanditSettingsState extends State<ScanditSettings>
           isActive: true,
         ),
         children: [
-          BarcodeScannerScreen(barcodeCaptureListener: this),
+          BarcodeScannerScreen(barcodeCaptureListener: this, onCallback: (value) {
+
+          },),
           SettingsList(
           shrinkWrap: false,
           platform: DevicePlatform.device,
@@ -253,17 +255,17 @@ class _ScanditSettingsState extends State<ScanditSettings>
             },
             child: Text(ScanMode.multi.jsonValue),
           ),
-          CupertinoActionSheetAction(
-            isDefaultAction: Provider.of<SettingsProvider>(context)
-                .settingsModel
-                .scanMode ==
-                ScanMode.all,
-            onPressed: () {
-              settingsProvider.setScanMode(ScanMode.all);
-              Navigator.pop(context);
-            },
-            child: Text(ScanMode.all.jsonValue),
-          ),
+          // CupertinoActionSheetAction(
+          //   isDefaultAction: Provider.of<SettingsProvider>(context)
+          //       .settingsModel
+          //       .scanMode ==
+          //       ScanMode.all,
+          //   onPressed: () {
+          //     settingsProvider.setScanMode(ScanMode.all);
+          //     Navigator.pop(context);
+          //   },
+          //   child: Text(ScanMode.all.jsonValue),
+          // ),
         ],
       ),
     );

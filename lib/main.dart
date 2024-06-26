@@ -6,6 +6,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:itavero_mobile/models/settings_model.dart';
+import 'package:itavero_mobile/provider/data_provider.dart';
 import 'package:itavero_mobile/provider/settings_provider.dart';
 import 'package:itavero_mobile/screens/onboarding/onboarding_screen.dart';
 import 'package:itavero_mobile/screens/settings/settings_screen.dart';
@@ -27,6 +28,9 @@ void main() async {
           providers: [
             ChangeNotifierProvider(
               create: (context) => SettingsProvider(settingsModel: value),
+            ),
+            ChangeNotifierProvider(
+              create: (context) => DataProvider(),
             )
           ],
           child: const ItaveroMobile(),

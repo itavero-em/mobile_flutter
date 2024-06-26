@@ -1,7 +1,10 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_platform_widgets/flutter_platform_widgets.dart';
 import 'package:itavero_mobile/models/settings_model.dart';
+import 'package:itavero_mobile/provider/data_provider.dart';
 import 'package:itavero_mobile/provider/settings_provider.dart';
+import 'package:itavero_mobile/screens/scanning/bluetooth_scanner_screen.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:provider/provider.dart';
 import 'package:scandit_flutter_datacapture_barcode/scandit_flutter_datacapture_barcode.dart';
@@ -13,14 +16,19 @@ class BarcodeScannerScreen extends StatefulWidget {
       'Ab8CKaOBNznRIQFd/w9NKYsZmx/m43ah21Idb5VyB+PaM/IBznVXJ8h4wS49anNj3F1lXJJ9Sxb9QPA2u2z8MoJaGDakfrllxWffKpJqJhiUOnglr1Mr4rs5qi5sTVJ5OBJx2cEHEeG4Owg00T1RoB0sm06LvdVTsCwq5gD3x4jnoBsr1zG46XtTR4/3n0V2hsk4UPV7N2i3pTq2lR+HvkBAINx6wzC7Sjb0enEUtS1PYKjDQj6LHdE4EsITHhfVaDc81kjAmytyLYiCMvLg/WQsirGEACzKX3uLVWri77Y6LLOxNYOOW+vZmJyM1u00GOFqD8ZZ74nrqPOHiL37NjXzqgfXpGAz8TGdvE5LFZ+TdxYmTj9Lmua0euYNt8w9tlo3Pn7GT47+ffXo+uON+i8HeIdJ9Hi8/f3hK/VdP5912mLFcJ1HAhI47NnAZ/UHrEzcdBQeYMAtORlBLy1FGBAiZcTN3osST2Y0iPm2AxtsA8uok3+dX6fpqaYuI10OPB4/YVkC212wAK5ucpPMLIzuXPz+/9oVfFMxesL2hYNPE7zx+H9FiYhLs36sQHkKK/yw9MdXlU+bmyitqSWcxsvPuO0HuUUtyZU9+2o0Gs3v7A3wXnmzP4GEfYxw5tx4C1yUeqLPV74z7g6Son33RFZHFzxUiq1zmuG97XZqdPM6LM5Xth8cMjZWbdN38EMtcqz2ks9GOFEMD1Kp9WENpv7JkKklZ0Id9dpYOc5rcFKnDZZVkPzMHxXNnYcDblF6BbU/n4r5XfXIofvxEKwXFUxlTihzN10VJE+jF7euR+mdgzu752DFWhuX15X3UOSTug==';
 
   final BarcodeCaptureListener barcodeCaptureListener;
+  final Callback onCallback;
 
-  const BarcodeScannerScreen({Key? key, required this.barcodeCaptureListener})
+  const BarcodeScannerScreen({Key? key, required this.barcodeCaptureListener, required this.onCallback})
       : super(key: key);
 
   // Create data capture context using your license key.
   @override
   State<StatefulWidget> createState() =>
       _BarcodeScannerScreenState(DataCaptureContext.forLicenseKey(licenseKey));
+
+  void _processBarcodes() {
+    onCallback('');
+  }
 }
 
 class _BarcodeScannerScreenState extends State<BarcodeScannerScreen>
@@ -152,7 +160,7 @@ class _BarcodeScannerScreenState extends State<BarcodeScannerScreen>
       _barcodeCapture.isEnabled = true;
   }
 
-  void startScanning() {
+  void activateScanning() {
     _barcodeCapture.isEnabled = true;
   }
 
@@ -164,6 +172,7 @@ class _BarcodeScannerScreenState extends State<BarcodeScannerScreen>
           style: TextStyle(
               fontSize: 14, fontWeight: FontWeight.bold, color: Colors.black));
     } else {
+      int barcodeCount = Provider.of<DataProvider>(context).barcodeCount;
       // child = _captureView;
       child = LayoutBuilder(builder: (context, constraints) {
         return Stack(
@@ -184,13 +193,60 @@ class _BarcodeScannerScreenState extends State<BarcodeScannerScreen>
                     .scanditManualScan,
                 child: FloatingActionButton(
                   onPressed: () {
-                    startScanning();
+                    activateScanning();
                   },
 
                   backgroundColor: Colors.green,
                   child: Icon(Icons.barcode_reader),
                   heroTag:
                       'manual_barcode_scan', // Helden-Tag für Hero-Animationen
+                ),
+              ),
+            ),
+            Positioned(
+              bottom: 16,
+              right: 80,
+              child: Visibility(
+                visible: Provider.of<SettingsProvider>(context, listen: false)
+                    .settingsModel
+                    .scanMode==ScanMode.multi,
+                child: FloatingActionButton(
+                  onPressed: () {
+                    widget._processBarcodes();
+                  },
+
+                  backgroundColor: Colors.blue,
+                  child: Icon(Icons.barcode_reader),
+                  heroTag:
+                  'barcode_scan', // Helden-Tag für Hero-Animationen
+                ),
+              ),
+            ),
+            Positioned(
+              top: 4,
+              left: 4,
+              child: Visibility(
+                visible: Provider.of<SettingsProvider>(context, listen: false)
+                    .settingsModel
+                    .scanMode==ScanMode.multi,
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: <Widget>[
+                    Icon(
+                      CupertinoIcons.barcode,
+                      size: 50.0,
+                      color: barcodeCount==0 ? Colors.red : Colors.green,
+                    ),
+                    SizedBox(width: 10),
+                    Text(
+                      '$barcodeCount',
+                      style: TextStyle(
+                        fontSize: 40,
+                        fontWeight: FontWeight.bold,
+                        foreground: Paint()..color = Colors.white,
+                      ),
+                    ),
+                  ],
                 ),
               ),
             ),
