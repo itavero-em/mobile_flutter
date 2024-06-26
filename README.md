@@ -19,7 +19,8 @@ samples, guidance on mobile development, and a full API reference.
 flutter build ipa --export-method enterprise --obfuscate --split-debug-info true    
 (aktuell geht das erstellen der IOS App nur ueber XCode. Siehe Meldung:
 Try distributing the app in Xcode: "open /Users/itaverobm/IdeaProjects/mobile_flutter/build/ios/archive/Runner.xcarchive"
-Dazu die Datei öffnen und den Button Distribute App druecken.)
+Dazu die Datei öffnen und den Button Distribute App druecken. Dann kommt eine Abfrage um auf den Schlüsselbund zuzugreifen. 
+WICHTIG: Passwort eingeben und 'Immer Erlauben' drücken, mit 'Erlauben' geht es nicht.)
 
 flutter build apk
 
