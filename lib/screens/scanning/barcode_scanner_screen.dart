@@ -186,7 +186,7 @@ class _BarcodeScannerScreenState extends State<BarcodeScannerScreen>
             ),
             Positioned(
               bottom: 16,
-              right: 80,
+              left: 16,
               child: Visibility(
                 visible: Provider.of<SettingsProvider>(context, listen: false)
                     .settingsModel
@@ -205,7 +205,7 @@ class _BarcodeScannerScreenState extends State<BarcodeScannerScreen>
             ),
             Positioned(
               bottom: 16,
-              right: 80,
+              left: 16,
               child: Visibility(
                 visible: Provider.of<SettingsProvider>(context, listen: false)
                     .settingsModel
@@ -243,7 +243,7 @@ class _BarcodeScannerScreenState extends State<BarcodeScannerScreen>
                       style: TextStyle(
                         fontSize: 40,
                         fontWeight: FontWeight.bold,
-                        foreground: Paint()..color = Colors.white,
+                        foreground: Paint()..color = barcodeCount==0 ? Colors.red: Colors.green,
                       ),
                     ),
                   ],

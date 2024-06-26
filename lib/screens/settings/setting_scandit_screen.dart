@@ -73,6 +73,17 @@ class _ScanditSettingsState extends State<ScanditSettings>
                       ? Text('beim Scannen eingeschaltet')
                       : Text('inaktiv'),
                 ),
+                SettingsTile.navigation(
+                  onPressed: (ctx) {
+                    _showScanMode(context);
+                  },
+                  leading: const Icon(Icons.qr_code_scanner),
+                  title: const Text('Scanmode'),
+                  value: Text(Provider.of<SettingsProvider>(context)
+                      .settingsModel
+                      .scanMode
+                      .jsonValue),
+                ),
                 SettingsTile.switchTile(
                   onToggle: (value) {
                     print(value);
@@ -88,24 +99,16 @@ class _ScanditSettingsState extends State<ScanditSettings>
                       .settingsModel
                       .scanditManualScan
                       ? Icon(Icons.pan_tool_alt)
-                  : Icon(Icons.auto_fix_high),
+                      : Icon(Icons.auto_fix_high),
                   title: Text('Manuelle Scan-Auslösung'),
+                  enabled: Provider.of<SettingsProvider>(context)
+                      .settingsModel
+                      .scanMode==ScanMode.single,
                   description: Provider.of<SettingsProvider>(context)
                       .settingsModel
                       .scanditManualScan
                       ? Text('Der Scanvorgang beginnt nur, wenn Sie den "Scannen" Button drücken.')
                       : Text('Der Scanvorgang beginnt automatisch.'),
-                ),
-                SettingsTile.navigation(
-                  onPressed: (ctx) {
-                    _showScanMode(context);
-                  },
-                  leading: const Icon(Icons.qr_code_scanner),
-                  title: const Text('Scanmode'),
-                  value: Text(Provider.of<SettingsProvider>(context)
-                      .settingsModel
-                      .scanMode
-                      .jsonValue),
                 ),
                 SettingsTile.navigation(
                   onPressed: (ctx) {

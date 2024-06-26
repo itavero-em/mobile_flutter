@@ -135,7 +135,7 @@ class _WebViewStackedState extends State<WebViewStacked>
         child: Column(
           children: [
             Expanded(
-              flex: scannerAktiv ? 4 : 1,
+              flex: scannerAktiv ? 3 : 1,
               child: Container(
                 child: Stack(
                   children: <Widget>[
@@ -198,6 +198,7 @@ class _WebViewStackedState extends State<WebViewStacked>
               if (mounted) {
                 setState(() {
                   scannerAktiv = false;
+                  Provider.of<DataProvider>(context, listen: false).cleareBarcodes();
                 });
               }
             },
